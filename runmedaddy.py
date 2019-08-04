@@ -31,4 +31,19 @@ async def on_member_remove(member):
         channel = discord.utils.get(member.guild.channels, name="✵│arrivals")
         await channel.send("**{}** has left the server. We now have **{}** members.".format(member.mention, member.guild.member_count))
 
+@bot.event
+async def on_message(message: Message):
+    if(message.content == "!rules" and (member.id == 393839495859929089 or 495680416422821888)):
+        embed = discord.Embed(title="cool title", description="cool description", color=0xFF93F0)
+        embed.set_image(url="link goes here")
+        await message.channel.send(embed=embed)
+    else if(message.content == "!faq" and (member.id == 393839495859929089 or 495680416422821888)):
+        embed = discord.Embed(title="cool title", description="cool description", color=0xFF93F0)
+        embed.set_image(url="link goes here")
+        await message.channel.send(embed=embed)
+    else if(message.content == "!vcrules" and (member.id == 393839495859929089 or 495680416422821888)):
+        embed = discord.Embed(title="cool title", description="cool description", color=0xFF93F0)
+        embed.set_image(url="link goes here")
+        await message.channel.send(embed=embed)
+
 bot.run(os.environ.get("token"))
