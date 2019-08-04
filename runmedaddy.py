@@ -18,7 +18,7 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
-    if(bot.guild.id == 448571905524498432):
+    if(member.guild.id == 448571905524498432):
         channel = discord.utils.get(server.channels, name="☆│lounge") 
         await channel.send("Welcome {} to **e nightclub!** You’re the {}.".format(member.mention, server.member_count))
 
