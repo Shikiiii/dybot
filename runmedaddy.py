@@ -1,6 +1,7 @@
 import discord
 from discord import Message, Guild
 from discord.ext.commands import Bot
+from typing import Optional, Set
 
 bot = Bot(command_prefix='!')
 bot.remove_command('help')
