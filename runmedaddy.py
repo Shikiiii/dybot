@@ -20,7 +20,7 @@ async def on_ready():
 async def on_member_join(member):
     if(member.guild.id == 448571905524498432):
         channel = discord.utils.get(member.guild.channels, name="☆│lounge") 
-        await channel.send("Welcome {} to **e nightclub!** You’re the {}.".format(member.mention, member.guild.member_count))
+        await channel.send("Welcome {} to **e nightclub!** You’re the **{}** member. \n\n Make sure to read: <#607590530376925194>  |  Roles: <#607590530376925194>  |  For help:  <#607590530376925194>.".format(member.mention, member.guild.member_count))
 
 @bot.event
 async def on_member_remove(member):
