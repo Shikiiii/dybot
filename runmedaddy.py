@@ -37,11 +37,11 @@ async def on_message(message: Message):
         embed = discord.Embed(title="cool title", description="cool description", color=0xFF93F0)
         embed.set_image(url="link goes here")
         await message.channel.send(embed=embed)
-    else if(message.content == "!faq" and (member.id == 393839495859929089 or 495680416422821888)):
+    elif(message.content == "!faq" and (member.id == 393839495859929089 or 495680416422821888)):
         embed = discord.Embed(title="cool title", description="cool description", color=0xFF93F0)
         embed.set_image(url="link goes here")
         await message.channel.send(embed=embed)
-    else if(message.content == "!vcrules" and (member.id == 393839495859929089 or 495680416422821888)):
+    elif(message.content == "!vcrules" and (member.id == 393839495859929089 or 495680416422821888)):
         embed = discord.Embed(title="cool title", description="cool description", color=0xFF93F0)
         embed.set_image(url="link goes here")
         await message.channel.send(embed=embed)
