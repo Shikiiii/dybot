@@ -63,15 +63,24 @@ async def on_message(message: Message):
         await message.channel.send(embed=embed2)
         await message.channel.send(embed=embed1)
         await message.channel.send(embed=embed3)
-    # shiki command
-    if "<@393839495859929089>" in message.content:
-        await message.author.send("Hey there, {}! \nPlease don't abusively mention the Devs without a reason. If you want to just talk to them, it's okay, but don't don it oftenly without a real reason. But while you're here... \n\n Are you looking for **cheap** and sometimes **free** __bot developing and hosting__? Our **custom bot**, <@593090256560193549> was made by the user you just pinged, <@393839495859929089>. \n\n If you're interesting in having a custom bot like this one, **DM <@393839495859929089>** and we'll talk about it there. \n\n > This automatic action was fired because you pinged either the <@&607595821139099658> role or <@393839495859929089>.".format(message.author.mention))
+    if(message.content == "!verification" and (message.author.id == 393839495859929089 or message.author.id == 495680416422821888)):
+        embed1 = discord.Embed(title="**༚ ✧˳⁺ Verification ⁺˳✧ ༚**", description="✧ - Post selfie in <#558991375681716256> with 'e- Nightclub and your discord username' on a piece of paper to get verified! \r\n\r\n ✧ - Verified role gives you access to <#558992153393496074> or <#558991846785679360> depends on your gender. \r\n\r\n ✧ - **NOTE:** You cannot use a photo that you took for another server. \r\n\r\n You can also Dm me or dm a staff member to role you verified if you don't want to post your face in <#604506916051484683>.", color=0xFF93F0)
+        embed2 = discord.Embed(color=0xFF93F0)
+        await message.channel.send(embed=embed1)
+    # dy command
+    if "dy" in message.content:
+        await message.author.send("esskieett")
+
+#@bot.event
+#async def on_message(message: Message):
 
 
 
-# put mention cmd here.
+  #  developer = message.guild.get_user("393839495859929089")
+  #  if "{}".format(developer.mention) in message.content:
+  #      await message.author.send("test")
 
 
-# BOT LOGIN
+# - BOT LOGIN
 
-bot.run("TOKEN")
+bot.run("TOKEN"
