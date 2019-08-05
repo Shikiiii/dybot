@@ -2,19 +2,24 @@ import discord
 from discord import Message, Guild
 from discord.ext.commands import Bot
 from typing import Optional, Set
+from discord.ext import commands
 
 bot = Bot(command_prefix='!')
 bot.remove_command('help')
 
 server: Optional[Guild] = None
 
+# bot status.
+
 @bot.event
 async def on_ready():
     global server
     server = bot.get_guild(448571905524498432)
 
-    await bot.change_presence(activity=discord.Game(name='with dy >_<'))
+    await bot.change_presence(activity=discord.Game(name='with dy & shiki >_<'))
     print('e - nightclub BOT has started working!')
+
+# welcome message
 
 @bot.event
 async def on_member_join(member):
@@ -24,6 +29,8 @@ async def on_member_join(member):
         channel3 = discord.utils.get(member.guild.channels, name="∞│roles-menu")
         channel4 = discord.utils.get(member.guild.channels, name="✵│faq")
         await channel.send("Welcome {} to **e nightclub!** You’re the **{}** member. \n\n Make sure to read: {}  |  Roles: {}  |  For help:  {}.".format(member.mention, member.guild.member_count, channel2.mention, channel3.mention, channel4.mention))
+
+# leave message
 
 @bot.event
 async def on_member_remove(member):
@@ -67,20 +74,58 @@ async def on_message(message: Message):
         embed1 = discord.Embed(title="**༚ ✧˳⁺ Verification ⁺˳✧ ༚**", description="✧ - Post selfie in <#558991375681716256> with 'e- Nightclub and your discord username' on a piece of paper to get verified! \r\n\r\n ✧ - Verified role gives you access to <#558992153393496074> or <#558991846785679360> depends on your gender. \r\n\r\n ✧ - **NOTE:** You cannot use a photo that you took for another server. \r\n\r\n You can also Dm me or dm a staff member to role you verified if you don't want to post your face in <#604506916051484683>.", color=0xFF93F0)
         embed2 = discord.Embed(color=0xFF93F0)
         await message.channel.send(embed=embed1)
-    # dy command
-    if "dy" in message.content:
-        await message.author.send("esskieett")
 
-#@bot.event
-#async def on_message(message: Message):
+ 
+# dy  & shiki commands
+
+  #  if "xxx" in message.content:
+     #   await message.author.send("Hi")
+
+
+  #  if len(message.mentions) > 0:
+    #    if message.mentions[0].id == 393839495859929089:
+     #       try:
+     #           await message.author.send("Hey there, {}! \nPlease don't abusively mention the Devs without a reason. If you want to just talk to them, it's okay, but don't don it oftenly without a real reason. But while you're here... \n\n Are you looking for **cheap** and sometimes **free** __bot developing and hosting__? Our **custom bot**, <@593090256560193549> was made by the user you just pinged, <@393839495859929089>. \n\n If you're interesting in having a custom bot like this one, **DM <@393839495859929089>** and we'll talk about it there. \n\n > This automatic action was fired because you pinged either the Bot Coder role or <@393839495859929089>.".format(message.author.mention))
+      #      except:
+       #         print("worked fine with no errors at all *cough*")
+
+    if len(message.mentions) > 0:
+        user = message.mentions[0]
+        if user.id == 393839495859929089:
+            await message.author.send("Hey there, {}! \nPlease don't abusively mention the Devs without a reason. If you want to just talk to them, it's okay, but don't don it oftenly without a real reason. But while you're here... \n\n Are you looking for **cheap** and sometimes **free** __bot developing and hosting__? Our **custom bot**, <@593090256560193549> was made by the user you just pinged, {}. \n\n If you're interesting in having a custom bot like this one, **DM {}** and we'll talk about it there. \n\n > This automatic action was fired because you pinged either the Bot Coder role or {}.".format(message.author.mention, user.mention, user.mention, user.mention))
+# - Admin commands: 
+
+@bot.command(pass_context=True)
+@commands.has_any_role("Admin ˚｡☆")
+async def ban(ctx, user, *reason):
+    if len(ctx.message.mentions) > 0 and len(ctx.message.mention) < 2:
+        user = message.mentions[0]
+        reason = " ".join(reason)
+        await message.channel.send("**{}** was been __banned__ from **e - nightclub**."
+                                    "\n>> Banned by: **{}**"
+                                    "\n>> Reason: **{}**".format(user.mention, message.author.mention, reason))
+        await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **{}**. \n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(message.author, reason))
+        await ban(user)
+    else:
+        await bot.say("{} look now, do i look like a magician? just mention a user and i'll ban them".format(message.author.mention))
+
+@ban.error
+async def ban_error(error, ctx):
+    if isinstance(error, commands.CheckFailure):
+        await ctx.bot.say("{} are you dumb or hella dumb? this commmand is for admins only, nice try tho, i must give u that.".format(message.author.mention))
 
 
 
-  #  developer = message.guild.get_user("393839495859929089")
-  #  if "{}".format(developer.mention) in message.content:
-  #      await message.author.send("test")
+
+
+
+
+
+
+
+
 
 
 # - BOT LOGIN
 
-bot.run("TOKEN"
+bot.run("TOKEN")
