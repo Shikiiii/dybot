@@ -1,5 +1,5 @@
 import discord
-from discord import Message, Guild
+from discord import Message, Guild, Member
 from discord.ext.commands import Bot
 from typing import Optional, Set
 from discord.ext import commands
@@ -9,12 +9,17 @@ bot.remove_command('help')
 
 server: Optional[Guild] = None
 
+shiki: Optional[Member] = None
+
 # bot status.
 
 @bot.event
 async def on_ready():
     global server
     server = bot.get_guild(448571905524498432)
+
+    global shiki
+    shiki = server.get_member(393839495859929089)
 
     await bot.change_presence(activity=discord.Game(name='with dy & shiki >_<'))
     print('e - nightclub BOT has started working!')
@@ -89,10 +94,9 @@ async def on_message(message: Message):
       #      except:
        #         print("worked fine with no errors at all *cough*")
 
-    if len(message.mentions) > 0:
-        user = message.mentions[0]
-        if user.id == 393839495859929089:
-            await message.author.send("Hey there, {}! \nPlease don't abusively mention the Devs without a reason. If you want to just talk to them, it's okay, but don't don it oftenly without a real reason. But while you're here... \n\n Are you looking for **cheap** and sometimes **free** __bot developing and hosting__? Our **custom bot**, <@593090256560193549> was made by the user you just pinged, {}. \n\n If you're interesting in having a custom bot like this one, **DM {}** and we'll talk about it there. \n\n > This automatic action was fired because you pinged either the Bot Coder role or {}.".format(message.author.mention, user.mention, user.mention, user.mention))
+    if shiki in message.mentions:
+        await message.author.send(f"Hey there, {message.author.mention}! \nPlease don't abusively mention the Devs without a reason. If you want to just talk to them, it's okay, but don't don it oftenly without a real reason. But while you're here... \n\n Are you looking for **cheap** and sometimes **free** __bot developing and hosting__? Our **custom bot**, <@593090256560193549> was made by the user you just pinged, {shiki.mention}. \n\n If you're interesting in having a custom bot like this one, **DM {shiki.mention}** and we'll talk about it there. \n\n > This automatic action was fired because you pinged either the Bot Coder role or {shiki.mention}.")
+
 # - Admin commands: 
 
 @bot.command(pass_context=True)
