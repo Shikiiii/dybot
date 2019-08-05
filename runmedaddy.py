@@ -68,4 +68,4 @@ async def on_message(message: Message):
 
 
 # BOT LOGIN
-bot.run("NTkzMDkwMjU2NTYwMTkzNTQ5.XUdAXQ._lBNotPUrC6klxCGWCT7QhJwhGs")
+bot.run("TOKEN")
