@@ -99,6 +99,47 @@ async def on_message(message: Message):
 
     await bot.process_commands(message)
 
+# - Fun commands:
+@bot.command()
+async def avatar(ctx, user: discord.Member):
+	embed = discord.Embed(title="Avatar of {}".format(user))
+	embed.set_image(url=user.avatar_url)
+	await ctx.send(embed=embed)
+	
+@avatar.error
+async def avatar_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(title="While trying to execute the command '!avatar', I ran in an error. Description:", description="You didn't enter a valid user/user id. Try again.")
+		embed.set_thumbnail(url=ctx.message.author.avatar_url)
+		await ctx.send(embed=embed)
+	if isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(title="While trying to execute the command '!avatar', I ran in an error. Description:", description="You didn't gave me a user to get the avatar of. Try again, but this time either mention a user or give me a user's id.")
+		embed.set_thumbnail(url=ctx.message.author.avatar_url)
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
+		
+@bot.command()
+async def av(ctx, user: discord.Member):
+	embed = discord.Embed(title="Avatar of {}".format(user))
+	embed.set_image(url=user.avatar_url)
+	await ctx.send(embed=embed)
+	
+@av.error
+async def av_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(title="While trying to execute the command '!av', I ran in an error. Description:", description="You didn't enter a valid user/user id. Try again.")
+		embed.set_thumbnail(url=ctx.message.author.avatar_url)
+		await ctx.send(embed=embed)
+	if isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(title="While trying to execute the command '!av', I ran in an error. Description:", description="You didn't gave me a user to get the avatar of. Try again, but this time either mention a user or give me a user's id.")
+		embed.set_thumbnail(url=ctx.message.author.avatar_url)
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
+
 # - Admin commands: 
 
 @bot.command()
