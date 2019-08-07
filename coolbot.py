@@ -101,31 +101,30 @@ async def on_message(message: Message):
 
 # - Admin commands: 
 
-@bot.command(pass_context=True)
-async def ban(ctx, user, *reason):
-    adminrole = discord.utils.get(ctx.message.author.guild.roles, name="Admin ˚｡☆")
+@bot.command()
+async def ban(ctx, user: discord.Member, *, reason: str = ""):
+    adminrole = discord.utils.get(ctx.message.author.guild.roles, name="Admin")
     if adminrole in ctx.message.author.roles:
-        #if user != None:
-            if len(ctx.message.mentions) > 0 and len(ctx.message.mentions) < 2:
-                user = ctx.message.mentions[0]
-                reason = " ".join(reason)
-                if len(reason) != 0:
-                    await ctx.message.channel.send("**{}** was __banned__ from **e - nightclub**."
-                                                "\n>> Banned by: **{}**"
-                                                "\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
-                    await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **{}**. \n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author, reason))
-                elif len(reason) == 0:
-                    await ctx.message.channel.send("**{}** was __banned__ from **e - nightclub**."
-                                                "\n>> Banned by: **{}**"
-                                                "\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got clapped justcuz**".format(user.mention, ctx.message.author.mention))
-                    await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**. \n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
-                await user.ban()
-            else:
-                await ctx.message.channel.send("{} look now, do i look like a magician? just mention a user and i'll ban them \n example: ``!ban @dy ez noob``".format(ctx.message.author.mention))
-        #elif user == None:
-            #await ctx.message.channel.send(f"{ctx.message.author.mention} buddy i'm not trying to sound smart, but can u try giving me at least a user to ban next time? \n example: ``!ban @dy ez noob``")
+        if len(reason) == 0:
+            await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got clapped justcuz**".format(user.mention, ctx.message.author.mention))
+            await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+        else:
+            await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
+            await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **{}**. \n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author, reason))
+        await user.ban()
     else:
-        await ctx.message.channel.send("{} are you dumb or hella dumb? this commmand is for admins only, nice try tho, i must give u that.".format(ctx.message.author.mention))
+        await ctx.send("{} are you dumb or hella dumb? this commmand is for admins only, nice try tho, i must give u that.".format(ctx.message.author.mention))
+ 
+@ban.error    
+async def ban_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send("{} look now, do i look like a magician? just mention a user and i'll ban them \n example: ``!ban @dy ez noob``".format(ctx.message.author.mention))
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to ban? \n example: ``!ban @dy ez noob``".format(ctx.message.author.mention))
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
 
 
 
