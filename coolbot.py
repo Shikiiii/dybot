@@ -97,26 +97,35 @@ async def on_message(message: Message):
     if shiki in message.mentions:
         await message.author.send(f"Hey there, {message.author.mention}! \nPlease don't abusively mention the Devs without a reason. If you want to just talk to them, it's okay, but don't don it oftenly without a real reason. But while you're here... \n\n Are you looking for **cheap** and sometimes **free** __bot developing and hosting__? Our **custom bot**, <@593090256560193549> was made by the user you just pinged, {shiki.mention}. \n\n If you're interesting in having a custom bot like this one, **DM {shiki.mention}** and we'll talk about it there. \n\n > This automatic action was fired because you pinged either the Bot Coder role or {shiki.mention}.")
 
+    await bot.process_commands(message)
+
 # - Admin commands: 
 
 @bot.command(pass_context=True)
-@commands.has_any_role("Admin ˚｡☆")
 async def ban(ctx, user, *reason):
-    if len(ctx.message.mentions) > 0 and len(ctx.message.mention) < 2:
-        user = message.mentions[0]
-        reason = " ".join(reason)
-        await message.channel.send("**{}** was been __banned__ from **e - nightclub**."
-                                    "\n>> Banned by: **{}**"
-                                    "\n>> Reason: **{}**".format(user.mention, message.author.mention, reason))
-        await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **{}**. \n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(message.author, reason))
-        await ban(user)
+    adminrole = discord.utils.get(ctx.message.author.guild.roles, name="Admin ˚｡☆")
+    if adminrole in ctx.message.author.roles:
+        #if user != None:
+            if len(ctx.message.mentions) > 0 and len(ctx.message.mentions) < 2:
+                user = ctx.message.mentions[0]
+                reason = " ".join(reason)
+                if len(reason) != 0:
+                    await ctx.message.channel.send("**{}** was __banned__ from **e - nightclub**."
+                                                "\n>> Banned by: **{}**"
+                                                "\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
+                    await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **{}**. \n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author, reason))
+                elif len(reason) == 0:
+                    await ctx.message.channel.send("**{}** was __banned__ from **e - nightclub**."
+                                                "\n>> Banned by: **{}**"
+                                                "\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got clapped justcuz**".format(user.mention, ctx.message.author.mention))
+                    await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**. \n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+                await user.ban()
+            else:
+                await ctx.message.channel.send("{} look now, do i look like a magician? just mention a user and i'll ban them \n example: ``!ban @dy ez noob``".format(ctx.message.author.mention))
+        #elif user == None:
+            #await ctx.message.channel.send(f"{ctx.message.author.mention} buddy i'm not trying to sound smart, but can u try giving me at least a user to ban next time? \n example: ``!ban @dy ez noob``")
     else:
-        await bot.say("{} look now, do i look like a magician? just mention a user and i'll ban them".format(message.author.mention))
-
-@ban.error
-async def ban_error(error, ctx):
-    if isinstance(error, commands.CheckFailure):
-        await ctx.bot.say("{} are you dumb or hella dumb? this commmand is for admins only, nice try tho, i must give u that.".format(message.author.mention))
+        await ctx.message.channel.send("{} are you dumb or hella dumb? this commmand is for admins only, nice try tho, i must give u that.".format(ctx.message.author.mention))
 
 
 
