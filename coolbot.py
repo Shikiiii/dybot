@@ -147,7 +147,7 @@ async def av_error(ctx, error):
 
 @bot.command()
 async def ban(ctx, user: discord.Member, *, reason: str = ""):
-    adminrole = discord.utils.get(ctx.message.author.guild.roles, name="Admin")
+    adminrole = discord.utils.get(ctx.message.author.guild.roles, name="Admin ˚｡☆")
     if adminrole in ctx.message.author.roles:
         if len(reason) == 0:
             await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got clapped justcuz**".format(user.mention, ctx.message.author.mention))
