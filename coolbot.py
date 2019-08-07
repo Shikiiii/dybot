@@ -4,6 +4,9 @@ from discord.ext.commands import Bot
 from typing import Optional, Set
 from discord.ext import commands
 
+import sys
+import traceback
+
 bot = Bot(command_prefix='!')
 bot.remove_command('help')
 
