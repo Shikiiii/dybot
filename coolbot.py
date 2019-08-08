@@ -149,7 +149,7 @@ async def av_error(ctx, error):
 @bot.command()
 @commands.has_any_role("Co Owner ‧₊˚ ༄", "$ dy", "scopes", "Bot Coder")
 async def lockdown(ctx):
-	enightclubrole = discord.utils.get(ctx.message.guild.roles, name="e- nightclub")
+	enightclubrole = discord.utils.get(ctx.message.guild.roles, name="@everyone")
 	check = ctx.message.channel.overwrites_for(enightclubrole)
 	if check.send_messages == False:
 		await ctx.send(":warning: **e - nightclub** | **Lockdown** mode turned __off__ for **this channel** by {}.".format(ctx.message.author.mention))
@@ -157,7 +157,10 @@ async def lockdown(ctx):
 	elif check.send_messages == True:
 		await ctx.send(":warning: **e - nightclub** | **Lockdown** mode turned __on__ for **this channel** by {}.".format(ctx.message.author.mention))
 		await ctx.message.channel.set_permissions(enightclubrole, send_messages=False)
-	
+	else:
+		await ctx.send(":warning: **e - nightclub** | **Lockdown** mode turned __on__ for **this channel** by {}.".format(ctx.message.author.mention))
+		await ctx.message.channel.set_permissions(enightclubrole, send_messages=False)
+
 @lockdown.error
 async def lockdown_error(ctx, error):
 	if isinstance(error, commands.CheckFailure):
