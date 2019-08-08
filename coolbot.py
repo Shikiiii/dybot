@@ -6,6 +6,7 @@ from discord.ext import commands
 
 import sys
 import traceback
+import asyncio
 
 bot = Bot(command_prefix='!')
 bot.remove_command('help')
@@ -216,13 +217,27 @@ async def mute_error(ctx, error):
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
         traceback.print_exception(type(error), error, None, file=sys.stderr)
 
+@bot.command()
+@commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Chat Moderator")
+async def unmute(ctx, user: discord.Member, *, reason: str = ""):
+    mutedrole = discord.utils.get(ctx.message.author.guild.roles, name="Muted")
+    if len(reason) == 0:
+        await ctx.send("**{}** was __unmuted__. \n>> Unmuted by: **{}**\n>> Reason: **who even puts reasons on unmute lol**".format(user.mention, ctx.message.author.mention))
+    else:
+        await ctx.send("**{}** was __unmuted__. \n>> Unmuted by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
+    await user.remove_roles(mutedrole)
 
-
-
-
-
-
-
+@unmute.error    
+async def unmute_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send("{} look now, do i look like a magician? just mention a user and i'll unmute them \n example: ``!unmute @dy lol begged for unmute``".format(ctx.message.author.mention))
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to unmute? \n example: ``!unmute @dy lol begged for unmute``".format(ctx.message.author.mention))
+    if isinstance(error, commands.CheckFailure):
+        await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 
 # - BOT LOGIN
