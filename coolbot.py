@@ -162,9 +162,9 @@ async def lockdown(ctx):
 async def lockdown_error(ctx, error):
 	if isinstance(error, commands.CheckFailure):
 		await ctx.send("{} sorry but this command is for owners, co-owners, and the developer only.".format(ctx.message.author.mention))
-    	else:
-        	print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-        	traceback.print_exception(type(error), error, None, file=sys.stderr)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
 
 @bot.command()
