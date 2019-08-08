@@ -284,4 +284,4 @@ async def unmute_error(ctx, error):
 
 # - BOT LOGIN
 
-bot.run("TOKEN")
+bot.run(os.environ.get("token"))
