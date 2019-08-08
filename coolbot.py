@@ -196,7 +196,7 @@ async def ban_error(ctx, error):
 
 @bot.command()
 @commands.has_any_role("Admin ˚｡☆")
-async def unban(ctx, user: discord.Member, *, reason: str = ""):
+async def unban(ctx, user: discord.User, *, reason: str = ""):
     if len(reason) == 0:
         await ctx.send("**{}** was __unbanned__. \n>> Unbanned by: **{}**\n>> Reason: **who even puts reasons on unban lol**".format(user.mention, ctx.message.author.mention))
     else:
