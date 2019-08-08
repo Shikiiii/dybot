@@ -239,6 +239,27 @@ async def unmute_error(ctx, error):
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
         traceback.print_exception(type(error), error, None, file=sys.stderr)
 
+@bot.command()
+@commands.has_any_role("Admin ˚｡☆")
+async def unban(ctx, user: discord.Member, *, reason: str = ""):
+    if len(reason) == 0:
+        await ctx.send("**{}** was __unbanned__. \n>> Unbanned by: **{}**\n>> Reason: **who even puts reasons on unban lol**".format(user.mention, ctx.message.author.mention))
+    else:
+        await ctx.send("**{}** was __unbanned__. \n>> Unbanned by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
+    await user.unban()
+
+@unban.error    
+async def unban_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send("{} look now, do i look like a magician? just mention a user and i'll unban them \n example: ``!unban @dy how did this happen to begin with``".format(ctx.message.author.mention))
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to unban? \n example: ``!unban @dy how did this happen to begin with``".format(ctx.message.author.mention))
+    if isinstance(error, commands.CheckFailure):
+        await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
 
 # - BOT LOGIN
 
