@@ -213,6 +213,43 @@ async def ban_error(ctx, error):
 
 @bot.command()
 @commands.has_any_role("Admin ˚｡☆")
+async def banid(ctx, id: int, *, reason: str = " "):
+	user = await bot.fetch_user(id)
+	if user is None:
+		await ctx.send(f"{ctx.message.author.mention}, this user doesn't exist.")
+		return
+	#banEntry = await ctx.message.guild.fetch_ban(user)
+	#if BanEntry is None:
+	if reason is None:
+		await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got clapped justcuz**".format(user.mention, ctx.message.author.mention))
+		try:
+			await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+		except:
+			await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: his command bans people that are not in the server, it would make sense to not have the perms to DM them.".format(user.mention))
+	else:
+		await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
+		try:
+			await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+		except:
+			await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: this command bans people that are not in the server, it would make sense to not have the perms to DM them..".format(user.mention))
+	await ctx.message.guild.ban(discord.Object(id=id))
+	#else:
+		#ctx.send(f"{ctx.message.author.mention}, seems like this user is already banned.")
+
+@banid.error    
+async def banid_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send("{} look now, do i look like a magician? just give me the id of an user and i'll ban them \n example: ``!banid id HAHA you're banned but you're not even in here`` \n**IMPORTANT NOTE:** This command is used to ban users that ARE NOT IN THE SERVER. Use !ban to ban people that are in the server.".format(ctx.message.author.mention))
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to unban? \n example: ``!banid id HAHA you're banned but you're not even in here`` \n**IMPORTANT NOTE:** This command is used to ban users that ARE NOT IN THE SERVER. Use !ban to ban people that are in the server.".format(ctx.message.author.mention))
+    if isinstance(error, commands.CheckFailure):
+        await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
+@commands.has_any_role("Admin ˚｡☆")
 async def unban(ctx, id: int, *, reason: str = ""):
 	#print("I got the user!")
 	#print("ID: " + id)
