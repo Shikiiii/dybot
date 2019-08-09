@@ -196,19 +196,41 @@ async def ban_error(ctx, error):
 
 @bot.command()
 @commands.has_any_role("Admin ˚｡☆")
-async def unban(ctx, user: discord.User, *, reason: str = ""):
-    if len(reason) == 0:
-        await ctx.send("**{}** was __unbanned__. \n>> Unbanned by: **{}**\n>> Reason: **who even puts reasons on unban lol**".format(user.mention, ctx.message.author.mention))
-    else:
-        await ctx.send("**{}** was __unbanned__. \n>> Unbanned by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
-    await user.unban()
-
+async def unban(ctx, id: int, *, reason: str = ""):
+	#print("I got the user!")
+	#print("ID: " + id)
+	user = await bot.fetch_user(id)
+	if user is None:
+		#print("I couldn't find this user!")
+		await ctx.send(f"{ctx.message.author.mention}, this user doesn't exist.")
+		return
+	print("I fetched this user!")
+	banEntry = await ctx.message.guild.fetch_ban(user)
+	if banEntry is None:
+		#print("This user is not banned!")
+		await ctx.send(f"{ctx.message.author.mention}, are you sure this user is banned?")
+	else:
+		if banEntry.reason is None:
+			#print("Going without a reason!")
+			await ctx.send("**{}** was __unbanned__. \n"
+							">> Unbanned by: **{}**\n"
+							">> Reason: **who even puts reasons on unban lol**"
+							.format(banEntry.user, ctx.message.author.mention))
+		else:
+			print("Going with a reason!")
+			await ctx.send("**{}** was __unbanned__. \n"
+							">> Unbanned by: **{}**\n"
+							">> Reason: **{}**"
+							.format(banEntry.user, ctx.message.author.mention, reason))
+		#print("I unbanned the user!")
+		await guild.unban(banEntry.user, "Ban reason goes here")
+		
 @unban.error    
 async def unban_error(ctx, error):
     if isinstance(error, commands.BadArgument):
-        await ctx.send("{} look now, do i look like a magician? just mention a user and i'll unban them \n example: ``!unban @dy how did this happen to begin with``".format(ctx.message.author.mention))
+        await ctx.send("{} look now, do i look like a magician? just give me the id of an user and i'll unban them \n example: ``!unban id how did this happen to begin with``".format(ctx.message.author.mention))
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to unban? \n example: ``!unban @dy how did this happen to begin with``".format(ctx.message.author.mention))
+        await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to unban? \n example: ``!unban id how did this happen to begin with``".format(ctx.message.author.mention))
     if isinstance(error, commands.CheckFailure):
         await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
     else:
