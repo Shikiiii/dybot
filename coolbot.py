@@ -223,7 +223,7 @@ async def unban(ctx, id: int, *, reason: str = ""):
 							">> Reason: **{}**"
 							.format(banEntry.user, ctx.message.author.mention, reason))
 		#print("I unbanned the user!")
-		await guild.unban(banEntry.user, "Ban reason goes here")
+		await ctx.message.guild.unban(banEntry.user, "Ban reason goes here")
 		
 @unban.error    
 async def unban_error(ctx, error):
