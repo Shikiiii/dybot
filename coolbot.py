@@ -117,8 +117,8 @@ async def avatar_error(ctx, error):
 		embed.set_thumbnail(url=ctx.message.author.avatar_url)
 		await ctx.send(embed=embed)
 	if isinstance(error, commands.MissingRequiredArgument):
-		embed = discord.Embed(title="While trying to execute the command '!avatar', I ran in an error. Description:", description="You didn't gave me a user to get the avatar of. Try again, but this time either mention a user or give me a user's id.")
-		embed.set_thumbnail(url=ctx.message.author.avatar_url)
+		embed = discord.Embed(title="Avatar of {}".format(ctx.message.author))
+		embed.set_image(url=ctx.message.author.avatar_url)
 		await ctx.send(embed=embed)
 	else:
 		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
@@ -137,8 +137,8 @@ async def av_error(ctx, error):
 		embed.set_thumbnail(url=ctx.message.author.avatar_url)
 		await ctx.send(embed=embed)
 	if isinstance(error, commands.MissingRequiredArgument):
-		embed = discord.Embed(title="While trying to execute the command '!av', I ran in an error. Description:", description="You didn't gave me a user to get the avatar of. Try again, but this time either mention a user or give me a user's id.")
-		embed.set_thumbnail(url=ctx.message.author.avatar_url)
+		embed = discord.Embed(title="Avatar of {}".format(ctx.message.author))
+		embed.set_image(url=ctx.message.author.avatar_url)
 		await ctx.send(embed=embed)
 	else:
 		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
@@ -175,12 +175,18 @@ async def lockdown_error(ctx, error):
 async def ban(ctx, user: discord.Member, *, reason: str = ""):
     if len(reason) == 0:
         await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got clapped justcuz**".format(user.mention, ctx.message.author.mention))
-        await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+        try:
+            await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+        except:
+            await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
     else:
         await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
-        await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **{}**. \n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author, reason))
+        try:
+            await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+        except:
+            await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
     await user.ban()
- 
+
 @ban.error    
 async def ban_error(ctx, error):
     if isinstance(error, commands.BadArgument):
@@ -241,10 +247,16 @@ async def unban_error(ctx, error):
 async def kick(ctx, user: discord.Member, *, reason: str = ""):
     if len(reason) == 0:
         await ctx.send("**{}** was __kicked__ from **e - nightclub**.\n>> Kicked by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got slapped justcuz**".format(user.mention, ctx.message.author.mention))
-        await user.send("You've been kicked from **e - nightclub**. You were kicked by **{}**, and you were kicked for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+        try:
+            await user.send("You've been kicked from **e - nightclub**. You were kicked by **{}**, and you were kicked for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+        except:
+            await ctx.send("I failed to DM {}, so I didn't inform them for their kick. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
     else:
         await ctx.send("**{}** was __kicked__ from **e - nightclub**.\n>> Kicked by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
-        await user.send("You've been kicked from **e - nightclub**. You were kicked by **{}**, and you were kicked for **{}**. \n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author, reason))
+        try:
+            await user.send("You've been kicked from **e - nightclub**. You were kicked by **{}**, and you were kicked for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+        except:
+            await ctx.send("I failed to DM {}, so I didn't inform them for their kick. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
     await user.kick()
  
 @kick.error    
@@ -265,10 +277,16 @@ async def mute(ctx, user: discord.Member, *, reason: str = ""):
     mutedrole = discord.utils.get(ctx.message.author.guild.roles, name="Muted")
     if len(reason) == 0:
         await ctx.send("**{}** was __muted__.\n>> Muted by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got slapped justcuz** \n**This mute won't be removed automatically. Someone has to manually remove it.**".format(user.mention, ctx.message.author.mention))
-        await user.send("You've been muted in **e - nightclub**. You were muted by **{}**, and you were muted for **none (no reason was found)**.\n**This mute won't be removed automatically. Someone has to manually remove it.**\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+        try:
+            await user.send("You've been muted in **e - nightclub**. You were muted by **{}**, and you were muted for **none (no reason was found)**.\n**This mute won't be removed automatically. Someone has to manually remove it.**\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+        except:
+            await ctx.send("I failed to DM {}, so I didn't inform them for their mute. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
     else:
         await ctx.send("**{}** was __muted__.\n>> Muted by: **{}**\n>> Reason: **{}**\n**This mute won't be removed automatically. Someone has to manually remove it.**".format(user.mention, ctx.message.author.mention, reason))
-        await user.send("You've been muted in **e - nightclub**. You were muted by **{}**, and you were muted for **{}**. \n**This mute won't be removed automatically. Someone has to manually remove it.**\n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author, reason))
+        try:
+            await user.send("You've been muted in **e - nightclub**. You were muted by **{}**, and you were muted for **{}**. \n**This mute won't be removed automatically. Someone has to manually remove it.**\n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author, reason))
+        except:
+            await ctx.send("I failed to DM {}, so I didn't inform them for their mute. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
     await user.add_roles(mutedrole)
  
 @mute.error    
