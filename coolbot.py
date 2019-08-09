@@ -171,18 +171,15 @@ async def lockdown_error(ctx, error):
 
 
 @bot.command()
+@commands.has_any_role("Admin ˚｡☆")
 async def ban(ctx, user: discord.Member, *, reason: str = ""):
-    adminrole = discord.utils.get(ctx.message.author.guild.roles, name="Admin ˚｡☆")
-    if adminrole in ctx.message.author.roles:
-        if len(reason) == 0:
-            await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got clapped justcuz**".format(user.mention, ctx.message.author.mention))
-            await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
-        else:
-            await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
-            await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **{}**. \n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author, reason))
-        await user.ban()
+    if len(reason) == 0:
+        await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got clapped justcuz**".format(user.mention, ctx.message.author.mention))
+        await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
     else:
-        await ctx.send("{} are you dumb or hella dumb? this commmand is for admins only, nice try tho, i must give u that.".format(ctx.message.author.mention))
+        await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
+        await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **{}**. \n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author, reason))
+    await user.ban()
  
 @ban.error    
 async def ban_error(ctx, error):
@@ -190,6 +187,8 @@ async def ban_error(ctx, error):
         await ctx.send("{} look now, do i look like a magician? just mention a user and i'll ban them \n example: ``!ban @dy ez noob``".format(ctx.message.author.mention))
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to ban? \n example: ``!ban @dy ez noob``".format(ctx.message.author.mention))
+    if isinstance(error, commands.CheckFailure):
+        await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
     else:
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
         traceback.print_exception(type(error), error, None, file=sys.stderr)
