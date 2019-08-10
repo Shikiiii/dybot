@@ -103,7 +103,8 @@ async def on_message(message: Message):
    #     embed1 = discord.Embed(title="XX", description="**──────────» ✰║ Invite Rewards ║✰ «──────────** \r\n\r\n - | ``✰`` | - **__5__ invites:** Pic perms or Respected role (you can only pick one role.) \r\n\r\n - | ``✰`` | - **__10__ invites:** Custom role with color! (last 30 days.) \r\n\r\n - | ``✰`` | - **__20__ invites:** Custom role with private channel (can give anyone access to it.) \r\n\r\n - | ``✰`` | - **__50__ invites:** Classic nitro (5$). \r\n\r\n - | ``✰`` | - **__75__ invites:** Server promo with ping ``@everyone`` \r\n\r\n **─────────────» ✰║ Note: ║✰ «─────────────** \r\n\r\n **➜** Your level must be at least **5+** to get your prize. \r\n\r\n **➜** Make sure to make your **OWN** permanent instant invite. \r\n\r\n **➜** Do NOT make alts to join the server with your invite code. \r\n\r\n **➜** After receiving your prize we'll reset your invites back to **0**. \r\n\r\n **➜** Type **>invites** in <#559063589114216470> to check how many people you have invited. \r\n\r\n Dm <@495680416422821888> if you have any questions.", color=0xFF93F0)
    #      embed2 = discord.Embed(color=0xFF93F0)
    #     await message.channel.send(embed=embed1)
-    
+    if message.content == "invite":
+        await message.channel.send("Perm invite link: https://invite.gg/enightclub")
  
 # dy  & shiki commands
 
