@@ -144,8 +144,6 @@ async def on_message(message: Message):
     await bot.process_commands(message)
 
   # Private Cmds:
-    if message.content == "invite":
-      await message.channel.send("Perm invite link: https://invite.gg/enightclub")
     if message.content == "dy":
       await message.channel.send(">_<")
     if message.content == "lumen":
