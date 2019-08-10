@@ -1,3 +1,7 @@
+# a discord custom bot made by shiki & dy for e - nightclub server.
+
+# 08/03/2019 | 2020-2019
+
 import discord
 from discord import Message, Guild, Member
 from discord.ext.commands import Bot
