@@ -125,7 +125,10 @@ async def on_message(message: Message):
         except asyncio.TimeoutError:
             await msg.delete()
         else:
-            await message.author.send("Direct link: https://invite.gg/enightclub", embed=embed)
+            try:
+                await message.author.send("Direct link: https://invite.gg/enightclub", embed=embed)
+            except:
+                await message.channel.send("{}, your DMs are disabled, so I couldn't DM you the invite link!".format(ctx.message.author.mention))
             await msg.delete()
  
 # dy  & shiki dms commands:
