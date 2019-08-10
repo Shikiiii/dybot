@@ -145,7 +145,7 @@ async def on_message(message: Message):
 
   # Private Cmds:
     if message.content == "dy":
-      await message.channel.send(">_<")
+      await message.channel.send("dy >_<")
     if message.content == "lumen":
       await message.channel.send("LUMEN XD")
     if message.content == "shiki":
