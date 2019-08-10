@@ -235,9 +235,9 @@ async def ban(ctx, user: discord.Member, *, reason: str = ""):
 		await ctx.send(embed=embed)
 		#await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got clapped justcuz**".format(user.mention, ctx.message.author.mention))
 		try:
-			embed = discord.Embed(title="You were banned from [e - nightclub](https://discordapp.com/invite/4UkN2Jg).", description="You were banned by {}. \nThe reason for your ban is **none, not provided**. \nThis ban is permanent.".format(ctx.message.author), color=0x000000)
+			embed = discord.Embed(title="You were banned from e - nightclub.", description="You were banned by {}. \nThe reason for your ban is **none, not provided**. \nThis ban is permanent. \n\n [ - The e - nightclub staff team.](https://discordapp.com/invite/4UkN2Jg)".format(ctx.message.author), color=0x000000)
 			embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
-			await ctx.send(embed=embed)
+			await user.send(embed=embed)
 			#await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
 		except:
 			embed = discord.Embed(title="Uh, oh!", description="I couldn't DM the banned member to inform them about their ban. Their DMs were disabled.", color=0xFF3639)
@@ -250,9 +250,9 @@ async def ban(ctx, user: discord.Member, *, reason: str = ""):
 		await ctx.send(embed=embed)
 		#await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
 		try:
-			embed = discord.Embed(title="You were banned from [e - nightclub](https://discordapp.com/invite/4UkN2Jg).", description="You were banned by {}. \nThe reason for your ban is **{}**. \nThis ban is permanent.".format(ctx.message.author, reason), color=0x000000)
+			embed = discord.Embed(title="You were banned from e - nightclub.", description="You were banned by {}. \nThe reason for your ban is **{}**. \nThis ban is permanent. \n\n [ - The e - nightclub staff team.](https://discordapp.com/invite/4UkN2Jg)".format(ctx.message.author, reason), color=0x000000)
 			embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
-			await ctx.send(embed=embed)
+			await user.send(embed=embed)
 			#await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
 		except:
 			embed = discord.Embed(description="I couldn't DM the banned member to inform them about their ban. Their DMs were disabled.", color=0xFF3639)
