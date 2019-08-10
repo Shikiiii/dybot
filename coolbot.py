@@ -55,6 +55,8 @@ async def on_member_remove(member):
         channel = discord.utils.get(member.guild.channels, name="✵│arrivals")
         await channel.send("**{}** has left the server. We now have **{}** members.".format(member.mention, member.guild.member_count))
 
+# EMBED MESSAGES
+
 @bot.event
 async def on_message(message: Message):
     if(message.content == "!welcome" and (message.author.id == 393839495859929089 or message.author.id == 495680416422821888)):
@@ -100,7 +102,7 @@ async def on_message(message: Message):
         embed2 = discord.Embed(color=0xFF93F0)
         await message.channel.send(embed=embed1)
     if(message.content == "!rewards" and (message.author.id == 393839495859929089 or message.author.id == 495680416422821888)):
-        embed1 = discord.Embed(title="XX", description="**──────────» ✰║ Invite Rewards ║✰ «──────────** \r\n\r\n - | ``✰`` | - **__5__ invites:** Pic perms or Respected role (you can only pick one role.) \r\n\r\n - | ``✰`` | - **__10__ invites:** Custom role with color! (last 30 days.) \r\n\r\n - | ``✰`` | - **__20__ invites:** Custom role with private channel (can give anyone access to it.) \r\n\r\n - | ``✰`` | - **__50__ invites:** Classic nitro (5$). \r\n\r\n - | ``✰`` | - **__75__ invites:** Server promo with ping ``@everyone`` \r\n\r\n **─────────────» ✰║ Note: ║✰ «─────────────** \r\n\r\n **➜** Your level must be at least **5+** to get your prize. \r\n\r\n **➜** Make sure to make your **OWN** permanent instant invite. \r\n\r\n **➜** Do NOT make alts to join the server with your invite code. \r\n\r\n **➜** After receiving your prize we'll reset your invites back to **0**. \r\n\r\n **➜** Type **>invites** in <#559063589114216470> to check how many people you have invited. \r\n\r\n Dm <@495680416422821888> if you have any questions.", color=0xFF93F0)
+        embed1 = discord.Embed(title="", description="**──────────» ✰║ Invite Rewards ║✰ «──────────** \r\n\r\n - | ``✰`` | - **__5__ invites:** Pic perms or Respected role (you can only pick one role.) \r\n\r\n - | ``✰`` | - **__10__ invites:** Custom role with color! (last 30 days.) \r\n\r\n - | ``✰`` | - **__20__ invites:** Custom role with private channel (can give anyone access to it.) \r\n\r\n - | ``✰`` | - **__50__ invites:** Classic nitro (5$). \r\n\r\n - | ``✰`` | - **__75__ invites:** Server promo with ping ``@everyone`` \r\n\r\n **─────────────» ✰║ Note: ║✰ «─────────────** \r\n\r\n **➜** Your level must be at least **5+** to get your prize. \r\n\r\n **➜** Make sure to make your **OWN** permanent instant invite. \r\n\r\n **➜** Do NOT make alts to join the server with your invite code. \r\n\r\n **➜** After receiving your prize we'll reset your invites back to **0**. \r\n\r\n **➜** Type **>invites** in <#559063589114216470> to check how many people you have invited. \r\n\r\n Dm <@495680416422821888> if you have any questions.", color=0xFF93F0)
         embed2 = discord.Embed(color=0xFF93F0)
         await message.channel.send(embed=embed1)
     
@@ -111,12 +113,6 @@ async def on_message(message: Message):
      #   await message.author.send("Hi")
 
 
-  #  if len(message.mentions) > 0:
-    #    if message.mentions[0].id == 393839495859929089:
-     #       try:
-     #           await message.author.send("Hey there, {}! \nPlease don't abusively mention the Devs without a reason. If you want to just talk to them, it's okay, but don't don it oftenly without a real reason. But while you're here... \n\n Are you looking for **cheap** and sometimes **free** __bot developing and hosting__? Our **custom bot**, <@593090256560193549> was made by the user you just pinged, <@393839495859929089>. \n\n If you're interesting in having a custom bot like this one, **DM <@393839495859929089>** and we'll talk about it there. \n\n > This automatic action was fired because you pinged either the Bot Coder role or <@393839495859929089>.".format(message.author.mention))
-      #      except:
-       #         print("worked fine with no errors at all *cough*")
 
     if shiki in message.mentions:
         await message.author.send(f"Hey there, {message.author.mention}! \nPlease don't abusively mention the Devs without a reason. If you want to just talk to them, it's okay, but don't don it oftenly without a real reason. But while you're here... \n\n Are you looking for **cheap** and sometimes **free** __bot developing and hosting__? Our **custom bot**, <@593090256560193549> was made by the user you just pinged, {shiki.mention}. \n\n If you're interesting in having a custom bot like this one, **DM {shiki.mention}** and we'll talk about it there. \n\n > This automatic action was fired because you pinged either the Bot Coder role or {shiki.mention}.")
@@ -399,5 +395,7 @@ async def unmute_error(ctx, error):
 
 
 # - BOT LOGIN
+
+
 
 bot.run(os.environ.get("token"))
