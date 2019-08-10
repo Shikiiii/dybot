@@ -41,7 +41,7 @@ async def on_member_join(member):
         channel2 = discord.utils.get(member.guild.channels, name="✵│welcome-rules")
         channel3 = discord.utils.get(member.guild.channels, name="∞│roles-menu")
         channel4 = discord.utils.get(member.guild.channels, name="✵│faq")
-        embed = discord.Embed(description="Welcome to **e - nightclub**! You're the **{}th** member. \n\n Make sure to read: {}  \nRoles: {}  \nFor help:  {}.".format(member.guild.member_count, channel2.mention, channel3.mention, channel4.mention), color=0x000000)
+        embed = discord.Embed(description="Welcome to **e - nightclub**! You're the **{}th** member. \n\n Make sure to read: {}  \n\nRoles: {}  \n\nFor help:  {}.".format(member.guild.member_count, channel2.mention, channel3.mention, channel4.mention), color=0x000000)
         embed.set_author(name="{}".format(member), icon_url=member.avatar_url)
         embed.set_thumbnail(url=member.guild.icon_url)
         await channel.send(embed=embed)
@@ -99,14 +99,13 @@ async def on_message(message: Message):
         embed1 = discord.Embed(title="*New member is verified!", description="༚ ✧˳⁺ Member has recieived verified role. ⁺˳✧ ༚ ", color=0xFF93F0)
         embed2 = discord.Embed(color=0xFF93F0)
         await message.channel.send(embed=embed1)
-   #     if(message.content == "!rewards" and (message.author.id == 393839495859929089 or message.author.id == 495680416422821888)):
-   #     embed1 = discord.Embed(title="XX", description="**──────────» ✰║ Invite Rewards ║✰ «──────────** \r\n\r\n - | ``✰`` | - **__5__ invites:** Pic perms or Respected role (you can only pick one role.) \r\n\r\n - | ``✰`` | - **__10__ invites:** Custom role with color! (last 30 days.) \r\n\r\n - | ``✰`` | - **__20__ invites:** Custom role with private channel (can give anyone access to it.) \r\n\r\n - | ``✰`` | - **__50__ invites:** Classic nitro (5$). \r\n\r\n - | ``✰`` | - **__75__ invites:** Server promo with ping ``@everyone`` \r\n\r\n **─────────────» ✰║ Note: ║✰ «─────────────** \r\n\r\n **➜** Your level must be at least **5+** to get your prize. \r\n\r\n **➜** Make sure to make your **OWN** permanent instant invite. \r\n\r\n **➜** Do NOT make alts to join the server with your invite code. \r\n\r\n **➜** After receiving your prize we'll reset your invites back to **0**. \r\n\r\n **➜** Type **>invites** in <#559063589114216470> to check how many people you have invited. \r\n\r\n Dm <@495680416422821888> if you have any questions.", color=0xFF93F0)
-   #      embed2 = discord.Embed(color=0xFF93F0)
-   #     await message.channel.send(embed=embed1)
-    if message.content == "invite":
-        await message.channel.send("Perm invite link: https://invite.gg/enightclub")
+    if(message.content == "!rewards" and (message.author.id == 393839495859929089 or message.author.id == 495680416422821888)):
+        embed1 = discord.Embed(title="XX", description="**──────────» ✰║ Invite Rewards ║✰ «──────────** \r\n\r\n - | ``✰`` | - **__5__ invites:** Pic perms or Respected role (you can only pick one role.) \r\n\r\n - | ``✰`` | - **__10__ invites:** Custom role with color! (last 30 days.) \r\n\r\n - | ``✰`` | - **__20__ invites:** Custom role with private channel (can give anyone access to it.) \r\n\r\n - | ``✰`` | - **__50__ invites:** Classic nitro (5$). \r\n\r\n - | ``✰`` | - **__75__ invites:** Server promo with ping ``@everyone`` \r\n\r\n **─────────────» ✰║ Note: ║✰ «─────────────** \r\n\r\n **➜** Your level must be at least **5+** to get your prize. \r\n\r\n **➜** Make sure to make your **OWN** permanent instant invite. \r\n\r\n **➜** Do NOT make alts to join the server with your invite code. \r\n\r\n **➜** After receiving your prize we'll reset your invites back to **0**. \r\n\r\n **➜** Type **>invites** in <#559063589114216470> to check how many people you have invited. \r\n\r\n Dm <@495680416422821888> if you have any questions.", color=0xFF93F0)
+        embed2 = discord.Embed(color=0xFF93F0)
+        await message.channel.send(embed=embed1)
+    
  
-# dy  & shiki commands
+# dy  & shiki dms commands:
 
   #  if "xxx" in message.content:
      #   await message.author.send("Hi")
@@ -123,6 +122,23 @@ async def on_message(message: Message):
         await message.author.send(f"Hey there, {message.author.mention}! \nPlease don't abusively mention the Devs without a reason. If you want to just talk to them, it's okay, but don't don it oftenly without a real reason. But while you're here... \n\n Are you looking for **cheap** and sometimes **free** __bot developing and hosting__? Our **custom bot**, <@593090256560193549> was made by the user you just pinged, {shiki.mention}. \n\n If you're interesting in having a custom bot like this one, **DM {shiki.mention}** and we'll talk about it there. \n\n > This automatic action was fired because you pinged either the Bot Coder role or {shiki.mention}.")
 
     await bot.process_commands(message)
+
+  # Private Cmds:
+    if message.content == "invite":
+      await message.channel.send("Perm invite link: https://invite.gg/enightclub")
+    if message.content == "dy":
+      await message.channel.send(">_<")
+    if message.content == "lumen":
+      await message.channel.send("LUMEN XD")
+    if message.content == "shiki":
+      await message.channel.send(">.<")
+
+
+
+
+
+
+
 
 # - Fun commands:
 @bot.command()
