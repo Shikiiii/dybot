@@ -32,7 +32,7 @@ async def on_ready():
     shiki = server.get_member(393839495859929089)
 
     await bot.change_presence(activity=discord.Game(name='with dy & shiki >_<'))
-    print('e - nightclub BOT has started working!')}
+    print('e - nightclub BOT has started working!')
 
     await bot.wait_until_ready()
     guildd = bot.get_guild(448571905524498432)
