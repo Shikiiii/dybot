@@ -2,6 +2,8 @@
 
 # 08/03/2019 | 2020-2019
 
+# (c) MIT License @ Shiki
+
 import discord
 from discord import Message, Guild, Member
 from discord.ext.commands import Bot
@@ -150,6 +152,8 @@ async def on_message(message: Message):
       await message.channel.send("LUMEN XD")
     if message.content == "shiki":
       await message.channel.send(">.<")
+    if message.content == "no u":
+      await message.channel.send("no u")
 
 
 
@@ -161,18 +165,20 @@ async def on_message(message: Message):
 # - Fun commands:
 @bot.command()
 async def avatar(ctx, user: discord.Member):
-	embed = discord.Embed(title="Avatar of {}".format(user))
+	embed = discord.Embed(title="Avatar of {}".format(user), color=0x000000)
 	embed.set_image(url=user.avatar_url)
 	await ctx.send(embed=embed)
 	
 @avatar.error
 async def avatar_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
-		embed = discord.Embed(title="Member not found, showing server icon.")
-		embed.set_image(url=ctx.message.author.guild.icon_url)
+		embed = discord.Embed(title="Member not found, try using !avid if you want the avatar of a user that's not in the server.", color=0xFF3639)
+		embed.set_image(url=bot.user.avatar_url)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 	if isinstance(error, commands.MissingRequiredArgument):
-		embed = discord.Embed(title="Avatar of {}".format(ctx.message.author))
+		embed = discord.Embed(title="Avatar of {}".format(ctx.message.author), color=0x000000)
 		embed.set_image(url=ctx.message.author.avatar_url)
 		await ctx.send(embed=embed)
 	else:
@@ -181,18 +187,20 @@ async def avatar_error(ctx, error):
 		
 @bot.command()
 async def av(ctx, user: discord.Member):
-	embed = discord.Embed(title="Avatar of {}".format(user))
+	embed = discord.Embed(title="Avatar of {}".format(user), color=0x000000)
 	embed.set_image(url=user.avatar_url)
 	await ctx.send(embed=embed)
 	
 @av.error
 async def av_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
-		embed = discord.Embed(title="Member not found, showing server icon.")
+		embed = discord.Embed(title="Member not found, try using !avid if you want the avatar of a user that's not in the server.", color=0xFF3639)
 		embed.set_image(url=ctx.message.author.guild.icon_url)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 	if isinstance(error, commands.MissingRequiredArgument):
-		embed = discord.Embed(title="Avatar of {}".format(ctx.message.author))
+		embed = discord.Embed(title="Avatar of {}".format(ctx.message.author), color=0x000000)
 		embed.set_image(url=ctx.message.author.avatar_url)
 		await ctx.send(embed=embed)
 	else:
@@ -210,7 +218,7 @@ async def avatarid(ctx, id: int):
 		await ctx.send(embed=embed)
 		return
 	
-	embed = discord.Embed(title="Avatar of {}".format(user))
+	embed = discord.Embed(title="Avatar of {}".format(user), color=0x000000)
 	embed.set_image(url=user.avatar_url)
 	await ctx.send(embed=embed)
 		
@@ -241,7 +249,7 @@ async def avid(ctx, id: int):
 		await ctx.send(embed=embed)
 		return
 	
-	embed = discord.Embed(title="Avatar of {}".format(user))
+	embed = discord.Embed(title="Avatar of {}".format(user), color=0x000000)
 	embed.set_image(url=user.avatar_url)
 	await ctx.send(embed=embed)
 		
