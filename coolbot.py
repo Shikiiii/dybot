@@ -182,7 +182,154 @@ async def on_message(message: Message):
 
 
 
+# - Verify command:
+@bot.command()
+@commands.has_any_role("Head Admin ✧˚*:･", "Co Owner ‧₊˚ ༄", "Bot Coder", "$ dy")
+async def verify(ctx, user: discord.Member, gender: str=" "):
+	verm = discord.utils.get(ctx.message.author.guild.roles, name="Verified Male")
+	verf = discord.utils.get(ctx.message.author.guild.roles, name="Verified Female")
 
+	failtover = discord.Embed(description="Try verifying this member again, but specify either **f** / **female** or **m** / **male**. \nExample: ``!verify @cooluser m``", color=0xFF3639)
+	failtover.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+	failtover.set_footer(text="Error raised on: {}".format(ctx.message.content))
+	
+	alrver = discord.Embed(description="This user is already verified.", color=0xFF3639)
+	alrver.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+	alrver.set_footer(text="Error raised on: {}".format(ctx.message.content))
+	if(verm in user.roles or verf in user.roles):
+		await ctx.message.delete()
+		msg = await ctx.send(embed=alrver)
+		await asyncio.sleep(float(10))
+		await msg.delete()
+		return
+	if(gender == "m" or gender == "male"):
+		#verr = " ".join(m)
+		ver = discord.Embed(description="༚ ✧˳⁺ {} has recieived **Verified Male** role. ⁺˳✧ ༚ ".format(user.mention), color=0xFF93F0)
+		ver.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		ver.set_thumbnail(url=user.avatar_url)
+		await user.add_roles(verm)
+		await ctx.message.delete()
+		await ctx.send(embed=ver)
+		return
+	elif(gender == "f" or gender == "female"):
+		#verr = " ".join(f)
+		ver = discord.Embed(description="༚ ✧˳⁺ {} has recieived **Verified Female** role. ⁺˳✧ ༚ ".format(user.mention), color=0xFF93F0)
+		ver.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		ver.set_thumbnail(url=user.avatar_url)
+		await user.add_roles(verf)
+		await ctx.message.delete()
+		await ctx.send(embed=ver)
+		return
+	else:
+		await ctx.message.delete()
+		fail = await ctx.send(embed=failtover)
+		await asyncio.sleep(float(10))
+		await fail.delete()
+		return
+	
+@verify.error
+async def verify_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(description="I couldn't find this user. Are you sure this ID is correct?", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		msg = await ctx.send(embed=embed)
+		await ctx.message.delete()
+		await asyncio.sleep(float(10))
+		await msg.delete()
+	if isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(description="Try again, but give me a user to verify.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		msg =await ctx.send(embed=embed)
+		await ctx.message.delete()
+		await asyncio.sleep(float(10))
+		await msg.delete()
+	if isinstance(error, commands.CheckFailure):
+		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		msg = await ctx.send(embed=embed)
+		await ctx.message.delete()
+		await asyncio.sleep(float(10))
+		await msg.delete()
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
+		
+@bot.command()
+@commands.has_any_role("Head Admin ✧˚*:･", "Co Owner ‧₊˚ ༄", "Bot Coder", "$ dy")
+async def v(ctx, user: discord.Member, gender: str=" "):
+	verm = discord.utils.get(ctx.message.author.guild.roles, name="Verified Male")
+	verf = discord.utils.get(ctx.message.author.guild.roles, name="Verified Female")
+
+	failtover = discord.Embed(description="Try verifying this member again, but specify either **f** / **female** or **m** / **male**. \nExample: ``!verify @cooluser m``", color=0xFF3639)
+	failtover.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+	failtover.set_footer(text="Error raised on: {}".format(ctx.message.content))
+	
+	alrver = discord.Embed(description="This user is already verified.", color=0xFF3639)
+	alrver.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+	alrver.set_footer(text="Error raised on: {}".format(ctx.message.content))
+	if(verm in user.roles or verf in user.roles):
+		await ctx.message.delete()
+		msg = await ctx.send(embed=alrver)
+		await asyncio.sleep(float(10))
+		await msg.delete()
+		return
+	if(gender == "m" or gender == "male"):
+		#verr = " ".join(m)
+		ver = discord.Embed(description="༚ ✧˳⁺ {} has recieived **Verified Male** role. ⁺˳✧ ༚ ".format(user.mention), color=0xFF93F0)
+		ver.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		ver.set_thumbnail(url=user.avatar_url)
+		await user.add_roles(verm)
+		await ctx.message.delete()
+		await ctx.send(embed=ver)
+		return
+	elif(gender == "f" or gender == "female"):
+		#verr = " ".join(f)
+		ver = discord.Embed(description="༚ ✧˳⁺ {} has recieived **Verified Female** role. ⁺˳✧ ༚ ".format(user.mention), color=0xFF93F0)
+		ver.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		ver.set_thumbnail(url=user.avatar_url)
+		await user.add_roles(verf)
+		await ctx.message.delete()
+		await ctx.send(embed=ver)
+		return
+	else:
+		await ctx.message.delete()
+		fail = await ctx.send(embed=failtover)
+		await asyncio.sleep(float(10))
+		await fail.delete()
+		return
+	
+@v.error
+async def v_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(description="I couldn't find this user. Are you sure this ID is correct?", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		msg = await ctx.send(embed=embed)
+		await ctx.message.delete()
+		await asyncio.sleep(float(10))
+		await msg.delete()
+	if isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(description="Try again, but give me a user to verify.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		msg =await ctx.send(embed=embed)
+		await ctx.message.delete()
+		await asyncio.sleep(float(10))
+		await msg.delete()
+	if isinstance(error, commands.CheckFailure):
+		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		msg = await ctx.send(embed=embed)
+		await ctx.message.delete()
+		await asyncio.sleep(float(10))
+		await msg.delete()
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 # - Fun commands:
 @bot.command()
