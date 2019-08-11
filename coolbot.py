@@ -76,7 +76,7 @@ async def on_member_join(member):
 @bot.event
 async def on_member_remove(member):
     if(member.guild.id == 448571905524498432):
-        channel = discord.utils.get(member.guild.channels, name="✵│arrivals")
+        channel = discord.utils.get(member.guild.channels, name="✵│left")
         await channel.send("**{}** has left the server. We now have **{}** members.".format(member.mention, member.guild.member_count))
 
 # EMBED MESSAGES
