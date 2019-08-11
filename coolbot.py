@@ -172,8 +172,8 @@ async def avatar(ctx, user: discord.Member):
 @avatar.error
 async def avatar_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
-		embed = discord.Embed(title="Member not found, try using !avid if you want the avatar of a user that's not in the server.", color=0xFF3639)
-		embed.set_image(url=bot.user.avatar_url)
+		embed = discord.Embed(title="Member not found, ping a user to get their avatar.", color=0xFF3639)
+		#embed.set_image(url=bot.user.avatar_url)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
@@ -194,8 +194,8 @@ async def av(ctx, user: discord.Member):
 @av.error
 async def av_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
-		embed = discord.Embed(title="Member not found, try using !avid if you want the avatar of a user that's not in the server.", color=0xFF3639)
-		embed.set_image(url=ctx.message.author.guild.icon_url)
+		embed = discord.Embed(title="Member not found, ping a user to get their avatar.", color=0xFF3639)
+		#embed.set_image(url=ctx.message.author.guild.icon_url)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
@@ -230,7 +230,7 @@ async def avatarid_error(ctx, error):
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 	if isinstance(error, commands.MissingRequiredArgument):
-		embed = discord.Embed(description="I couldn't ban.. no one? Try giving me an ID so I can get an avatar..", color=0xFF3639)
+		embed = discord.Embed(description="I couldn't get the avatar of.. no one? Try giving me an ID so I can get an avatar..", color=0xFF3639)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
@@ -261,7 +261,7 @@ async def avid_error(ctx, error):
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 	if isinstance(error, commands.MissingRequiredArgument):
-		embed = discord.Embed(description="I couldn't ban.. no one? Try giving me an ID so I can get an avatar..", color=0xFF3639)
+		embed = discord.Embed(description="I couldn't get the avatar of.. no one? Try giving me an ID so I can get an avatar..", color=0xFF3639)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
