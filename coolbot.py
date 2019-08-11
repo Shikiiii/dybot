@@ -199,6 +199,68 @@ async def av_error(ctx, error):
 		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
 		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
+@bot.command()
+async def avatarid(ctx, id: int):
+	try:
+		user = await bot.fetch_user(id)
+	except discord.HTTPException:
+		embed = discord.Embed(description="I dunno man, it doesn't look like there's a member like this.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
+	
+	embed = discord.Embed(title="Avatar of {}".format(user))
+	embed.set_image(url=user.avatar_url)
+	await ctx.send(embed=embed)
+		
+@avatarid.error    
+async def avatarid_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(description="I couldn't find this user. Are you sure this ID is correct?", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	if isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(description="I couldn't ban.. no one? Try giving me an ID so I can get an avatar..", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
+		
+@bot.command()
+async def avid(ctx, id: int):
+	try:
+		user = await bot.fetch_user(id)
+	except discord.HTTPException:
+		embed = discord.Embed(description="I dunno man, it doesn't look like there's a member like this.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
+	
+	embed = discord.Embed(title="Avatar of {}".format(user))
+	embed.set_image(url=user.avatar_url)
+	await ctx.send(embed=embed)
+		
+@avid.error    
+async def avid_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(description="I couldn't find this user. Are you sure this ID is correct?", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	if isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(description="I couldn't ban.. no one? Try giving me an ID so I can get an avatar..", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
+
 # - Admin commands: 
 
 @bot.command()
