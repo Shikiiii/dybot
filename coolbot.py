@@ -1117,7 +1117,7 @@ async def userinfoid(ctx, id: int):
 		await ctx.send(embed=embed)
 		return
 	
-	corfor = "Not supported, use !uf."
+	corfor1 = "Not supported, use !uf."
 	joinpos = "Not supported, use !uf."
 	boosting = "Not supported, use !uf."
 		
@@ -1171,7 +1171,7 @@ async def ufid(ctx, id: int):
 	time2 = user.created_at
 	
 	corfor2 = time2.strftime("%d %b, %Y at %H:%M")
-	corfor = "Not supported, use !uf."
+	corfor1 = "Not supported, use !uf."
 	joinpos = "Not supported, use !uf."
 	boosting = "Not supported, use !uf."
 		
@@ -1221,7 +1221,7 @@ async def whoisid(ctx, id: int):
 	time2 = user.created_at
 	
 	corfor2 = time2.strftime("%d %b, %Y at %H:%M")
-	corfor = "Not supported, use !uf."
+	corfor1 = "Not supported, use !uf."
 	joinpos = "Not supported, use !uf."
 	boosting = "Not supported, use !uf."
 		
