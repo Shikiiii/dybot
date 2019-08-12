@@ -1117,26 +1117,9 @@ async def userinfoid(ctx, id: int):
 		await ctx.send(embed=embed)
 		return
 	
-	if user in ctx.guild:
-		time = user.joined_at
-	
-		corfor1 = time.strftime("%d %b, %Y at %H:%M")
-	
-		memberslist = ctx.guild.members
-		memberslist.sort(key=sort_by_joined_at)
-		joinpos = memberslist.index(user)
-	
-		boosting = " "
-		if user.premium_since == None:
-			boosting = "Nope"
-		else:
-			time3 = user.premium_since
-			corfor3 = time3.strftime("%d %b, %Y at %H:%M")
-			boosting = "Yes"
-	else:
-		corfor = "User not in guild."
-		joinpos = "User not in guild."
-		boosting = "User not in guild."
+	corfor = "Not supported, use !uf."
+	joinpos = "Not supported, use !uf."
+	boosting = "Not supported, use !uf."
 		
 	time2 = user.created_at
 	
@@ -1191,27 +1174,9 @@ async def ufid(ctx, id: int):
 	time2 = user.created_at
 	
 	corfor2 = time2.strftime("%d %b, %Y at %H:%M")
-	
-	if user in ctx.guild:
-		time = user.joined_at
-	
-		corfor1 = time.strftime("%d %b, %Y at %H:%M")
-	
-		memberslist = ctx.guild.members
-		memberslist.sort(key=sort_by_joined_at)
-		joinpos = memberslist.index(user)
-	
-		boosting = " "
-		if user.premium_since == None:
-			boosting = "Nope"
-		else:
-			time3 = user.premium_since
-			corfor3 = time3.strftime("%d %b, %Y at %H:%M")
-			boosting = "Yes"
-	else:
-		corfor = "User not in guild."
-		joinpos = "User not in guild."
-		boosting = "User not in guild."
+	corfor = "Not supported, use !uf."
+	joinpos = "Not supported, use !uf."
+	boosting = "Not supported, use !uf."
 		
 	fro = " "
 	if user.is_on_mobile():
@@ -1262,27 +1227,9 @@ async def whoisid(ctx, id: int):
 	time2 = user.created_at
 	
 	corfor2 = time2.strftime("%d %b, %Y at %H:%M")
-	
-	if user in ctx.guild:
-		time = user.joined_at
-	
-		corfor1 = time.strftime("%d %b, %Y at %H:%M")
-	
-		memberslist = ctx.guild.members
-		memberslist.sort(key=sort_by_joined_at)
-		joinpos = memberslist.index(user)
-	
-		boosting = " "
-		if user.premium_since == None:
-			boosting = "Nope"
-		else:
-			time3 = user.premium_since
-			corfor3 = time3.strftime("%d %b, %Y at %H:%M")
-			boosting = "Yes"
-	else:
-		corfor = "User not in guild."
-		joinpos = "User not in guild."
-		boosting = "User not in guild."
+	corfor = "Not supported, use !uf."
+	joinpos = "Not supported, use !uf."
+	boosting = "Not supported, use !uf."
 		
 	fro = " "
 	if user.is_on_mobile():
