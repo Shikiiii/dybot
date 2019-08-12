@@ -1117,25 +1117,30 @@ async def userinfoid(ctx, id: int):
 		await ctx.send(embed=embed)
 		return
 	
-	time = user.joined_at
+	if user in ctx.guild:
+		time = user.joined_at
 	
-	corfor1 = time.strftime("%d %b, %Y at %H:%M")
+		corfor1 = time.strftime("%d %b, %Y at %H:%M")
 	
+		memberslist = ctx.guild.members
+		memberslist.sort(key=sort_by_joined_at)
+		joinpos = memberslist.index(user)
+	
+		boosting = " "
+		if user.premium_since == None:
+			boosting = "Nope"
+		else:
+			time3 = user.premium_since
+			corfor3 = time3.strftime("%d %b, %Y at %H:%M")
+			boosting = "Yes"
+	else:
+		corfor = "User not in guild."
+		joinpos = "User not in guild."
+		boosting = "User not in guild."
+		
 	time2 = user.created_at
 	
 	corfor2 = time2.strftime("%d %b, %Y at %H:%M")
-	
-	memberslist = ctx.guild.members
-	memberslist.sort(key=sort_by_joined_at)
-	joinpos = memberslist.index(user)
-	
-	boosting = " "
-	if user.premium_since == None:
-		boosting = "Nope"
-	else:
-		time3 = user.premium_since
-		corfor3 = time3.strftime("%d %b, %Y at %H:%M")
-		boosting = "Yes"
 		
 	fro = " "
 	if user.is_on_mobile():
@@ -1147,7 +1152,7 @@ async def userinfoid(ctx, id: int):
 	embed.set_author(name="Info of {}".format(user), icon_url=user.avatar_url)
 	embed.set_footer(text="Requested by {}".format(ctx.message.author))
 	embed.add_field(name="Joined on", value="{}".format(corfor1))
-	embed.add_field(name="Join position", value="{}".format(str(joinpos + 1)))
+	embed.add_field(name="Join position", value="{}".format(joinpos))
 	embed.add_field(name="Registered on", value="{}".format(corfor2))
 	embed.add_field(name="Boosting this guild", value="{}".format(boosting))
 	embed.add_field(name="Current status", value="{}".format(str(user.status)))
@@ -1183,25 +1188,30 @@ async def ufid(ctx, id: int):
 		await ctx.send(embed=embed)
 		return
 	
-	time = user.joined_at
-	
-	corfor1 = time.strftime("%d %b, %Y at %H:%M")
-	
 	time2 = user.created_at
 	
 	corfor2 = time2.strftime("%d %b, %Y at %H:%M")
 	
-	memberslist = ctx.guild.members
-	memberslist.sort(key=sort_by_joined_at)
-	joinpos = memberslist.index(user)
+	if user in ctx.guild:
+		time = user.joined_at
 	
-	boosting = " "
-	if user.premium_since == None:
-		boosting = "Nope"
+		corfor1 = time.strftime("%d %b, %Y at %H:%M")
+	
+		memberslist = ctx.guild.members
+		memberslist.sort(key=sort_by_joined_at)
+		joinpos = memberslist.index(user)
+	
+		boosting = " "
+		if user.premium_since == None:
+			boosting = "Nope"
+		else:
+			time3 = user.premium_since
+			corfor3 = time3.strftime("%d %b, %Y at %H:%M")
+			boosting = "Yes"
 	else:
-		time3 = user.premium_since
-		corfor3 = time3.strftime("%d %b, %Y at %H:%M")
-		boosting = "Yes"
+		corfor = "User not in guild."
+		joinpos = "User not in guild."
+		boosting = "User not in guild."
 		
 	fro = " "
 	if user.is_on_mobile():
@@ -1213,7 +1223,7 @@ async def ufid(ctx, id: int):
 	embed.set_author(name="Info of {}".format(user), icon_url=user.avatar_url)
 	embed.set_footer(text="Requested by {}".format(ctx.message.author))
 	embed.add_field(name="Joined on", value="{}".format(corfor1))
-	embed.add_field(name="Join position", value="{}".format(str(joinpos + 1)))
+	embed.add_field(name="Join position", value="{}".format(joinpos))
 	embed.add_field(name="Registered on", value="{}".format(corfor2))
 	embed.add_field(name="Boosting this guild", value="{}".format(boosting))
 	embed.add_field(name="Current status", value="{}".format(str(user.status)))
@@ -1249,25 +1259,30 @@ async def whoisid(ctx, id: int):
 		await ctx.send(embed=embed)
 		return
 	
-	time = user.joined_at
-	
-	corfor1 = time.strftime("%d %b, %Y at %H:%M")
-	
 	time2 = user.created_at
 	
 	corfor2 = time2.strftime("%d %b, %Y at %H:%M")
 	
-	memberslist = ctx.guild.members
-	memberslist.sort(key=sort_by_joined_at)
-	joinpos = memberslist.index(user)
+	if user in ctx.guild:
+		time = user.joined_at
 	
-	boosting = " "
-	if user.premium_since == None:
-		boosting = "Nope"
+		corfor1 = time.strftime("%d %b, %Y at %H:%M")
+	
+		memberslist = ctx.guild.members
+		memberslist.sort(key=sort_by_joined_at)
+		joinpos = memberslist.index(user)
+	
+		boosting = " "
+		if user.premium_since == None:
+			boosting = "Nope"
+		else:
+			time3 = user.premium_since
+			corfor3 = time3.strftime("%d %b, %Y at %H:%M")
+			boosting = "Yes"
 	else:
-		time3 = user.premium_since
-		corfor3 = time3.strftime("%d %b, %Y at %H:%M")
-		boosting = "Yes"
+		corfor = "User not in guild."
+		joinpos = "User not in guild."
+		boosting = "User not in guild."
 		
 	fro = " "
 	if user.is_on_mobile():
@@ -1279,7 +1294,7 @@ async def whoisid(ctx, id: int):
 	embed.set_author(name="Info of {}".format(user), icon_url=user.avatar_url)
 	embed.set_footer(text="Requested by {}".format(ctx.message.author))
 	embed.add_field(name="Joined on", value="{}".format(corfor1))
-	embed.add_field(name="Join position", value="{}".format(str(joinpos + 1)))
+	embed.add_field(name="Join position", value="{}".format(joinpos))
 	embed.add_field(name="Registered on", value="{}".format(corfor2))
 	embed.add_field(name="Boosting this guild", value="{}".format(boosting))
 	embed.add_field(name="Current status", value="{}".format(str(user.status)))
