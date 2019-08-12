@@ -41,19 +41,26 @@ async def on_ready():
     while True:
         channel = discord.utils.get(guildd.channels, name="☆│lounge")
         apply = discord.utils.get(guildd.channels, name="✵│apply-for-staff")
-        embed1 = discord.Embed(title="Reminder:", description="You can bump the server by typing **!d bump** and help our server grow.", color=0xffffff)
-        embed1.set_thumbnail(url=guildd.icon_url)
-        embed2 = discord.Embed(title="Reminder:", description="If you want to apply for **Partnership Mananger** or **Server Helper**, type **!apply** in {}.".format(apply), color=0xffffff)
+        embed2 = discord.Embed(title="Reminder:", description="You can bump the server by typing **!d bump** and help our server grow.", color=0xffffff)
         embed2.set_thumbnail(url=guildd.icon_url)
+        embed1 = discord.Embed(title="Reminder:", description="Check out <#558991108915462164> to get verified role.", color=0xffffff)
+        embed1.set_thumbnail(url=guildd.icon_url)
+        embed3 = discord.Embed(title="Reminder:", description="If you want to apply for **Partnership Mananger** or **Server Helper**, type **!apply** in {}.".format(apply), color=0xffffff)
+        embed3.set_thumbnail(url=guildd.icon_url)
         #try:
-        await channel.send(embed=embed1)
+        await channel.send(embed=embed2)
         #except:
         #print("oh okay that broke")
         await asyncio.sleep(float(7200))
         #try:
-        await channel.send(embed=embed2)
+        await channel.send(embed=embed1)
         #except:
         #print("oh okay, that broke 2")
+        await asyncio.sleep(float(7200))
+        #try:
+        await channel.send(embed=embed3)
+        #except:
+        #print("oh okay that broke")
         await asyncio.sleep(float(7200))
 
 # welcome message
@@ -848,7 +855,6 @@ async def unmute_error(ctx, error):
 
 
 # - BOT LOGIN
-
 
 
 bot.run(os.environ.get("token"))
