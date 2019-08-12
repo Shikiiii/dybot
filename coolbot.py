@@ -1125,11 +1125,8 @@ async def userinfoid(ctx, id: int):
 	
 	corfor2 = time2.strftime("%d %b, %Y at %H:%M")
 		
-	fro = " "
-	if user.is_on_mobile():
-		fro = "Mobile"
-	else:
-		fro = "PC"
+	fro = "Not supported, use !uf."
+
 	
 	embed = discord.Embed(description="Nickname: {}".format(user.nick), color=0x000000)
 	embed.set_author(name="Info of {}".format(user), icon_url=user.avatar_url)
@@ -1178,11 +1175,8 @@ async def ufid(ctx, id: int):
 	joinpos = "Not supported, use !uf."
 	boosting = "Not supported, use !uf."
 		
-	fro = " "
-	if user.is_on_mobile():
-		fro = "Mobile"
-	else:
-		fro = "PC"
+	fro = "Not supported, use !uf."
+
 	
 	embed = discord.Embed(description="Nickname: {}".format(user.nick), color=0x000000)
 	embed.set_author(name="Info of {}".format(user), icon_url=user.avatar_url)
@@ -1231,11 +1225,7 @@ async def whoisid(ctx, id: int):
 	joinpos = "Not supported, use !uf."
 	boosting = "Not supported, use !uf."
 		
-	fro = " "
-	if user.is_on_mobile():
-		fro = "Mobile"
-	else:
-		fro = "PC"
+	fro = "Not supported, use !uf."
 	
 	embed = discord.Embed(description="Nickname: {}".format(user.nick), color=0x000000)
 	embed.set_author(name="Info of {}".format(user), icon_url=user.avatar_url)
