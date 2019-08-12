@@ -13,6 +13,7 @@ from discord.ext import commands
 import sys
 import traceback
 import asyncio
+from datetime import datetime
 
 bot = Bot(command_prefix='!')
 bot.remove_command('help')
@@ -339,6 +340,10 @@ async def v_error(ctx, error):
 # - Info commands:
 @bot.command()
 async def serverinfo(ctx):
+	time = ctx.message.author.guild.created_at 
+	
+	corfor = time.strftime("%d %b, %Y at %H:%M")
+	
 	channels = ctx.message.author.guild.text_channels
 	voicechans = ctx.message.author.guild.voice_channels
 	categories = ctx.message.author.guild.categories
@@ -365,7 +370,7 @@ async def serverinfo(ctx):
 	embed = discord.Embed(title="Info of {}".format(ctx.message.author.guild.name), description="Owned by {}".format(ctx.message.author.guild.owner), color=0x000000)
 	embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 	embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
-	embed.set_footer(text="ID: {} | Created at: {}".format(ctx.message.author.guild.id, ctx.message.author.guild.created_at))
+	embed.set_footer(text="ID: {} | Created at: {}".format(ctx.message.author.guild.id, corfor))
 	embed.add_field(name="Server region", value="{}".format(ctx.message.author.guild.region), inline=True)
 	embed.add_field(name="Channels count", value="{}".format(len(channels)), inline=True)
 	embed.add_field(name="Voice channels count", value="{}".format(len(voicechans)), inline=True)
