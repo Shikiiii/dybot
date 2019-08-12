@@ -200,21 +200,25 @@ async def verify(ctx, user: discord.Member, gender: str=" "):
 		return
 	if(gender == "m" or gender == "male"):
 		#verr = " ".join(m)
-		ver = discord.Embed(description="༚ ✧˳⁺ {} has recieived **Verified Male** role. ⁺˳✧ ༚ ".format(user.mention), color=0xFF93F0)
+		ver = discord.Embed(description="༚ ✧˳⁺ {} has received the **Verified Male** role. ⁺˳✧ ༚ ".format(user.mention), color=0xFF93F0)
 		ver.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		ver.set_thumbnail(url=user.avatar_url)
 		await user.add_roles(verm)
 		await ctx.message.delete()
 		await ctx.send(embed=ver)
+		if ctx.message.channel != verchan:
+			await verchan.send(embed=ver)
 		return
 	elif(gender == "f" or gender == "female"):
 		#verr = " ".join(f)
-		ver = discord.Embed(description="༚ ✧˳⁺ {} has recieived **Verified Female** role. ⁺˳✧ ༚ ".format(user.mention), color=0xFF93F0)
+		ver = discord.Embed(description="༚ ✧˳⁺ {} has rece9ved the **Verified Female** role. ⁺˳✧ ༚ ".format(user.mention), color=0xFF93F0)
 		ver.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		ver.set_thumbnail(url=user.avatar_url)
 		await user.add_roles(verf)
 		await ctx.message.delete()
 		await ctx.send(embed=ver)
+		if ctx.message.channel != verchan:
+			await verchan.send(embed=ver)
 		return
 	else:
 		await ctx.message.delete()
@@ -258,6 +262,7 @@ async def verify_error(ctx, error):
 async def v(ctx, user: discord.Member, gender: str=" "):
 	verm = discord.utils.get(ctx.message.author.guild.roles, name="Verified Male")
 	verf = discord.utils.get(ctx.message.author.guild.roles, name="Verified Female")
+	verchan = discord.utils.get(ctx.message.author.guild.channels, name="♡│verification")
 
 	failtover = discord.Embed(description="Try verifying this member again, but specify either **f** / **female** or **m** / **male**. \nExample: ``!verify @cooluser m``", color=0xFF3639)
 	failtover.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
@@ -274,21 +279,25 @@ async def v(ctx, user: discord.Member, gender: str=" "):
 		return
 	if(gender == "m" or gender == "male"):
 		#verr = " ".join(m)
-		ver = discord.Embed(description="༚ ✧˳⁺ {} has recieived **Verified Male** role. ⁺˳✧ ༚ ".format(user.mention), color=0xFF93F0)
+		ver = discord.Embed(description="༚ ✧˳⁺ {} has received the **Verified Male** role. ⁺˳✧ ༚ ".format(user.mention), color=0xFF93F0)
 		ver.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		ver.set_thumbnail(url=user.avatar_url)
 		await user.add_roles(verm)
 		await ctx.message.delete()
 		await ctx.send(embed=ver)
+		if ctx.message.channel != verchan:
+			await verchan.send(embed=ver)
 		return
 	elif(gender == "f" or gender == "female"):
 		#verr = " ".join(f)
-		ver = discord.Embed(description="༚ ✧˳⁺ {} has recieived **Verified Female** role. ⁺˳✧ ༚ ".format(user.mention), color=0xFF93F0)
+		ver = discord.Embed(description="༚ ✧˳⁺ {} has received the **Verified Female** role. ⁺˳✧ ༚ ".format(user.mention), color=0xFF93F0)
 		ver.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		ver.set_thumbnail(url=user.avatar_url)
 		await user.add_roles(verf)
 		await ctx.message.delete()
 		await ctx.send(embed=ver)
+		if ctx.message.channel != verchan:
+			await verchan.send(embed=ver)
 		return
 	else:
 		await ctx.message.delete()
