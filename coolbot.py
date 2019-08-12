@@ -154,33 +154,22 @@ async def on_message(message: Message):
             except:
                 await message.channel.send("{}, your DMs are disabled, so I couldn't DM you the invite link!".format(ctx.message.author.mention))
             await msg.delete()
- 
 # dy  & shiki dms commands:
 
   #  if "xxx" in message.content:
      #   await message.author.send("Hi")
-
-
-
     if shiki in message.mentions:
         await message.author.send(f"Hey there, {message.author.mention}! \nPlease don't abusively mention the Devs without a reason. If you want to just talk to them, it's okay, but don't don it oftenly without a real reason. But while you're here... \n\n Are you looking for **cheap** and sometimes **free** __bot developing and hosting__? Our **custom bot**, <@593090256560193549> was made by the user you just pinged, {shiki.mention}. \n\n If you're interesting in having a custom bot like this one, **DM {shiki.mention}** and we'll talk about it there. \n\n > This automatic action was fired because you pinged either the Bot Coder role or {shiki.mention}.")
+    if message.content == "dy":
+        await message.channel.send("dy >_<")
+    if message.content == "lumen":
+        await message.channel.send("LUMEN XD")
+    if message.content == "shiki":
+        await message.channel.send(">.<")
+    if message.content == "no u":
+        await message.channel.send("no u")
 
     await bot.process_commands(message)
-
-  # Private Cmds:
-    if message.content == "dy":
-      await message.channel.send("dy >_<")
-    if message.content == "lumen":
-      await message.channel.send("LUMEN XD")
-    if message.content == "shiki":
-      await message.channel.send(">.<")
-    if message.content == "no u":
-      await message.channel.send("no u")
-
-
-
-
-
 
 # - Verify command:
 @bot.command()
