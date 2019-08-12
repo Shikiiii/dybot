@@ -661,9 +661,9 @@ async def unban_error(ctx, error):
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 		#await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
-    else:
-        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-        traceback.print_exception(type(error), error, None, file=sys.stderr)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
 @commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Head Admin ✧˚*:･")
