@@ -454,7 +454,7 @@ async def lockdown_error(ctx, error):
 
 
 @bot.command()
-@commands.has_any_role("Admin ˚｡☆")
+@commands.has_any_role("Admin ˚｡☆", "Head Admin ✧˚*:･")
 async def ban(ctx, user: discord.Member, *, reason: str = ""):
 	if len(reason) == 0:
 		embed = discord.Embed(title="Successfully banned {}.".format(user), description="**{}** was __banned__ from **[e - nightclub](https://discordapp.com/invite/4UkN2Jg)**. \nThe reason of their ban is **none, not provided**. \n Banned for permanent.".format(user.mention), color=0x000000)
@@ -468,7 +468,7 @@ async def ban(ctx, user: discord.Member, *, reason: str = ""):
 			await user.send(embed=embed)
 			#await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
 		except:
-			embed = discord.Embed(title="Uh, oh!", description="I couldn't DM the banned member to inform them about their ban. Their DMs were disabled.", color=0xFF3639)
+			embed = discord.Embed(description="I tried to DM the user, but I'm not allowed to because we don't share any guilds.", color=0xFF3639)
 			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 			#await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
 	else:
@@ -483,7 +483,7 @@ async def ban(ctx, user: discord.Member, *, reason: str = ""):
 			await user.send(embed=embed)
 			#await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
 		except:
-			embed = discord.Embed(description="I couldn't DM the banned member to inform them about their ban. Their DMs were disabled.", color=0xFF3639)
+			embed = discord.Embed(description="I tried to DM the user, but I'm not allowed to because we don't share any guilds.", color=0xFF3639)
 			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 			await ctx.send(embed=embed)
 			#await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
@@ -492,105 +492,181 @@ async def ban(ctx, user: discord.Member, *, reason: str = ""):
 @ban.error    
 async def ban_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
-		embed = discord.Embed(description="I couldn't find this user. \nIf you forgot how to use a command, just use !command **command_name**, and I'll give you some information!\nTIP: If you want to ban a user that's not in the server, try using !banid.", color=0xFF3639)
+		embed = discord.Embed(description="I couldn't find this user. \nTIP: If you want to ban a user that's not in the server, try using !banid.", color=0xFF3639)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 		#await ctx.send("{} look now, do i look like a magician? just mention a user and i'll ban them \n example: ``!ban @dy ez noob``".format(ctx.message.author.mention))
 	if isinstance(error, commands.MissingRequiredArgument):
-		embed = discord.Embed(description="I couldn't ban.. no one? Try giving me an user to ban. \nIf you forgot how to use a command, just use !command **command_name**, and I'll give you some information!\nTIP: If you want to ban a user that's not in the server, try using !banid.", color=0xFF3639)
+		embed = discord.Embed(description="I couldn't ban.. no one? Try giving me an user to ban. \nTIP: If you want to ban a user that's not in the server, try using !banid.", color=0xFF3639)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 		#await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to ban? \n example: ``!ban @dy ez noob``".format(ctx.message.author.mention))
 	if isinstance(error, commands.CheckFailure):
 		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 	else:
 		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
 		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
-@commands.has_any_role("Admin ˚｡☆")
+@commands.has_any_role("Admin ˚｡☆", "Head Admin ✧˚*:･")
 async def banid(ctx, id: int, *, reason: str = " "):
 	user = await bot.fetch_user(id)
 	if user is None:
-		await ctx.send(f"{ctx.message.author.mention}, this user doesn't exist.")
+		embed = discord.Embed(description="User doesn't exist.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		#await ctx.send(f"{ctx.message.author.mention}, this user doesn't exist.")
 		return
 	#banEntry = await ctx.message.guild.fetch_ban(user)
 	#if BanEntry is None:
-	if reason is None:
-		await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got clapped justcuz**".format(user.mention, ctx.message.author.mention))
+	#if reason is None:
+	#	await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got clapped justcuz**".format(user.mention, ctx.message.author.mention))
+	##	try:
+	#		await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+	#	except:
+	#		await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: his command bans people that are not in the server, it would make sense to not have the perms to DM them.".format(user.mention))
+	#else:
+	#	await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
+	#	try:
+	##		await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+	#	except:
+	#		await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: this command bans people that are not in the server, it would make sense to not have the perms to DM them..".format(user.mention))
+	if len(reason) == 0:
+		embed = discord.Embed(title="Successfully banned {}.".format(user), description="**{}** was __banned__ from **[e - nightclub](https://discordapp.com/invite/4UkN2Jg)**. \nThe reason of their ban is **none, not provided**. \n Banned for permanent.".format(user.mention), color=0x000000)
+		embed.set_thumbnail(url=user.avatar_url)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		await ctx.send(embed=embed)
+		#await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got clapped justcuz**".format(user.mention, ctx.message.author.mention))
 		try:
-			await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+			embed = discord.Embed(title="You were banned from e - nightclub.", description="You were banned by {}. \nThe reason for your ban is **none, not provided**. \nThis ban is permanent. \n\n [ - The e - nightclub staff team.](https://discordapp.com/invite/4UkN2Jg)".format(ctx.message.author), color=0x000000)
+			embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
+			await user.send(embed=embed)
+			#await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
 		except:
-			await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: his command bans people that are not in the server, it would make sense to not have the perms to DM them.".format(user.mention))
+			embed = discord.Embed(description="I tried to DM the user, but I'm not allowed to because we don't share any guilds.", color=0xFF3639)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			#await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
 	else:
-		await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
+		embed = discord.Embed(title="Successfully banned {}.".format(user), description="**{}** was __banned__ from **[e - nightclub](https://discordapp.com/invite/4UkN2Jg)**. \nThe reason of their ban is **{}**. \n Banned for permanent.".format(user.mention, reason), color=0x000000)
+		embed.set_thumbnail(url=user.avatar_url)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		await ctx.send(embed=embed)
+		#await ctx.send("**{}** was __banned__ from **e - nightclub**.\n>> Banned by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
 		try:
-			await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+			embed = discord.Embed(title="You were banned from e - nightclub.", description="You were banned by {}. \nThe reason for your ban is **{}**. \nThis ban is permanent. \n\n [ - The e - nightclub staff team.](https://discordapp.com/invite/4UkN2Jg)".format(ctx.message.author, reason), color=0x000000)
+			embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
+			await user.send(embed=embed)
+			#await user.send("You've been banned from **e - nightclub**. You were banned by **{}**, and you were banned for **none (no reason was found)**.\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
 		except:
-			await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: this command bans people that are not in the server, it would make sense to not have the perms to DM them..".format(user.mention))
+			embed = discord.Embed(description="I tried to DM the user, but I'm not allowed to because we don't share any guilds.", color=0xFF3639)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			await ctx.send(embed=embed)
+			#await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
+
 	await ctx.message.guild.ban(discord.Object(id=id))
 	#else:
 		#ctx.send(f"{ctx.message.author.mention}, seems like this user is already banned.")
 
 @banid.error    
 async def banid_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send("{} look now, do i look like a magician? just give me the id of an user and i'll ban them \n example: ``!banid id HAHA you're banned but you're not even in here`` \n**IMPORTANT NOTE:** This command is used to ban users that ARE NOT IN THE SERVER. Use !ban to ban people that are in the server.".format(ctx.message.author.mention))
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to unban? \n example: ``!banid id HAHA you're banned but you're not even in here`` \n**IMPORTANT NOTE:** This command is used to ban users that ARE NOT IN THE SERVER. Use !ban to ban people that are in the server.".format(ctx.message.author.mention))
-    if isinstance(error, commands.CheckFailure):
-        await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
-    else:
-        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-        traceback.print_exception(type(error), error, None, file=sys.stderr)
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(description="I couldn't find this user. Is the ID correct?", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		#await ctx.send("{} look now, do i look like a magician? just mention a user and i'll ban them \n example: ``!ban @dy ez noob``".format(ctx.message.author.mention))
+	if isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(description="I couldn't ban.. no one? Try giving me the ID of an user.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		#await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to ban? \n example: ``!ban @dy ez noob``".format(ctx.message.author.mention))
+	if isinstance(error, commands.CheckFailure):
+		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
-@commands.has_any_role("Admin ˚｡☆")
+@commands.has_any_role("Admin ˚｡☆", "Head Admin ✧˚*:･")
 async def unban(ctx, id: int, *, reason: str = ""):
 	#print("I got the user!")
 	#print("ID: " + id)
 	user = await bot.fetch_user(id)
 	if user is None:
-		#print("I couldn't find this user!")
-		await ctx.send(f"{ctx.message.author.mention}, this user doesn't exist.")
+		embed = discord.Embed(description="User doesn't exist.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		#await ctx.send(f"{ctx.message.author.mention}, this user doesn't exist.")
 		return
-	print("I fetched this user!")
+	#print("I fetched this user!")
 	banEntry = await ctx.message.guild.fetch_ban(user)
 	if banEntry is None:
 		#print("This user is not banned!")
-		await ctx.send(f"{ctx.message.author.mention}, are you sure this user is banned?")
+		#await ctx.send(f"{ctx.message.author.mention}, are you sure this user is banned?")
+		embed = discord.Embed(description="This user is not banned.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
 	else:
 		if banEntry.reason is None:
 			#print("Going without a reason!")
-			await ctx.send("**{}** was __unbanned__. \n"
-							">> Unbanned by: **{}**\n"
-							">> Reason: **who even puts reasons on unban lol**"
-							.format(banEntry.user, ctx.message.author.mention))
+			#await ctx.send("**{}** was __unbanned__. \n"
+			#				">> Unbanned by: **{}**\n"
+			#				">> Reason: **who even puts reasons on unban lol**"
+			#				.format(banEntry.user, ctx.message.author.mention))
+			embed = discord.Embed(title="Successfully unbanned!", description="**{}** was unbanned from [**e - nightclub**](https://discordapp.com/invite/4UkN2Jg). \nUnbanned by: {} \nReason: **reasons on unban? seems gay to me**".format(banEntry.user, ctx.message.author.mention), color=0x000000)
+			embed.set_thumbnail(url=user.avatar_url)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			await ctx.send(embed=embed)
 		else:
-			print("Going with a reason!")
-			await ctx.send("**{}** was __unbanned__. \n"
-							">> Unbanned by: **{}**\n"
-							">> Reason: **{}**"
-							.format(banEntry.user, ctx.message.author.mention, reason))
+			#print("Going with a reason!")
+			#await ctx.send("**{}** was __unbanned__. \n"
+			#				">> Unbanned by: **{}**\n"
+			#				">> Reason: **{}**"
+			#				.format(banEntry.user, ctx.message.author.mention, reason))
+			embed = discord.Embed(title="Successfully unbanned!", description="**{}** was unbanned from [**e - nightclub**](https://discordapp.com/invite/4UkN2Jg). \nUnbanned by: {} \nReason: **{}**".format(banEntry.user, ctx.message.author.mention, reason), color=0x000000)
+			embed.set_thumbnail(url=user.avatar_url)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			await ctx.send(embed=embed)
 		#print("I unbanned the user!")
 		await ctx.message.guild.unban(banEntry.user, reason="Ban reason goes here")
 		
 @unban.error    
 async def unban_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send("{} look now, do i look like a magician? just give me the id of an user and i'll unban them \n example: ``!unban id how did this happen to begin with``".format(ctx.message.author.mention))
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to unban? \n example: ``!unban id how did this happen to begin with``".format(ctx.message.author.mention))
-    if isinstance(error, commands.CheckFailure):
-        await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(description="I couldn't find this user. Is the ID correct?", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+        	#await ctx.send("{} look now, do i look like a magician? just give me the id of an user and i'll unban them \n example: ``!unban id how did this happen to begin with``".format(ctx.message.author.mention))
+	if isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(description="I couldn't  unban.. no one? Try giving me the ID of an user.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+        	#await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to unban? \n example: ``!unban id how did this happen to begin with``".format(ctx.message.author.mention))
+	if isinstance(error, commands.CheckFailure):
+		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		#await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
     else:
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
         traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
-@commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆")
+@commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Head Admin ✧˚*:･")
 async def kick(ctx, user: discord.Member, *, reason: str = ""):
     if len(reason) == 0:
         await ctx.send("**{}** was __kicked__ from **e - nightclub**.\n>> Kicked by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got slapped justcuz**".format(user.mention, ctx.message.author.mention))
@@ -619,7 +695,7 @@ async def kick_error(ctx, error):
         traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
-@commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Chat Moderator")
+@commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Chat Moderator", "Head Admin ✧˚*:･")
 async def mute(ctx, user: discord.Member, *, reason: str = ""):
     mutedrole = discord.utils.get(ctx.message.author.guild.roles, name="Muted")
     if len(reason) == 0:
@@ -649,7 +725,7 @@ async def mute_error(ctx, error):
         traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
-@commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Chat Moderator")
+@commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Chat Moderator", "Head Admin ✧˚*:･")
 async def unmute(ctx, user: discord.Member, *, reason: str = ""):
     mutedrole = discord.utils.get(ctx.message.author.guild.roles, name="Muted")
     if len(reason) == 0:
