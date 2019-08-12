@@ -1128,7 +1128,7 @@ async def userinfoid(ctx, id: int):
 	fro = "Not supported, use !uf."
 
 	
-	embed = discord.Embed(description="Nickname: {}".format(user.nick), color=0x000000)
+	embed = discord.Embed(description="Nickname: N/A", color=0x000000)
 	embed.set_author(name="Info of {}".format(user), icon_url=user.avatar_url)
 	embed.set_footer(text="Requested by {}".format(ctx.message.author))
 	embed.add_field(name="Joined on", value="{}".format(corfor1))
@@ -1178,7 +1178,7 @@ async def ufid(ctx, id: int):
 	fro = "Not supported, use !uf."
 
 	
-	embed = discord.Embed(description="Nickname: {}".format(user.nick), color=0x000000)
+	embed = discord.Embed(description="Nickname: N/A", color=0x000000)
 	embed.set_author(name="Info of {}".format(user), icon_url=user.avatar_url)
 	embed.set_footer(text="Requested by {}".format(ctx.message.author))
 	embed.add_field(name="Joined on", value="{}".format(corfor1))
@@ -1227,7 +1227,7 @@ async def whoisid(ctx, id: int):
 		
 	fro = "Not supported, use !uf."
 	
-	embed = discord.Embed(description="Nickname: {}".format(user.nick), color=0x000000)
+	embed = discord.Embed(description="Nickname: N/A", color=0x000000)
 	embed.set_author(name="Info of {}".format(user), icon_url=user.avatar_url)
 	embed.set_footer(text="Requested by {}".format(ctx.message.author))
 	embed.add_field(name="Joined on", value="{}".format(corfor1))
