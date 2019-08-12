@@ -713,7 +713,7 @@ async def kick_error(ctx, error):
 		await ctx.send(embed=embed)
 		#await ctx.send("{} look now, do i look like a magician? just mention a user and i'll kick them \n example: ``!kick @dy ez noob``".format(ctx.message.author.mention))
 	if isinstance(error, commands.MissingRequiredArgument):
-		embed = discord.Embed(description="I couldn't  kick.. no one? Try giving me a correct user.", color=0xFF3639)
+		embed = discord.Embed(description="I couldn't kick.. no one? Try giving me a correct user.", color=0xFF3639)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
@@ -731,54 +731,120 @@ async def kick_error(ctx, error):
 @bot.command()
 @commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Chat Moderator", "Head Admin ✧˚*:･")
 async def mute(ctx, user: discord.Member, *, reason: str = ""):
-    mutedrole = discord.utils.get(ctx.message.author.guild.roles, name="Muted")
-    if len(reason) == 0:
-        await ctx.send("**{}** was __muted__.\n>> Muted by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got slapped justcuz** \n**This mute won't be removed automatically. Someone has to manually remove it.**".format(user.mention, ctx.message.author.mention))
-        try:
-            await user.send("You've been muted in **e - nightclub**. You were muted by **{}**, and you were muted for **none (no reason was found)**.\n**This mute won't be removed automatically. Someone has to manually remove it.**\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
-        except:
-            await ctx.send("I failed to DM {}, so I didn't inform them for their mute. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
-    else:
-        await ctx.send("**{}** was __muted__.\n>> Muted by: **{}**\n>> Reason: **{}**\n**This mute won't be removed automatically. Someone has to manually remove it.**".format(user.mention, ctx.message.author.mention, reason))
-        try:
-            await user.send("You've been muted in **e - nightclub**. You were muted by **{}**, and you were muted for **{}**. \n**This mute won't be removed automatically. Someone has to manually remove it.**\n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author, reason))
-        except:
-            await ctx.send("I failed to DM {}, so I didn't inform them for their mute. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
-    await user.add_roles(mutedrole)
+	mutedrole = discord.utils.get(ctx.message.author.guild.roles, name="Muted")
+	if mutedrole in user.roles:
+		embed = discord.Embed(description="This user is already muted.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
+	else:
+		if len(reason) == 0:
+			embed = discord.Embed(title="Successfully muted {}.".format(user), description="**{}** was __muted__. \nThe reason of their mute is **none, not provided**.".format(user.mention), color=0x000000)
+			embed.set_thumbnail(url=user.avatar_url)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			await ctx.send(embed=embed)
+			#await ctx.send("**{}** was __muted__.\n>> Muted by: **{}**\n>> Reason: **i guess the dummy that used the command forgot to enter a reason, so i'd say they got slapped justcuz** \n**This mute won't be removed automatically. Someone has to manually remove it.**".format(user.mention, ctx.message.author.mention))
+			try:
+				embed = discord.Embed(title="You were muted in [**e - nightclub**](https://discordapp.com/invite/4UkN2Jg).", description="You were muted by **{}**. \nThe reason for your mute is **none, not provided**. \n\n [ - The e - nightclub staff team.](https://discordapp.com/invite/4UkN2Jg)".format(ctx.message.author), color=0x000000)
+				embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
+				await user.send(embed=embed)
+				#await user.send("You've been muted in **e - nightclub**. You were muted by **{}**, and you were muted for **none (no reason was found)**.\n**This mute won't be removed automatically. Someone has to manually remove it.**\nIf you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author))
+			except:
+				embed = discord.Embed(description="I tried to DM the user, but I'm not allowed to because their DMs weren't enabled.", color=ebf533)
+				embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+				await ctx.send(embed=embed)
+				#await ctx.send("I failed to DM {}, so I didn't inform them for their mute. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
+		else:
+			embed = discord.Embed(title="Successfully muted {}.".format(user), description="**{}** was __muted__. \nThe reason of their mute is **{}**.".format(user.mention, reason), color=0x000000)
+			embed.set_thumbnail(url=user.avatar_url)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			await ctx.send(embed=embed)
+			#await ctx.send("**{}** was __muted__.\n>> Muted by: **{}**\n>> Reason: **{}**\n**This mute won't be removed automatically. Someone has to manually remove it.**".format(user.mention, ctx.message.author.mention, reason))
+			try:
+				embed = discord.Embed(title="You were muted in [**e - nightclub**](https://discordapp.com/invite/4UkN2Jg).", description="You were muted by **{}**. \nThe reason for your mute is **{}**. \n\n [ - The e - nightclub staff team.](https://discordapp.com/invite/4UkN2Jg)".format(ctx.message.author, reason), color=0x000000)
+				embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
+				await user.send(embed=embed)
+				#await user.send("You've been muted in **e - nightclub**. You were muted by **{}**, and you were muted for **{}**. \n**This mute won't be removed automatically. Someone has to manually remove it.**\n If you feel like this punishment isn't correct, feel free to contact dy#0777 or ¢คຖt Şนpprē$͓̽$͓̽ | PM#7802, and they'll look into it.".format(ctx.message.author, reason))
+			except:
+				embed = discord.Embed(description="I tried to DM the user, but I'm not allowed to because their DMs weren't enabled.", color=ebf533)
+				embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+				await ctx.send(embed=embed)
+				#await ctx.send("I failed to DM {}, so I didn't inform them for their mute. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
+		await user.add_roles(mutedrole)
  
 @mute.error    
 async def mute_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send("{} look now, do i look like a magician? just mention a user and i'll kick them \n example: ``!kick @dy ez noob``".format(ctx.message.author.mention))
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to kick? \n example: ``!kick @dy ez noob``".format(ctx.message.author.mention))
-    if isinstance(error, commands.CheckFailure):
-        await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
-    else:
-        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-        traceback.print_exception(type(error), error, None, file=sys.stderr)
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(description="I couldn't find this user. Try giving me a correct user.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	#await ctx.send("{} look now, do i look like a magician? just mention a user and i'll kick them \n example: ``!kick @dy ez noob``".format(ctx.message.author.mention))
+	if isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(description="I couldn't mute.. no one? Try giving me a correct user.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	#await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to kick? \n example: ``!kick @dy ez noob``".format(ctx.message.author.mention))
+	if isinstance(error, commands.CheckFailure):
+		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	#await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
 @commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Chat Moderator", "Head Admin ✧˚*:･")
 async def unmute(ctx, user: discord.Member, *, reason: str = ""):
-    mutedrole = discord.utils.get(ctx.message.author.guild.roles, name="Muted")
-    if len(reason) == 0:
-        await ctx.send("**{}** was __unmuted__. \n>> Unmuted by: **{}**\n>> Reason: **who even puts reasons on unmute lol**".format(user.mention, ctx.message.author.mention))
-    else:
-        await ctx.send("**{}** was __unmuted__. \n>> Unmuted by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
-    await user.remove_roles(mutedrole)
+	mutedrole = discord.utils.get(ctx.message.author.guild.roles, name="Muted")
+	if mutedrole in user.roles:
+		if len(reason) == 0:
+			embed = discord.Embed(title="Successfully unmuted {}.".format(user), description="**{}** was __unmuted__. \nThe reason of their unmute is **none, not provided**.".format(user.mention), color=0x000000)
+			embed.set_thumbnail(url=user.avatar_url)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			await ctx.send(embed=embed)
+		#await ctx.send("**{}** was __unmuted__. \n>> Unmuted by: **{}**\n>> Reason: **who even puts reasons on unmute lol**".format(user.mention, ctx.message.author.mention))
+		else:
+			embed = discord.Embed(title="Successfully unmuted {}.".format(user), description="**{}** was __unmuted__. \nThe reason of their unmute is **{}**.".format(user.mention, reason), color=0x000000)
+			embed.set_thumbnail(url=user.avatar_url)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			await ctx.send(embed=embed)
+		#await ctx.send("**{}** was __unmuted__. \n>> Unmuted by: **{}**\n>> Reason: **{}**".format(user.mention, ctx.message.author.mention, reason))
+		await user.remove_roles(mutedrole)
+	else:
+		embed = discord.Embed(description="This user is not muted.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
 
 @unmute.error    
 async def unmute_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send("{} look now, do i look like a magician? just mention a user and i'll unmute them \n example: ``!unmute @dy lol begged for unmute``".format(ctx.message.author.mention))
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to unmute? \n example: ``!unmute @dy lol begged for unmute``".format(ctx.message.author.mention))
-    if isinstance(error, commands.CheckFailure):
-        await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
-    else:
-        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-        traceback.print_exception(type(error), error, None, file=sys.stderr)
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(description="I couldn't find this user. Try giving me a correct user.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+ 		#await ctx.send("{} look now, do i look like a magician? just mention a user and i'll unmute them \n example: ``!unmute @dy lol begged for unmute``".format(ctx.message.author.mention))
+	if isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(description="I couldn't unmute.. no one? Try giving me a correct user.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		#await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to unmute? \n example: ``!unmute @dy lol begged for unmute``".format(ctx.message.author.mention))
+	if isinstance(error, commands.CheckFailure):
+		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		#await ctx.send("{} r u dumb or hella dumb? this command is for admins and mods only, nice try tho, i must give u that.".format(ctx.message.author.mention))
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 
 # - BOT LOGIN
