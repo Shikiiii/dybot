@@ -1389,6 +1389,87 @@ async def status_error(ctx, error):
 		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
 		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
+# - Role Command:
+@bot.command()
+@commands.has_any_role("Role Perms")
+async def role(ctx, ar, user: discord.Member, *, rolee:str):
+	role = await parse_roles(ctx, rolee)
+	if role is None:
+		embed = discord.Embed(description="You didn't give me a correct role.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
+	if ar == "a" or ar == "add":
+		if role in user.roles:
+			embed = discord.Embed(description="This user already has this role.", color=0xFF3639)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+			await ctx.send(embed=embed)
+		else:
+			embed = discord.Embed(description="Successfully added the **{}** role to **{}**.".format(str(role), user.mention), color=0x000000)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_thumbnail(url=user.avatar_url)
+			await ctx.send(embed=embed)
+			await user.add_roles(role)
+			logch = discord.utils.get(ctx.message.author.guild.channels, name="enightclub-logs")
+			timestamp=datetime.datetime.now()
+			corfor = timestamp.strftime("%d %b, %Y at %H:%M")
+			log = discord.Embed(description="Used command ``!role`` in {}:\n{}\n\nMod ID: {}\nUser ID: {}".format(ctx.message.channel.mention, ctx.message.content, ctx.message.author.id, user.id), color=0x000000)
+			log.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			log.set_footer(text="{}".format(corfor))
+			log.set_thumbnail(url=user.avatar_url)
+			await logch.send(embed=log)
+	elif ar == "r" or ar == "remove":
+		if role in user.roles:
+			embed = discord.Embed(description="Successfully removed the **{}** role from **{}**.".format(str(role), user.mention), color=0x000000)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_thumbnail(url=user.avatar_url)
+			await ctx.send(embed=embed)
+			await user.remove_roles(role)
+			logch = discord.utils.get(ctx.message.author.guild.channels, name="enightclub-logs")
+			timestamp=datetime.datetime.now()
+			corfor = timestamp.strftime("%d %b, %Y at %H:%M")
+			log = discord.Embed(description="Used command ``!role`` in {}:\n{}\n\nMod ID: {}\nUser ID: {}".format(ctx.message.channel.mention, ctx.message.content, ctx.message.author.id, user.id), color=0x000000)
+			log.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			log.set_footer(text="{}".format(corfor))
+			log.set_thumbnail(url=user.avatar_url)
+			await logch.send(embed=log)
+		else:
+			embed = discord.Embed(description="This user doesn't have this role.", color=0xFF3639)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+			await ctx.send(embed=embed)
+	else:
+		embed = discord.Embed(description="You didn't say what you want me to do. Try to speficy either **a** / **add** or **r** / **remove**.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	#await ctx.send("Added the **{}** role to **{}**.".format(str(role), user.mention))
+	#await user.add_roles(role)
+	
+@role.error    
+async def role_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(description="You didn't give me a correct user and/or a role.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		#await ctx.send("{} look now, do i look like a magician? just mention a user and i'll ban them \n example: ``!ban @dy ez noob``".format(ctx.message.author.mention))
+	elif isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(description="You didn't give me a user and/or a role.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		#await ctx.send("{} okay so, i can't read your mind, sorry, could you try giving me at least a member to ban? \n example: ``!ban @dy ez noob``".format(ctx.message.author.mention))
+	elif isinstance(error, commands.CheckFailure):
+		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 # - BOT LOGIN
 
