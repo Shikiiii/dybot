@@ -1390,6 +1390,20 @@ async def status_error(ctx, error):
 		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 # - Role Command:
+
+async def parse_roles(ctx, role:str):
+	try:
+		id: int = int(role)
+		role = ctx.guild.get_role(id)
+		if role is not None:
+			return role
+	except ValueError:
+		pass
+	for guild_role in ctx.guild.roles:
+		if role.lower() in guild_role.name.lower():
+			return guild_role
+	return None
+
 @bot.command()
 @commands.has_any_role("Role Perms")
 async def role(ctx, ar, user: discord.Member, *, rolee:str):
