@@ -14,6 +14,7 @@ import sys
 import traceback
 import asyncio
 from datetime import datetime
+import datetime
 
 bot = Bot(command_prefix='!')
 bot.remove_command('help')
@@ -557,6 +558,11 @@ async def ban(ctx, user: discord.Member, *, reason: str = ""):
 			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 			await ctx.send(embed=embed)
 			#await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
+		logch = discord.utils.get(ctx.message.author.guild.channels, name="enightclub-logs")
+		timestamp=datetime.datetime.now()
+		corfor = timestamp.strftime("%d %b, %Y at %H:%M")
+		log = discord.Embed(title="User banned", description="{} (ID: {}, MENTION: {}) was banned by {} (ID: {}, MENTION: {}), this happened on {}. \nReason: **none, not provided**".format(user, user.id, user.mention, ctx.message.author, ctx.message.author.id, ctx.message.author.mention, corfor), color=0x000000)
+		await logch.send(embed=log)	
 	else:
 		embed = discord.Embed(title="Successfully banned {}.".format(user), description="**{}** was __banned__ from **[e - nightclub](https://discordapp.com/invite/4UkN2Jg)**. \nThe reason of their ban is **{}**. \n Banned for permanent.".format(user.mention, reason), color=0x000000)
 		embed.set_thumbnail(url=user.avatar_url)
@@ -573,8 +579,13 @@ async def ban(ctx, user: discord.Member, *, reason: str = ""):
 			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 			await ctx.send(embed=embed)
 			#await ctx.send("I failed to DM {}, so I didn't inform them for their ban. \n Obvious reason: the user had their DMs disabled.".format(user.mention))
+		logch = discord.utils.get(ctx.message.author.guild.channels, name="enightclub-logs")
+		timestamp=datetime.datetime.now()
+		corfor = timestamp.strftime("%d %b, %Y at %H:%M")
+		log = discord.Embed(title="User banned", description="{} (ID: {}, MENTION: {}) was banned by {} (ID: {}, MENTION: {}), this happened on {}. \nReason: {}".format(user, user.id, user.mention, ctx.message.author, ctx.message.author.id, ctx.message.author.mention, corfor, reason), color=0x000000)
+		await logch.send(embed=log)	
 	await user.ban()
-	
+
 @ban.error    
 async def ban_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
