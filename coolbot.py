@@ -1185,15 +1185,48 @@ async def userinfo(ctx, user: discord.Member):
 @userinfo.error    
 async def userinfo_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
-		embed = discord.Embed(title="Member not found, check the member you gave me and try again. \nIf you want to get the info of a user that's not in the server, try ?userinfoid.", color=0xFF3639)
+		embed = discord.Embed(description="Member not found, check the member you gave me and try again.", color=0xFF3639)
 		#embed.set_image(url=ctx.message.author.guild.icon_url)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 	if isinstance(error, commands.MissingRequiredArgument):
-		embed = discord.Embed(title="Try giving me a member to get the info of. \nIf you want to get the info of a user that's not in the server, try ?userinfoid.".format(ctx.message.author), color=0xFF3639)
-		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		time = ctx.message.author.joined_at
+	
+		corfor1 = time.strftime("%d %b, %Y at %H:%M")
+	
+		time2 = ctx.message.author.created_at
+	
+		corfor2 = time2.strftime("%d %b, %Y at %H:%M")
+	
+		memberslist = ctx.guild.members
+		memberslist.sort(key=sort_by_joined_at)
+		joinpos = memberslist.index(user)
+	
+		boosting = " "
+		if user.premium_since == None:
+			boosting = "Nope"
+		else:
+			time3 = ctx.message.author.premium_since
+			corfor3 = time3.strftime("%d %b, %Y at %H:%M")
+			boosting = "Yes"
+		
+		fro = " "
+		if ctx.message.author.is_on_mobile():
+			fro = "Mobile"
+		else:
+			fro = "PC"
+	
+		embed = discord.Embed(description="Nickname: {}".format(ctx.message.author.nick), color=0x000000)
+		embed.set_author(name="Info of {}".format(user), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Requested by {}".format(ctx.message.author))
+		embed.add_field(name="Joined on", value="{}".format(corfor1))
+		embed.add_field(name="Join position", value="{}".format(str(joinpos + 1)))
+		embed.add_field(name="Registered on", value="{}".format(corfor2))
+		embed.add_field(name="Boosting this guild", value="{}".format(boosting))
+		embed.add_field(name="Current status", value="{}".format(str(ctx.message.author.status)))
+		embed.add_field(name="Mobile or PC", value="{}".format(fro))
+		embed.set_thumbnail(url=ctx.message.author.avatar_url)
 		await ctx.send(embed=embed)
 	else:
 		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
@@ -1242,15 +1275,48 @@ async def uf(ctx, user: discord.Member):
 @uf.error
 async def uf_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
-		embed = discord.Embed(title="Member not found, check the member you gave me and try again. \nIf you want to get the info of a user that's not in the server, try ?userinfoid.", color=0xFF3639)
+		embed = discord.Embed(description="Member not found, check the member you gave me and try again.", color=0xFF3639)
 		#embed.set_image(url=ctx.message.author.guild.icon_url)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 	if isinstance(error, commands.MissingRequiredArgument):
-		embed = discord.Embed(title="Try giving me a member to get the info of. \nIf you want to get the info of a user that's not in the server, try ?userinfoid.".format(ctx.message.author), color=0xFF3639)
-		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		time = ctx.message.author.joined_at
+	
+		corfor1 = time.strftime("%d %b, %Y at %H:%M")
+	
+		time2 = ctx.message.author.created_at
+	
+		corfor2 = time2.strftime("%d %b, %Y at %H:%M")
+	
+		memberslist = ctx.guild.members
+		memberslist.sort(key=sort_by_joined_at)
+		joinpos = memberslist.index(user)
+	
+		boosting = " "
+		if user.premium_since == None:
+			boosting = "Nope"
+		else:
+			time3 = ctx.message.author.premium_since
+			corfor3 = time3.strftime("%d %b, %Y at %H:%M")
+			boosting = "Yes"
+		
+		fro = " "
+		if ctx.message.author.is_on_mobile():
+			fro = "Mobile"
+		else:
+			fro = "PC"
+	
+		embed = discord.Embed(description="Nickname: {}".format(ctx.message.author.nick), color=0x000000)
+		embed.set_author(name="Info of {}".format(user), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Requested by {}".format(ctx.message.author))
+		embed.add_field(name="Joined on", value="{}".format(corfor1))
+		embed.add_field(name="Join position", value="{}".format(str(joinpos + 1)))
+		embed.add_field(name="Registered on", value="{}".format(corfor2))
+		embed.add_field(name="Boosting this guild", value="{}".format(boosting))
+		embed.add_field(name="Current status", value="{}".format(str(ctx.message.author.status)))
+		embed.add_field(name="Mobile or PC", value="{}".format(fro))
+		embed.set_thumbnail(url=ctx.message.author.avatar_url)
 		await ctx.send(embed=embed)
 	else:
 		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
@@ -1299,15 +1365,48 @@ async def whois(ctx, user: discord.Member):
 @whois.error
 async def whois_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
-		embed = discord.Embed(title="Member not found, check the member you gave me and try again. \nIf you want to get the info of a user that's not in the server, try ?userinfoid.", color=0xFF3639)
+		embed = discord.Embed(description="Member not found, check the member you gave me and try again.", color=0xFF3639)
 		#embed.set_image(url=ctx.message.author.guild.icon_url)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 	if isinstance(error, commands.MissingRequiredArgument):
-		embed = discord.Embed(title="Try giving me a member to get the info of. \nIf you want to get the info of a user that's not in the server, try ?userinfoid.".format(ctx.message.author), color=0xFF3639)
-		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		time = ctx.message.author.joined_at
+	
+		corfor1 = time.strftime("%d %b, %Y at %H:%M")
+	
+		time2 = ctx.message.author.created_at
+	
+		corfor2 = time2.strftime("%d %b, %Y at %H:%M")
+	
+		memberslist = ctx.guild.members
+		memberslist.sort(key=sort_by_joined_at)
+		joinpos = memberslist.index(user)
+	
+		boosting = " "
+		if user.premium_since == None:
+			boosting = "Nope"
+		else:
+			time3 = ctx.message.author.premium_since
+			corfor3 = time3.strftime("%d %b, %Y at %H:%M")
+			boosting = "Yes"
+		
+		fro = " "
+		if ctx.message.author.is_on_mobile():
+			fro = "Mobile"
+		else:
+			fro = "PC"
+	
+		embed = discord.Embed(description="Nickname: {}".format(ctx.message.author.nick), color=0x000000)
+		embed.set_author(name="Info of {}".format(user), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Requested by {}".format(ctx.message.author))
+		embed.add_field(name="Joined on", value="{}".format(corfor1))
+		embed.add_field(name="Join position", value="{}".format(str(joinpos + 1)))
+		embed.add_field(name="Registered on", value="{}".format(corfor2))
+		embed.add_field(name="Boosting this guild", value="{}".format(boosting))
+		embed.add_field(name="Current status", value="{}".format(str(ctx.message.author.status)))
+		embed.add_field(name="Mobile or PC", value="{}".format(fro))
+		embed.set_thumbnail(url=ctx.message.author.avatar_url)
 		await ctx.send(embed=embed)
 	else:
 		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
