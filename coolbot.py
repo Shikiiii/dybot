@@ -92,6 +92,16 @@ async def on_member_remove(member):
 
 @bot.event
 async def on_message(message: Message):
+    if len(message.mentions) > 0:
+        if message.author.id != 594131533745356804:
+            for key in afklist:
+                usr = message.guild.get_member(key)
+                if usr.mentioned_in(message):
+                    reason = afklist[key]
+                    await message.channel.send("{} is AFK: **{}**".format(usr.mention, str(reason)))
+    if message.author.id in afklist:
+        del afklist[message.author.id]
+        await message.channel.send("Welcome back, {}! I removed your AFK.".format(message.author.mention))
     if(message.content == "!welcome" and (message.author.id == 393839495859929089 or message.author.id == 495680416422821888)):
         embed1 = discord.Embed(title="**༚ ✧˳⁺ __Welcome to e- nightclub__  ⁺˳✧ ༚**", description="- We are so glad to have you join our server! By joining this server you agreed on our rules. \r\n\r\n - We have over 170+ roles, channels and some bots to play different games and much more! \r\n\r\n - Our channels are not aggressively moderated so feel free to join any conversation you like.", color=0xFF93F0)
         embed2 = discord.Embed(color=0xFF93F0)
@@ -179,6 +189,60 @@ async def on_message(message: Message):
         await message.channel.send("no u")
 
     await bot.process_commands(message)
+
+# - Afk command:
+afklist = {}
+afklist2 = {}
+
+@bot.command()
+async def afk(ctx, *, reason: str = " "):
+    #global afklist
+    user = ctx.message.author
+    if ctx.message.author.id in afklist2:
+        del afklist2[message.author.id]
+    else:
+        if len(reason) == 1:
+            if str(ctx.message.author.id) not in afklist.keys():
+                afklist[user.id] = reason
+                afklist2[user.id] = reason
+                await ctx.send("{}, I set your AFK: **AFK**.".format(ctx.message.author.mention))
+                #return
+        elif len(reason) > 1:
+            if str(ctx.message.author.id) not in afklist.keys():
+                afklist[user.id] = reason
+                afklist2[user.id] = reason
+                await ctx.send("{}, I set your AFK: **{}**.".format(ctx.message.author.mention, reason))
+                #return
+
+# - Ship command:
+@bot.command()
+async def ship(ctx, user: discord.Member, user2: discord.Member):
+    percent = random.randint(0, 100)
+    strr = " "
+    if percent < 11 and percent > 0:
+        strr = "horrible"
+    if percent < 21 and percent > 10:
+        strr = "very bad"
+    if percent < 31 and percent > 20:
+        strr = "bad"
+    if percent < 41 and percent > 30:
+        strr = "worse than avarage"
+    if percent < 51 and percent > 40:
+        strr = "avarage"
+    if percent < 61 and percent > 50:
+        strr = "better than avarage"
+    if percent == 69:
+        strr = ":wink:"
+    if percent < 71 and percent > 69 and percent < 69 and percent > 60:
+        strr = "good"
+    if percent < 81 and percent > 70:
+        strr = "very good"
+    if percent < 91 and percent > 80:
+        strr = "almost perfect"
+    if percent < 101 and percent > 90:
+        strr = "amazing"
+    embed = discord.Embed(title=":two_hearts:  MATCHMAKING: :two_hearts: ", description="**{}** :heart: **{}**\n\n**{}%**! That's **{}**.".format(user.name, user2.name, str(percent), strr), color=0x000000)
+    await ctx.send(embed=embed)
 
 # - Verify command:
 @bot.command()
@@ -339,6 +403,36 @@ async def v_error(ctx, error):
 		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 # - Info commands:
+
+@bot.command()
+async def membercount(ctx):
+	time = datetime.datetime.now()
+	corfor = time.strftime("%d %b, %Y at %H:%M")
+	
+	online = 0
+	for member in ctx.message.author.guild.members:
+		if member.status != discord.Status.offline:
+			online += 1
+	bots = 0
+	for member in ctx.message.author.guild.members:
+		if member.bot == True:
+			bots += 1
+	humans = 0
+	for member in ctx.message.author.guild.members:
+		if member.bot == False:
+			humans += 1
+	
+	embed = discord.Embed(color=0x000000)
+	embed.add_field(name="Members", value="{}".format(ctx.message.author.guild.member_count), inline=True)
+	embed.add_field(name="Online", value="{}".format(online), inline=True)
+	embed.add_field(name="Humans", value="{}".format(humans), inline=True)
+	embed.add_field(name="Bots", value="{}".format(bots), inline=True)
+	embed.set_footer(text="ID: {} | Created at: {}".format(ctx.message.author.guild.id, corfor))
+	embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+
+	await ctx.send(embed=embed)
+
+
 @bot.command()
 async def serverinfo(ctx):
 	time = ctx.message.author.guild.created_at 
