@@ -15,6 +15,7 @@ import traceback
 import asyncio
 from datetime import datetime
 import datetime
+import random
 
 bot = Bot(command_prefix='!')
 bot.remove_command('help')
