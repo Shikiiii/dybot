@@ -1488,6 +1488,72 @@ async def role_error(ctx, error):
 		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
 		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
+# - Purge Command:
+@bot.command()
+@commands.has_any_role("Chat Moderator", "Mod ˚｡⋆", "Admin ˚｡☆", "Head Admin ✧˚*:･")
+async def purge(ctx, amount, *, user: discord.Member):
+	try:
+		todeln = int(amount)
+	except:
+		embed = discord.Embed(description="You didn't enter a number between 1 and 200.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
+	if(todeln < 200):
+		def check(m):
+			return m.author == user
+		#rr = todeln + 1
+		deleted = await ctx.message.channel.purge(limit=todeln, check=check)
+		embed = discord.Embed(description="Successfully purged **{}** messages by **{}**.".format(todeln, user), color=0x000000)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_thumbnail(url=user.avatar_url)
+		await ctx.send(embed=embed)
+		logch = discord.utils.get(ctx.message.author.guild.channels, name="enightclub-logs")
+		timestamp=datetime.datetime.now()
+		corfor = timestamp.strftime("%d %b, %Y at %H:%M")
+		log = discord.Embed(description="Used command ``!purge`` in {}:\n{}\n\nMod ID: {}\nUser ID: {}".format(ctx.message.channel.mention, ctx.message.content, ctx.message.author.id, user.id), color=0xFFFFFF)
+		log.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		log.set_footer(text="{}".format(corfor))
+		log.set_thumbnail(url=user.avatar_url)
+		
+@purge.error
+async def purge_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(description="I couldn't find this user.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	if isinstance(error, commands.MissingRequiredArgument):
+		todeln = int(ctx.message.content[7:])
+		if(todeln < 200):
+			deleted = await ctx.message.channel.purge(limit=(todeln + 1))
+			embed = discord.Embed(description="Successfully purged **{}** messages.".format(todeln), color=0x000000)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			await ctx.send(embed=embed)
+			logch = discord.utils.get(ctx.message.author.guild.channels, name="enightclub-logs")
+			timestamp=datetime.datetime.now()
+			corfor = timestamp.strftime("%d %b, %Y at %H:%M")
+			log = discord.Embed(description="Used command ``!purge`` in {}:\n{}\n\nMod ID: {}".format(ctx.message.channel.mention, ctx.message.content, ctx.message.author.id), color=0xFFFFFF)
+			log.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			log.set_footer(text="{}".format(corfor))
+			#log.set_thumbnail(url=user.avatar_url)
+			return
+		else:
+			embed = discord.Embed(description="There's a limit of 200 messages per purge. You entered a higher number than that.", color=0xFF3639)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+			await ctx.send(embed=embed)
+			return
+	if isinstance(error, commands.CheckFailure):
+		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
+
 # - BOT LOGIN
 
 
