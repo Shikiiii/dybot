@@ -94,7 +94,7 @@ async def on_member_remove(member):
 @bot.event
 async def on_message(message: Message):
     if len(message.mentions) > 0:
-        if message.author.id != 594131533745356804:
+        if message.author.id != 593090256560193549:
             for key in afklist:
                 usr = message.guild.get_member(key)
                 if usr.mentioned_in(message):
