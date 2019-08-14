@@ -1400,6 +1400,9 @@ async def parse_roles(ctx, role:str):
 	except ValueError:
 		pass
 	for guild_role in ctx.guild.roles:
+		if role.lower() == guild_role.name.lower():
+			return guild_role
+	for guild_role in ctx.guild.roles:
 		if role.lower() in guild_role.name.lower():
 			return guild_role
 	return None
