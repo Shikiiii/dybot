@@ -547,7 +547,7 @@ async def members(ctx, *, rolee: str):
 	try:
 		await ctx.send(embed=embed)
 	except discord.HTTPException as exception:
-		embed = discord.Embed(description="Too many members, can't send the message.", color=FF3639)
+		embed = discord.Embed(description="Too many members, can't send the message.", color=-xFF3639)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
