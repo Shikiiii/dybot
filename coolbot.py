@@ -1495,17 +1495,17 @@ async def purge(ctx, amount, *, user: discord.Member):
 	try:
 		todeln = int(amount)
 	except:
-		embed = discord.Embed(description="You didn't enter a number between 1 and 200.", color=0xFF3639)
+		embed = discord.Embed(description="You didn't enter a number between 2 and 200.", color=0xFF3639)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 		return
-	if(todeln < 200):
+	if(todeln < 200 and todeln > 2):
 		def check(m):
 			return m.author == user
 		#rr = todeln + 1
 		deleted = await ctx.message.channel.purge(limit=todeln, check=check)
-		embed = discord.Embed(description="Successfully purged **{}** messages by **{}**.".format(todeln, user), color=0x000000)
+		embed = discord.Embed(description="Successfully purged **{}** messages by **{}**.".format(todeln, user.mention), color=0x000000)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_thumbnail(url=user.avatar_url)
 		await ctx.send(embed=embed)
@@ -1516,6 +1516,7 @@ async def purge(ctx, amount, *, user: discord.Member):
 		log.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		log.set_footer(text="{}".format(corfor))
 		log.set_thumbnail(url=user.avatar_url)
+		await logch.send(embed=log)
 		
 @purge.error
 async def purge_error(ctx, error):
@@ -1538,6 +1539,7 @@ async def purge_error(ctx, error):
 			log.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 			log.set_footer(text="{}".format(corfor))
 			#log.set_thumbnail(url=user.avatar_url)
+			await logch.send(embed=log)
 			return
 		else:
 			embed = discord.Embed(description="There's a limit of 200 messages per purge. You entered a higher number than that.", color=0xFF3639)
