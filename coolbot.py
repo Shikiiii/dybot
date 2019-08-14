@@ -196,18 +196,18 @@ afklist = {}
 
 @bot.command()
 async def afk(ctx, *, reason: str = ""):
-    #global afklist
-    user = ctx.message.author
-        if len(reason) == 0:
-            if str(ctx.message.author.id) not in afklist.keys():
-                afklist[user.id] = reason
-                await ctx.send("{}, I set your AFK: **AFK**.".format(ctx.message.author.mention))
-                #return
-        elif len(reason) > 0:
-            if str(ctx.message.author.id) not in afklist.keys():
-                afklist[user.id] = reason
-                await ctx.send("{}, I set your AFK: **{}**.".format(ctx.message.author.mention, reason))
-                #return
+	#global afklist
+	user = ctx.message.author
+	if len(reason) == 0:
+		if str(ctx.message.author.id) not in afklist.keys():
+			afklist[user.id] = reason
+			await ctx.send("{}, I set your AFK: **AFK**.".format(ctx.message.author.mention))
+			#return
+	elif len(reason) > 0:
+		if str(ctx.message.author.id) not in afklist.keys():
+			afklist[user.id] = reason
+			await ctx.send("{}, I set your AFK: **{}**.".format(ctx.message.author.mention, reason))
+			#return
 
 # - Ship command:
 @bot.command()
