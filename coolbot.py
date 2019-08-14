@@ -193,15 +193,11 @@ async def on_message(message: Message):
 
 # - Afk command:
 afklist = {}
-afklist2 = {}
 
 @bot.command()
 async def afk(ctx, *, reason: str = ""):
     #global afklist
     user = ctx.message.author
-    if ctx.message.author.id in afklist2:
-        del afklist2[ctx.message.author.id]
-    else:
         if len(reason) == 0:
             if str(ctx.message.author.id) not in afklist.keys():
                 afklist[user.id] = reason
