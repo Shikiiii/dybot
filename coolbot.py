@@ -200,7 +200,7 @@ async def afk(ctx, *, reason: str = " "):
     #global afklist
     user = ctx.message.author
     if ctx.message.author.id in afklist2:
-        del afklist2[message.author.id]
+        del afklist2[ctx.message.author.id]
     else:
         if len(reason) == 1:
             if str(ctx.message.author.id) not in afklist.keys():
@@ -244,6 +244,22 @@ async def ship(ctx, user: discord.Member, user2: discord.Member):
         strr = "amazing"
     embed = discord.Embed(title=":two_hearts:  MATCHMAKING: :two_hearts: ", description="**{}** :heart: **{}**\n\n**{}%**! That's **{}**.".format(user.name, user2.name, str(percent), strr), color=0x000000)
     await ctx.send(embed=embed)
+
+@ship.error
+async def ship_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="You didn't give me 2 correct users.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="You didn't give me 2 users.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 # - Verify command:
 @bot.command()
