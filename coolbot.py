@@ -512,7 +512,7 @@ async def serverinfo(ctx):
 
 @bot.command()
 async def bots(ctx):
-	if ctx.message.author.id == 393839495859929089 or ctx.message.author.id == 393839495859929089:
+	if ctx.message.author.id == 495680416422821888 or ctx.message.author.id == 393839495859929089:
 		bots = []
 		for member in ctx.message.author.guild.members:
 			if member.bot:
