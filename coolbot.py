@@ -1527,7 +1527,7 @@ async def purge_error(ctx, error):
 		await ctx.send(embed=embed)
 	if isinstance(error, commands.MissingRequiredArgument):
 		todeln = int(ctx.message.content[7:])
-		if(todeln < 200):
+		if(todeln < 200 and todeln > 2):
 			deleted = await ctx.message.channel.purge(limit=(todeln + 1))
 			embed = discord.Embed(description="Successfully purged **{}** messages.".format(todeln), color=0x000000)
 			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
