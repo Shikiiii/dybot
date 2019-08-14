@@ -428,7 +428,7 @@ async def membercount(ctx):
 	embed.add_field(name="Online", value="{}".format(online), inline=True)
 	embed.add_field(name="Humans", value="{}".format(humans), inline=True)
 	embed.add_field(name="Bots", value="{}".format(bots), inline=True)
-	embed.set_footer(text="ID: {} | Created at: {}".format(ctx.message.author.guild.id, corfor))
+	embed.set_footer(text="ID: {} | {}".format(ctx.message.author.guild.id, corfor))
 	embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 
 	await ctx.send(embed=embed)
