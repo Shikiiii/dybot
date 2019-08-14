@@ -517,7 +517,7 @@ async def bots(ctx):
 		for member in ctx.message.author.guild.members:
 			if member.bot:
 				bots.append(member.mention)
-		embed = discord.Embed(title="All bots in this server:", description=", ".join(bots), color=0x000000)
+		embed = discord.Embed(title="All bots in this server:", description="\n".join(bots), color=0x000000)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_thumbnail(url=bot.user.avatar_url)
 		try:
@@ -541,7 +541,7 @@ async def members(ctx, *, rolee: str):
 	for member in ctx.message.author.guild.members:
 		if role in member.roles:
 			members.append(member.mention)
-	embed = discord.Embed(title="All members that have the {} role:".format(str(role)), description=", ".join(members), color=0x000000)
+	embed = discord.Embed(title="All members that have the {} role:".format(str(role)), description="\n".join(members), color=0x000000)
 	embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 	embed.set_thumbnail(url=bot.user.avatar_url)
 	try:
