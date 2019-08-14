@@ -201,13 +201,11 @@ async def afk(ctx, *, reason: str = ""):
         if len(reason) == 0:
             if str(ctx.message.author.id) not in afklist.keys():
                 afklist[user.id] = reason
-                afklist2[user.id] = reason
                 await ctx.send("{}, I set your AFK: **AFK**.".format(ctx.message.author.mention))
                 #return
         elif len(reason) > 0:
             if str(ctx.message.author.id) not in afklist.keys():
                 afklist[user.id] = reason
-                afklist2[user.id] = reason
                 await ctx.send("{}, I set your AFK: **{}**.".format(ctx.message.author.mention, reason))
                 #return
 
