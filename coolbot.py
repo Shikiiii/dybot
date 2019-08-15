@@ -580,7 +580,6 @@ async def reminderdm(ctx, intime, *, remindmsg: str=""):
 			if ctx.message.author.id in remindersdm:
 				embed = discord.Embed(description="**REMINDER:**\n\n{}".format(remindmsg), color=0xffffff)
 				#await ctx.send("{},".format(ctx.message.author.mention))
-				await ctx.message.author.send(embed=embed)
 				try:
 					await ctx.message.author.send(embed=embed)
 				except discord.HTTPException as exception:
@@ -610,7 +609,6 @@ async def reminderdm(ctx, intime, *, remindmsg: str=""):
 			if ctx.message.author.id in remindersdm:
 				embed = discord.Embed(description="**REMINDER:**\n\n{}".format(remindmsg), color=0xffffff)
 				#await ctx.send("{},".format(ctx.message.author.mention))
-				await ctx.message.author.send(embed=embed)
 				try:
 					await ctx.message.author.send(embed=embed)
 				except discord.HTTPException as exception:
@@ -640,7 +638,6 @@ async def reminderdm(ctx, intime, *, remindmsg: str=""):
 			if ctx.message.author.id in remindersdm:
 				embed = discord.Embed(description="**REMINDER:**\n\n{}".format(remindmsg), color=0xffffff)
 				#await ctx.send("{},".format(ctx.message.author.mention))
-				await ctx.message.author.send(embed=embed)
 				try:
 					await ctx.message.author.send(embed=embed)
 				except discord.HTTPException as exception:
@@ -670,7 +667,6 @@ async def reminderdm(ctx, intime, *, remindmsg: str=""):
 			if ctx.message.author.id in remindersdm:
 				embed = discord.Embed(description="**REMINDER:**\n\n{}".format(remindmsg), color=0xffffff)
 				#await ctx.send("{},".format(ctx.message.author.mention))
-				await ctx.message.author.send(embed=embed)
 				try:
 					await ctx.message.author.send(embed=embed)
 				except discord.HTTPException as exception:
