@@ -356,6 +356,361 @@ async def cf(ctx):
     embed2.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
     await msg.edit(embed=embed2)
 
+# - Reminder Commands:
+remindersserver = []
+
+@bot.command()
+async def reminder(ctx, intime, *, remindmsg: str=""):
+	if ctx.message.author.id in remindersserver:
+		embed = discord.Embed(description="You already have an ongoing reminder! If you want to make a new one, you have to remove the old one using ``!remindercancel``.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
+	if len(remindmsg) == 0:
+			embed = discord.Embed(description="Fatal error. Check the ``message`` parameter and try again. Please note that __you need to give me a message to remind you with__.", color=0xFF3639)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+			await ctx.send(embed=embed)
+			return
+	else:
+		n = intime[:1]
+		type = intime[len(n):]
+		
+		try:
+			number = int(n)
+		except:
+			embed = discord.Embed(description="Fatal error. Check the ``time`` parameter and try again. Please note that **this is a correct format**: 3s (3 seconds), 5m (5 minutes), 7h (7 hours), 1d (1 day). There is also a limit of 7 days.", color=0xFF3639)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+			await ctx.send(embed=embed)
+			return
+		if type == "s":
+			if number > 604800:
+				embed = discord.Embed(description="Whoa there buddy! We have a limit of 7 days per reminder.", color=0xFF3639)
+				embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+				embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+				await ctx.send(embed=embed)
+				return
+			embed = discord.Embed(description="Alright, I'll remind you in **{}** second(s). I'll only notify you in here. To have a DMs reminder, use !remiderdm. Your reminder message is ``{}``.".format(str(number), remindmsg), color=0x03fc03)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
+			#embed2 = discord.Embed(description="Note: Enable your DMs in this server so I can DM you with the reminder too.")
+			reminderserver.append(ctx.message.author.id)
+			await ctx.send(embed=embed)
+			#await ctx.send(embed=embed2)
+			
+			await asyncio.sleep(float(number))
+			
+			if ctx.message.author.id in remindersserver:
+				embed = discord.Embed(description="**REMINDER:**\n\n{}".format(remindmsg), color=0xffffff)
+				await ctx.send("{},".format(ctx.message.author.mention))
+				await ctx.send(embed=embed)
+				#try:
+				#	await ctx.message.author.send(embed=embed)
+				#except discord.HTTPException as exception:
+				#	
+				remindersserver.remove(ctx.message.author.id)
+				return
+			else:
+				return
+		if type == "m":
+			if number > 10080:
+				embed = discord.Embed(description="Whoa there buddy! We have a limit of 7 days per reminder.", color=0xFF3639)
+				embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+				embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+				await ctx.send(embed=embed)
+				return
+			embed = discord.Embed(description="Alright, I'll remind you in **{}** minute(s). I'll only notify you in here. To have a DMs reminder, use !remiderdm. Your reminder message is ``{}``.".format(str(number), remindmsg), color=0x03fc03)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
+			#embed2 = discord.Embed(description="Note: Enable your DMs in this server so I can DM you with the reminder too.")
+			remindersserver.append(ctx.message.author.id)
+			await ctx.send(embed=embed)
+			#await ctx.send(embed=embed2)
+			
+			await asyncio.sleep(float(number) * 60)
+			
+			if ctx.message.author.id in remindersserver:
+				embed = discord.Embed(description="**REMINDER:**\n\n{}".format(remindmsg), color=0xffffff)
+				await ctx.send("{},".format(ctx.message.author.mention))
+				await ctx.send(embed=embed)
+				#try:
+				#	await ctx.message.author.send(embed=embed)
+				#except discord.HTTPException as exception:
+				#	
+				remindersserver.remove(ctx.message.author.id)
+				return
+			else:
+				return
+		if type == "h":
+			if number > 168:
+				embed = discord.Embed(description="Whoa there buddy! We have a limit of 7 days per reminder.", color=0xFF3639)
+				embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+				embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+				await ctx.send(embed=embed)
+				return
+			embed = discord.Embed(description="Alright, I'll remind you in **{}** hour(s). I'll only notify you in here. To have a DMs reminder, use !remiderdm. Your reminder message is ``{}``.".format(str(number), remindmsg), color=0x03fc03)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
+			#embed2 = discord.Embed(description="Note: Enable your DMs in this server so I can DM you with the reminder too.")
+			remindersserver.append(ctx.message.author.id)
+			await ctx.send(embed=embed)
+			#await ctx.send(embed=embed2)
+			
+			await asyncio.sleep(float(number) * 60 * 60)
+			
+			if ctx.message.author.id in remindersserver:
+				embed = discord.Embed(description="**REMINDER:**\n\n{}".format(remindmsg), color=0xffffff)
+				await ctx.send("{},".format(ctx.message.author.mention))
+				await ctx.send(embed=embed)
+				#try:
+				#	await ctx.message.author.send(embed=embed)
+				#except discord.HTTPException as exception:
+				#	
+				remindersserver.remove(ctx.message.author.id)
+				return
+			else:
+				return
+		if type == "d":
+			if number > 7:
+				embed = discord.Embed(description="Whoa there buddy! We have a limit of 7 days per reminder.", color=0xFF3639)
+				embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+				embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+				await ctx.send(embed=embed)
+				return
+			embed = discord.Embed(description="Alright, I'll remind you in **{}** day(s). I'll only notify you in here. To have a DMs reminder, use !remiderdm. Your reminder message is ``{}``.".format(str(number), remindmsg), color=0x03fc03)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
+			#embed2 = discord.Embed(description="Note: Enable your DMs in this server so I can DM you with the reminder too.")
+			remindersserver.append(ctx.message.author.id)
+			await ctx.send(embed=embed)
+			#await ctx.send(embed=embed2)
+			
+			await asyncio.sleep(float(number) * 60 * 60 * 24)
+			
+			if ctx.message.author.id in remindersserver:
+				embed = discord.Embed(description="**REMINDER:**\n\n{}".format(remindmsg), color=0xffffff)
+				await ctx.send("{},".format(ctx.message.author.mention))
+				await ctx.send(embed=embed)
+				#try:
+				#	await ctx.message.author.send(embed=embed)
+				#except discord.HTTPException as exception:
+				#	
+				remindersserver.remove(ctx.message.author.id)
+				return
+			else:
+				return
+				
+@reminder.error
+async def reminder_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="Fatal error. Are you sure you're giving me a member?", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="You're missing required arguments. Here's an example of how to use this command: \n``!reminder 3h going to appreciate this godly command``", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+		
+@bot.command()
+async def remindercancel(ctx):
+	if ctx.message.author.id in remindersserver:
+		embed = discord.Embed(description="Reminder successfully canceled.", color=0xffffff)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		await ctx.send(embed=embed)
+		remindersserver.remove(ctx.message.author.id)
+		await ctx.send(embed=embed)
+	else:
+		embed = discord.Embed(description="You don't have a reminder to cancel. Set one by using ``!reminder``.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+
+remindersdm = []
+
+@bot.command()
+async def reminderdm(ctx, intime, *, remindmsg: str=""):
+	if ctx.message.author.id in remindersdm:
+		embed = discord.Embed(description="You already have an ongoing reminder! If you want to make a new one, you have to remove the old one using ``!remindercancel``.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
+	if len(remindmsg) == 0:
+			embed = discord.Embed(description="Fatal error. Check the ``message`` parameter and try again. Please note that __you need to give me a message to remind you with__.", color=0xFF3639)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+			await ctx.send(embed=embed)
+			return
+	else:
+		n = intime[:1]
+		type = intime[len(n):]
+		
+		try:
+			number = int(n)
+		except:
+			embed = discord.Embed(description="Fatal error. Check the ``time`` parameter and try again. Please note that **this is a correct format**: 3s (3 seconds), 5m (5 minutes), 7h (7 hours), 1d (1 day). There is also a limit of 7 days.", color=0xFF3639)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+			await ctx.send(embed=embed)
+			return
+		if type == "s":
+			if number > 604800:
+				embed = discord.Embed(description="Whoa there buddy! We have a limit of 7 days per reminder.", color=0xFF3639)
+				embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+				embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+				await ctx.send(embed=embed)
+				return
+			embed = discord.Embed(description="Alright, I'll remind you in **{}** second(s). I'll notify you in DMs. Your reminder message is ``{}``.".format(str(number), remindmsg), color=0x03fc03)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
+			embed2 = discord.Embed(description="Note: Enable your DMs in this server so I can DM you with the reminder.")
+			remindersdm.append(ctx.message.author.id)
+			await ctx.send(embed=embed)
+			await ctx.send(embed=embed2)
+			
+			await asyncio.sleep(float(number))
+			
+			if ctx.message.author.id in remindersdm:
+				embed = discord.Embed(description="**REMINDER:**\n\n{}".format(remindmsg), color=0xffffff)
+				#await ctx.send("{},".format(ctx.message.author.mention))
+				await ctx.message.author.send(embed=embed)
+				try:
+					await ctx.message.author.send(embed=embed)
+				except discord.HTTPException as exception:
+					await ctx.send("{}, I couldn't DM you with your reminder, so I'll post it here.".format(ctx.message.author.mention))
+					await ctx.send(embed=embed)
+				remindersdm.remove(ctx.message.author.id)
+				return
+			else:
+				return
+		if type == "m":
+			if number > 10080:
+				embed = discord.Embed(description="Whoa there buddy! We have a limit of 7 days per reminder.", color=0xFF3639)
+				embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+				embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+				await ctx.send(embed=embed)
+				return
+			embed = discord.Embed(description="Alright, I'll remind you in **{}** minute(s). I'll notify you in DMs. Your reminder message is ``{}``.".format(str(number), remindmsg), color=0x03fc03)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
+			embed2 = discord.Embed(description="Note: Enable your DMs in this server so I can DM you with the reminder.")
+			remindersdm.append(ctx.message.author.id)
+			await ctx.send(embed=embed)
+			await ctx.send(embed=embed2)
+			
+			await asyncio.sleep(float(number) * 60)
+			
+			if ctx.message.author.id in remindersdm:
+				embed = discord.Embed(description="**REMINDER:**\n\n{}".format(remindmsg), color=0xffffff)
+				#await ctx.send("{},".format(ctx.message.author.mention))
+				await ctx.message.author.send(embed=embed)
+				try:
+					await ctx.message.author.send(embed=embed)
+				except discord.HTTPException as exception:
+					await ctx.send("{}, I couldn't DM you with your reminder, so I'll post it here.".format(ctx.message.author.mention))
+					await ctx.send(embed=embed)
+				remindersdm.remove(ctx.message.author.id)
+				return
+			else:
+				return
+		if type == "h":
+			if number > 168:
+				embed = discord.Embed(description="Whoa there buddy! We have a limit of 7 days per reminder.", color=0xFF3639)
+				embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+				embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+				await ctx.send(embed=embed)
+				return
+			embed = discord.Embed(description="Alright, I'll remind you in **{}** hour(s). I'll notify you in DMs. Your reminder message is ``{}``.".format(str(number), remindmsg), color=0x03fc03)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
+			embed2 = discord.Embed(description="Note: Enable your DMs in this server so I can DM you with the reminder.")
+			remindersdm.append(ctx.message.author.id)
+			await ctx.send(embed=embed)
+			await ctx.send(embed=embed2)
+			
+			await asyncio.sleep(float(number) * 60 * 60)
+			
+			if ctx.message.author.id in remindersdm:
+				embed = discord.Embed(description="**REMINDER:**\n\n{}".format(remindmsg), color=0xffffff)
+				#await ctx.send("{},".format(ctx.message.author.mention))
+				await ctx.message.author.send(embed=embed)
+				try:
+					await ctx.message.author.send(embed=embed)
+				except discord.HTTPException as exception:
+					await ctx.send("{}, I couldn't DM you with your reminder, so I'll post it here.".format(ctx.message.author.mention))
+					await ctx.send(embed=embed)
+				remindersdm.remove(ctx.message.author.id)
+				return
+			else:
+				return
+		if type == "d":
+			if number > 7:
+				embed = discord.Embed(description="Whoa there buddy! We have a limit of 7 days per reminder.", color=0xFF3639)
+				embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+				embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+				await ctx.send(embed=embed)
+				return
+			embed = discord.Embed(description="Alright, I'll remind you in **{}** day(s). I'll notify you in DMs. Your reminder message is ``{}``.".format(str(number), remindmsg), color=0x03fc03)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			embed.set_thumbnail(url=ctx.message.author.guild.icon_url)
+			embed2 = discord.Embed(description="Note: Enable your DMs in this server so I can DM you with the reminder.")
+			remindersdm.append(ctx.message.author.id)
+			await ctx.send(embed=embed)
+			await ctx.send(embed=embed2)
+			
+			await asyncio.sleep(float(number) * 60 * 60 * 24)
+			
+			if ctx.message.author.id in remindersdm:
+				embed = discord.Embed(description="**REMINDER:**\n\n{}".format(remindmsg), color=0xffffff)
+				#await ctx.send("{},".format(ctx.message.author.mention))
+				await ctx.message.author.send(embed=embed)
+				try:
+					await ctx.message.author.send(embed=embed)
+				except discord.HTTPException as exception:
+					await ctx.send("{}, I couldn't DM you with your reminder, so I'll post it here.".format(ctx.message.author.mention))
+					await ctx.send(embed=embed)
+				remindersdm.remove(ctx.message.author.id)
+				return
+			else:
+				return
+				
+@reminderdm.error
+async def reminderdm_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="Fatal error. Are you sure you're giving me a member?", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="You're missing required arguments. Here's an example of how to use this command: \n``!reminder 3h going to appreciate this godly command``", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+		
+@bot.command()
+async def reminderdmcancel(ctx):
+	if ctx.message.author.id in remindersserver:
+		embed = discord.Embed(description="DM reminder successfully canceled.", color=0xffffff)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		await ctx.send(embed=embed)
+		remindersdm.remove(ctx.message.author.id)
+		await ctx.send(embed=embed)
+	else:
+		embed = discord.Embed(description="You don't have a DM reminder to cancel. Set one by using ``!reminderdm``.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+
 # - Verify command:
 @bot.command()
 @commands.has_any_role("Head Admin ✧˚*:･", "Co Owner ‧₊˚ ༄", "Bot Coder", "$ dy")
