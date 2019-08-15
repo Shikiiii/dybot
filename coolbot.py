@@ -191,6 +191,28 @@ async def on_message(message: Message):
 
     await bot.process_commands(message)
 
+tosnipe = {}
+tosnipeauthors = {}
+tosnipetime = {}
+			
+@bot.event
+async def on_message_delete(message: Message):
+	logch = discord.utils.get(message.author.guild.channels, name="enightclub-logs")
+	timestamp=datetime.datetime.now()
+	corfor = timestamp.strftime("%d %b, %Y at %H:%M")
+	log = discord.Embed(description="Deleted a message in {}: \n{}\n\nUsers ID: {}".format(message.channel.mention, message.content, message.author.id), color=0xFFFFFF)
+	log.set_author(name="{}".format(message.author), icon_url=message.author.avatar_url)
+	log.set_footer(text="{}".format(corfor))
+	log.set_thumbnail(url=message.author.avatar_url)
+	await logch.send(embed=log)
+
+	tosnipe[message.channel.id] = message.content
+	tosnipeauthors[message.channel.id] = message.author
+	timestamp2 = datetime.datetime.now()
+	corfor = timestamp2.strftime("%d %b, %Y at %H:%M")
+	tosnipetime[message.channel.id] == timestamp2
+
+
 # - Afk command:
 afklist = {}
 
@@ -351,6 +373,22 @@ async def cf(ctx):
     embed2 = discord.Embed(description="Flipped. \n\nResults: **{}**.".format(results), color=0xe9f542)
     embed2.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
     await msg.edit(embed=embed2)
+
+@bot.command()
+async def snipe(ctx):
+	for key in tosnipe:
+		if key == ctx.message.channel.id:
+			msg = tosnipe[key]
+			author = tosnipeauthors[key]
+			time = tosnipetime[key]
+			embed = discord.Embed(description="{}".format(str(msg)), color=0x000000)
+			embed.set_author(name="{}".format(author), icon_url=author.avatar_url)
+			embed.set_footer(text="{}".format(str(tosnipetime)))
+			await ctx.send(embed=embed)
+		else:
+			embed = discord.Embed(description="There's nothing to snipe!", color=0xffffff)
+			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+			await ctx.send(embed=embed)
 
 # - Reminder Commands:
 remindersserver = []
