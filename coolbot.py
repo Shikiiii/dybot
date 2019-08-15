@@ -386,10 +386,6 @@ async def snipe(ctx):
 			corfor = time.strftime("%d %b, %Y at %H:%M")
 			embed.set_footer(text="{}".format(str(corfor)))
 			await ctx.send(embed=embed)
-		else:
-			embed = discord.Embed(description="There's nothing to snipe!", color=0xffffff)
-			embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-			await ctx.send(embed=embed)
 
 # - Reminder Commands:
 remindersserver = []
