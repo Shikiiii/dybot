@@ -328,12 +328,10 @@ async def coinflip(ctx):
     await asyncio.sleep(5)
     rn = random.randint(0,3)
     results = " "
-    if rn == 1:
+    if rn < 51:
         results = "HEADS"
-    if rn == 2:
+    if rn > 50:
         results = "TAILS"
-    else:
-        results = "HEADS"
     embed2 = discord.Embed(description="Flipped. \n\nResults: **{}**.".format(results), color=0xe9f542)
     embed2.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
     await msg.edit(embed=embed2)
@@ -344,14 +342,12 @@ async def cf(ctx):
     embed1.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
     msg = await ctx.send(embed=embed1)
     await asyncio.sleep(5)
-    rn = random.randint(0,3)
+    rn = random.randint(0,100)
     results = " "
-    if rn == 1:
+    if rn < 51:
         results = "HEADS"
-    if rn == 2:
+    if rn > 50:
         results = "TAILS"
-    else:
-        results = "HEADS"
     embed2 = discord.Embed(description="Flipped. \n\nResults: **{}**.".format(results), color=0xe9f542)
     embed2.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
     await msg.edit(embed=embed2)
