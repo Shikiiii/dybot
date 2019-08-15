@@ -326,7 +326,7 @@ async def coinflip(ctx):
     embed1.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
     msg = await ctx.send(embed=embed1)
     await asyncio.sleep(5)
-    rn = random.randint(0,3)
+    rn = random.randint(0,100)
     results = " "
     if rn < 51:
         results = "HEADS"
