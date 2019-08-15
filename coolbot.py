@@ -264,6 +264,7 @@ async def rate(ctx, who, *, user: discord.Member):
         embed.set_thumbnail(url=user.avatar_url)
         embed.set_footer(text="Rated by Dy")
         await ctx.send(embed=embed)
+	return
     if who == "shiki":
         cool = random.randint(0,10)
         embed = discord.Embed(title="<:thonk:611367036282732574>", description="{} is a **{}**/10. <a:smileg:611367087201320991>".format(user.mention, str(cool)), color=0x4287f5)
@@ -271,11 +272,13 @@ async def rate(ctx, who, *, user: discord.Member):
         embed.set_thumbnail(url=user.avatar_url)
         embed.set_footer(text="Rated by Shiki")
         await ctx.send(embed=embed)
+	return
     else:
         embed = discord.Embed(description="You didn't provide a valid argument, ``rate`` accepts only **dy** and **shiki**.", color=0xFF3639)
         embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
         embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
         await ctx.send(embed=embed)
+	return
 
 @rate.error
 async def rate_error(ctx, error):
