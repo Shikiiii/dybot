@@ -210,7 +210,7 @@ async def on_message_delete(message: Message):
 	tosnipeauthors[message.channel.id] = message.author
 	timestamp2 = datetime.datetime.now()
 	corfor = timestamp2.strftime("%d %b, %Y at %H:%M")
-	tosnipetime[message.channel.id] == timestamp2
+	tosnipetime[message.channel.id] = timestamp2
 
 
 # - Afk command:
