@@ -209,7 +209,7 @@ async def afk(ctx, *, reason: str = ""):
 			await ctx.send("{}, I set your AFK: **{}**.".format(ctx.message.author.mention, reason))
 			#return
 
-# - Ship command:
+# - Fun Commands:
 @bot.command()
 async def ship(ctx, user: discord.Member, user2: discord.Member):
     percent = random.randint(0, 100)
@@ -254,6 +254,104 @@ async def ship_error(ctx, error):
     else:
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
         traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
+async def rate(ctx, who, *, user: discord.Member):
+    if who == "dy":
+        cool = random.randint(0,10)
+        embed = discord.Embed(title="😉😉", description="{} is a **{}**/10. 👀".format(user.mention, str(cool)), color=0xffffff)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_thumbnail(url=user.avatar_url)
+        embed.set_footer(text="Rated by Dy")
+        await ctx.send(embed=embed)
+    if who == "shiki":
+        cool = random.randint(0,10)
+        embed = discord.Embed(title="<:thonk:611367036282732574>", description="{} is a **{}**/10. <a:smileg:611367087201320991>".format(user.mention, str(cool)), color=0x4287f5)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_thumbnail(url=user.avatar_url)
+        embed.set_footer(text="Rated by Shiki")
+        await ctx.send(embed=embed)
+    else:
+        embed = discord.Embed(description="You didn't provide a valid argument, ``rate`` accepts only **dy** and **shiki**.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+
+@rate.error
+async def rate_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="I couldn't find this member.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="You actually have to give me a member to rate.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
+async def howgay(ctx, *, user: discord.Member):
+    gay = random.randint(0,100)
+    embed = discord.Embed(description="{} is **{}**% gay. :gay_pride_flag:".format(user.mention, str(gay)), color=0xef42f5)
+    embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+    embed.set_thumbnail(url=user.avatar_url)
+    await ctx.send(embed=embed)
+
+@howgay.error
+async def howgay_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="I couldn't find this member.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="Just give me a member and I'll tell you their gayness.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
+async def coinflip(ctx):
+    embed1 = discord.Embed(description="Flipping... \n\nResults:", color=0xffffff)
+    embed1.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+    msg = await ctx.send(embed=embed1)
+    await asyncio.sleep(5)
+    rn = random.randint(0,3)
+    results = " "
+    if rn == 1:
+        results = "HEADS"
+    if rn == 2:
+        results = "TAILS"
+    else:
+        results = "HEADS"
+    embed2 = discord.Embed(description="Flipped. \n\nResults: **{}**.".format(results), color=0xe9f542)
+    embed2.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+    await msg.edit(embed=embed2)
+
+@bot.command()
+async def cf(ctx):
+    embed1 = discord.Embed(description="Flipping... \n\nResults:", color=0xffffff)
+    embed1.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+    msg = await ctx.send(embed=embed1)
+    await asyncio.sleep(5)
+    rn = random.randint(0,3)
+    results = " "
+    if rn == 1:
+        results = "HEADS"
+    if rn == 2:
+        results = "TAILS"
+    else:
+        results = "HEADS"
+    embed2 = discord.Embed(description="Flipped. \n\nResults: **{}**.".format(results), color=0xe9f542)
+    embed2.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+    await msg.edit(embed=embed2)
 
 # - Verify command:
 @bot.command()
