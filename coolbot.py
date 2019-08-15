@@ -259,9 +259,9 @@ async def ship_error(ctx, error):
 async def rate(ctx, who, *, user: discord.Member):
     if who == "dy":
         cool = random.randint(0,10)
-        embed = discord.Embed(title="😉😉", description="{} is a **{}**/10. 👀".format(user.mention, str(cool)), color=0xffffff)
+        embed = discord.Embed(title="👀", description="{} is a **{}**/10.".format(user.mention, str(cool)), color=0xffffff)
         embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-        embed.set_thumbnail(url=user.avatar_url)
+    #    embed.set_thumbnail(url=user.avatar_url)
         embed.set_footer(text="Rated by Dy")
         await ctx.send(embed=embed)
         return
@@ -269,7 +269,7 @@ async def rate(ctx, who, *, user: discord.Member):
         cool = random.randint(0,10)
         embed = discord.Embed(title="<:thonk:611367036282732574>", description="{} is a **{}**/10. <a:smileg:611367087201320991>".format(user.mention, str(cool)), color=0x4287f5)
         embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-        embed.set_thumbnail(url=user.avatar_url)
+    #    embed.set_thumbnail(url=user.avatar_url)
         embed.set_footer(text="Rated by Shiki")
         await ctx.send(embed=embed)
         return
