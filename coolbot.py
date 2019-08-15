@@ -186,6 +186,8 @@ async def on_message(message: Message):
         await message.channel.send("LUMEN XD")
     elif message.content == "shiki":
         await message.channel.send(">.<")
+    elif message.content == "!apply":
+        await message.channel.send("Thank you for applying! Please check your DMs to complete the application.")
     elif message.content == "no u" and message.author.id != 593090256560193549:
         await message.channel.send("no u")
 
