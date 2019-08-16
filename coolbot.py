@@ -1748,7 +1748,7 @@ async def userinfo_error(ctx, error):
 	
 		memberslist = ctx.guild.members
 		memberslist.sort(key=sort_by_joined_at)
-		joinpos = memberslist.index(user)
+		joinpos = memberslist.index(ctx.message.author)
 	
 		boosting = " "
 		if user.premium_since == None:
@@ -1838,7 +1838,7 @@ async def uf_error(ctx, error):
 	
 		memberslist = ctx.guild.members
 		memberslist.sort(key=sort_by_joined_at)
-		joinpos = memberslist.index(user)
+		joinpos = memberslist.index(ctx.message.author)
 	
 		boosting = " "
 		if user.premium_since == None:
@@ -1928,7 +1928,7 @@ async def whois_error(ctx, error):
 	
 		memberslist = ctx.guild.members
 		memberslist.sort(key=sort_by_joined_at)
-		joinpos = memberslist.index(user)
+		joinpos = memberslist.index(ctx.message.author)
 	
 		boosting = " "
 		if user.premium_since == None:
