@@ -1833,7 +1833,7 @@ async def userinfo_error(ctx, error):
 		joinpos = memberslist.index(ctx.message.author)
 	
 		boosting = " "
-		if user.premium_since == None:
+		if ctx.message.author.premium_since == None:
 			boosting = "Nope"
 		else:
 			time3 = ctx.message.author.premium_since
@@ -1847,7 +1847,7 @@ async def userinfo_error(ctx, error):
 			fro = "PC"
 	
 		embed = discord.Embed(description="Nickname: {}".format(ctx.message.author.nick), color=0x000000)
-		embed.set_author(name="Info of {}".format(user), icon_url=ctx.message.author.avatar_url)
+		embed.set_author(name="Info of {}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Requested by {}".format(ctx.message.author))
 		embed.add_field(name="Joined on", value="{}".format(corfor1))
 		embed.add_field(name="Join position", value="{}".format(str(joinpos + 1)))
@@ -1923,7 +1923,7 @@ async def uf_error(ctx, error):
 		joinpos = memberslist.index(ctx.message.author)
 	
 		boosting = " "
-		if user.premium_since == None:
+		if ctx.message.author.premium_since == None:
 			boosting = "Nope"
 		else:
 			time3 = ctx.message.author.premium_since
@@ -1937,7 +1937,7 @@ async def uf_error(ctx, error):
 			fro = "PC"
 	
 		embed = discord.Embed(description="Nickname: {}".format(ctx.message.author.nick), color=0x000000)
-		embed.set_author(name="Info of {}".format(user), icon_url=ctx.message.author.avatar_url)
+		embed.set_author(name="Info of {}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Requested by {}".format(ctx.message.author))
 		embed.add_field(name="Joined on", value="{}".format(corfor1))
 		embed.add_field(name="Join position", value="{}".format(str(joinpos + 1)))
@@ -2013,7 +2013,7 @@ async def whois_error(ctx, error):
 		joinpos = memberslist.index(ctx.message.author)
 	
 		boosting = " "
-		if user.premium_since == None:
+		if ctx.message.author.premium_since == None:
 			boosting = "Nope"
 		else:
 			time3 = ctx.message.author.premium_since
@@ -2027,7 +2027,7 @@ async def whois_error(ctx, error):
 			fro = "PC"
 	
 		embed = discord.Embed(description="Nickname: {}".format(ctx.message.author.nick), color=0x000000)
-		embed.set_author(name="Info of {}".format(user), icon_url=ctx.message.author.avatar_url)
+		embed.set_author(name="Info of {}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Requested by {}".format(ctx.message.author))
 		embed.add_field(name="Joined on", value="{}".format(corfor1))
 		embed.add_field(name="Join position", value="{}".format(str(joinpos + 1)))
