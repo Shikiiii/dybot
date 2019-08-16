@@ -293,6 +293,30 @@ async def ball_error(ctx, error):
         traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
+async def roast(ctx, *, user: discord.Member):
+	responds = ["yes duh", "no wtf", "ig?", "naw", "pew pew", "ur mom a hoe", "u retarded fuck, its obv yes", "ew, no", "ur pp smol", "ye", "no u"]
+	choice = random.choice(responds)
+	embed2 = discord.Embed(description="{}".format(choice), color=0xf252e8)
+	embed2.set_author(name="{}".format(user), icon_url=user.avatar_url)
+	embed2.set_footer(text="Roasted by {}".format(ctx.message.author))
+	await msg.edit(embed=embed2)
+		
+@roast.error
+async def roast_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="I couldn't find this member. No roasing.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="Give me a member to roast.", color=0x000000)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
 async def ship(ctx, user: discord.Member, user2: discord.Member):
     percent = random.randint(0, 100)
     strr = " "
