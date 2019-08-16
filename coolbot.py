@@ -2244,7 +2244,7 @@ async def purge(ctx, amount, *, user: discord.Member):
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
 		return
-	if(todeln < 200 and todeln > 2):
+	if(todeln < 200 and todeln > 0):
 		def check(m):
 			return m.author == user
 		#rr = todeln + 1
