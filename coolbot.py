@@ -263,7 +263,7 @@ async def ping(ctx):
 @bot.command(name="8ball")
 async def ball(ctx, *, message: str):
 	if len(message) > 0:
-		responds = ["yes duh", "no wtf", "ig?", "naw", "pew pew", "ur mom a hoe", "u retarded fuck, its obv yes", "ew, no", "ur pp smol", "ye", "no u"]
+		responds = ["yes duh", "no wtf", "ig?", "naw", "pew pew", "ur mom a hoe", "u retarded fuck, its obv yes", "ew, no", "ur pp smol", "ye", "no u", "as i see it nigga, yes", "without a fucking doubt", "tbh most likely", "sorry to inform that its a yes", "i doubt that fr", "ofc its a fucking no", "sorry nigga, but its a no", "what the fuck"]
 		choice = random.choice(responds)
 		embed1 = discord.Embed(description="__8Ball__\n\n...", color=0xffffff)
 		embed1.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
