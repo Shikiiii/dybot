@@ -235,6 +235,64 @@ async def afk(ctx, *, reason: str = ""):
 
 # - Fun Commands:
 @bot.command()
+async def ping(ctx):
+    #print("Testing ping!")
+    delta = datetime.datetime.now() - ctx.message.created_at
+    delta_ping = round(delta.microseconds / 1000)
+    if delta_ping < 100:
+        embed = discord.Embed(title=f"Pong! :ping_pong:",
+                              description=":heartbeat: **{}ms**".format(delta_ping),
+                              color=0x00ff00)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        await ctx.message.channel.send(embed=embed)
+        return
+    elif delta_ping < 200:
+        embed = discord.Embed(title=f"Pong! :ping_pong:",
+                              description=":heartbeat: **{}ms**".format(delta_ping),
+                              color=0xfe9a2e)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        await message.channel.send(embed=embed)
+        return
+    else:
+        embed = discord.Embed(title=f"Pong! :ping_pong:",
+                              description=":heartbeat: **{}ms**".format(delta_ping),
+                              color=0xff0000)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        await ctx.message.channel.send(embed=embed)
+		
+@bot.command(name="8ball")
+async def ball(ctx, *, message: str):
+	if len(message) > 0:
+		responds = ["yes duh", "no wtf", "ig?", "naw", "pew pew", "ur mom a hoe", "u retarded fuck, its obv yes", "ew, no", "ur pp smol", "ye", "no u"]
+		choice = random.choice(responds)
+		embed1 = discord.Embed(description="__8Ball__\n\n...", color=0xffffff)
+		embed1.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		msg = await ctx.send(embed=embed1)
+		await asyncio.sleep(1)
+		embed2 = discord.Embed(description="__8Ball__\n\n**{}**".format(choice), color=0xf252e8)
+		embed2.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		await msg.edit(embed=embed2)
+	else:
+		embed1 = discord.Embed(description="__8Ball__\n\nI couldn't answer you because you didn't give me a question.", color=0x000000)
+		embed1.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		await ctx.send(embed=embed1)
+		
+@ball.error
+async def ball_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="How did this error get raised to begin with?", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="__8Ball__\n\nI couldn't answer you because you didn't give me a question.", color=0x000000)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
 async def ship(ctx, user: discord.Member, user2: discord.Member):
     percent = random.randint(0, 100)
     strr = " "
@@ -2233,6 +2291,28 @@ async def role_error(ctx, error):
 		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 # - Purge Command:
+@bot.command()
+@commands.has_any_role("Chat Moderator", "Mod ˚｡⋆", "Admin ˚｡☆", "Head Admin ✧˚*:･")
+async def clean(ctx):
+	def check(m):
+		return m.author.bot
+	#rr = todeln + 1
+	deleted = await ctx.message.channel.purge(limit=100, check=check)
+	embed = discord.Embed(description="Cleaned bot's messages.", color=0x000000)
+	embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+	await ctx.send(embed=embed)
+	
+@clean.error
+async def clean_error(ctx, error):
+	if isinstance(error, commands.CheckFailure):
+		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
+
 @bot.command()
 @commands.has_any_role("Chat Moderator", "Mod ˚｡⋆", "Admin ˚｡☆", "Head Admin ✧˚*:･")
 async def purge(ctx, amount, *, user: discord.Member):
