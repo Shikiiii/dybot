@@ -78,6 +78,7 @@ async def on_member_join(member):
         embed = discord.Embed(description="Welcome to **[e - nightclub](https://discordapp.com/invite/4UkN2Jg)**! You're the **{}th** member. \n\n Make sure to read: {}  \n\nRoles: {}  \n\nFor help:  {}.".format(member.guild.member_count, channel2.mention, channel3.mention, channel4.mention), color=0x000000)
         embed.set_author(name="{}".format(member), icon_url=member.avatar_url)
         embed.set_thumbnail(url=member.guild.icon_url)
+        await channel.send("{}".format(member.mention))
         await channel.send(embed=embed)
         #await channel.send("Welcome {} to **e nightclub!** You’re the **{}** member. \n\n Make sure to read: {}  |  Roles: {}  |  For help:  {}.".format(member.mention, member.guild.member_count, channel2.mention, channel3.mention, channel4.mention))
 
