@@ -48,7 +48,7 @@ async def on_ready():
         embed2.set_thumbnail(url=guildd.icon_url)
         embed1 = discord.Embed(title="Reminder:", description="Check out <#558991108915462164> to get verified role.", color=0xffffff)
         embed1.set_thumbnail(url=guildd.icon_url)
-        embed3 = discord.Embed(title="Reminder:", description="If you want to apply for **Partnership Mananger** or **Server Helper**, type **!apply** in {}.".format(apply), color=0xffffff)
+        embed3 = discord.Embed(title="Reminder:", description="If you want to apply for **Partnership Mananger** or **Server Helper**, type **!!apply** in {}.".format(apply), color=0xffffff)
         embed3.set_thumbnail(url=guildd.icon_url)
         #try:
         await channel.send(embed=embed2)
@@ -294,7 +294,7 @@ async def ball_error(ctx, error):
 
 @bot.command()
 async def roast(ctx, *, user: discord.Member):
-	responds = ["yes duh", "no wtf", "ig?", "naw", "pew pew", "ur mom a hoe", "u retarded fuck, its obv yes", "ew, no", "ur pp smol", "ye", "no u"]
+	responds = ["are you sure youre not mentally retarded?", "that's gay..", "can't roast him, he doesn't have parents", "this is why no one likes you", "just stfu retard", "they got no balls dawg", "can u speak chong bong?", "what u want pussy?", "!!", "couldn't roast"]
 	choice = random.choice(responds)
 	embed2 = discord.Embed(description="{}".format(choice), color=0xf252e8)
 	embed2.set_author(name="{}".format(user), icon_url=user.avatar_url)
