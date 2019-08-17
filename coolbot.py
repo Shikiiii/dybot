@@ -300,7 +300,7 @@ async def roast(ctx, *, user: discord.Member):
 	embed2 = discord.Embed(description="{}".format(choice), color=0xf252e8)
 	embed2.set_author(name="{}".format(user), icon_url=user.avatar_url)
 	embed2.set_footer(text="Roasted by {}".format(ctx.message.author))
-	await ctx.send(embed=embed)
+	await ctx.send(embed=embed2)
 		
 @roast.error
 async def roast_error(ctx, error):
