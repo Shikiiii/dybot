@@ -2408,4 +2408,4 @@ async def purge_error(ctx, error):
 # - BOT LOGIN
 
 
-bot.run("")
+bot.run("TOKEN")
