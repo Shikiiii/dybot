@@ -236,6 +236,61 @@ async def afk(ctx, *, reason: str = ""):
 
 # - Fun Commands:
 @bot.command()
+@commands.has_any_role("$ dy", "Bot Coder")
+async def say(ctx, *, msg: str=" "):
+    await ctx.message.delete()
+    await ctx.send(f"{msg}")
+
+@say.error
+async def say_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="How did this error get raised to begin with?", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await ctx.message.delete()
+        ilove = ["Shiki", "Dy"]
+        you = random.choice(ilove)
+        await ctx.send(f"I love {you}.")
+    elif isinstance(error, commands.CheckFailure):
+        embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
+async def howlesbian(ctx, *, user: discord.Member):
+    les = random.randint(0, 100)
+    embed = discord.Embed(description="{} is **{}**% lesbian. <:lesbian22:612745721883656203>".format(user.mention, str(les)),
+                          color=0xef42f5)
+    embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+    embed.set_thumbnail(url=user.avatar_url)
+    await ctx.send(embed=embed)
+
+@howlesbian.error
+async def howlesbian_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="I couldn't find this member.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        les = random.randint(0, 100)
+        embed = discord.Embed(
+            description="{} is **{}**% lesbian. <:lesbian22:612745721883656203>".format(ctx.message.author.mention, str(les)),
+            color=0xef42f5)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_thumbnail(url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
 async def ping(ctx):
     #print("Testing ping!")
     delta = datetime.datetime.now() - ctx.message.created_at
