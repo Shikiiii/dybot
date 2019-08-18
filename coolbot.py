@@ -237,9 +237,14 @@ async def afk(ctx, *, reason: str = ""):
 # - Fun Commands:
 @bot.command()
 @commands.has_any_role("$ dy", "Bot Coder")
-async def say(ctx, *, msg: str=" "):
-    await ctx.message.delete()
-    await ctx.send(f"{msg}")
+async def say(ctx, *, msg: str=""):
+	if len(msg) > 0:
+		await ctx.message.delete()
+		await ctx.send(f"{msg}")
+	else:
+		ilove = ["Shiki", "Dy"]
+		you = random.choice(ilove)
+		await ctx.send(f"I love {you}.")
 
 @say.error
 async def say_error(ctx, error):
@@ -257,6 +262,34 @@ async def say_error(ctx, error):
         embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
         embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
         embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
+async def thotrate(ctx, *, user: discord.Member):
+    les = random.randint(0, 100)
+    embed = discord.Embed(description="{} is a **{}**% thot. <:shiki_is_cool:612767957570945024>".format(user.mention, str(les)),
+                          color=0xef42f5)
+    embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+    embed.set_thumbnail(url=user.avatar_url)
+    await ctx.send(embed=embed)
+
+@thotrate.error
+async def thotrate_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="I couldn't find this member.", color=0x000000)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        les = random.randint(0, 100)
+        embed = discord.Embed(
+            description="{} is a **{}**% thot. <:shiki_is_cool:612767957570945024>".format(ctx.message.author.mention, str(les)),
+            color=0xef42f5)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_thumbnail(url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
     else:
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
