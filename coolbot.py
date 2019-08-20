@@ -243,7 +243,7 @@ conn = http.client.HTTPSConnection("mashape-community-urban-dictionary.p.rapidap
 
 	
 @bot.command()
-async def define(ctx, *, term: str=""):
+async def define(ctx, *, term: str):
 	headers = {
 		'x-rapidapi-host': "mashape-community-urban-dictionary.p.rapidapi.com",
 		'x-rapidapi-key': "41e03ab49dmsh4d6a1ebe8db51dep1009b5jsnc4d2da773e2f"
@@ -297,7 +297,7 @@ async def define_error(ctx, error):
         traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
-async def urban(ctx, *, term: str=""):
+async def urban(ctx, *, term: str):
 	headers = {
 		'x-rapidapi-host': "mashape-community-urban-dictionary.p.rapidapi.com",
 		'x-rapidapi-key': "41e03ab49dmsh4d6a1ebe8db51dep1009b5jsnc4d2da773e2f"
