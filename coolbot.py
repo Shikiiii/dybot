@@ -16,6 +16,8 @@ import asyncio
 from datetime import datetime
 import datetime
 import random
+import http.client
+import json
 
 bot = Bot(command_prefix='!')
 bot.remove_command('help')
@@ -226,7 +228,9 @@ async def afk(ctx, *, reason: str = ""):
 	if len(reason) == 0:
 		if str(ctx.message.author.id) not in afklist.keys():
 			afklist[user.id] = reason
-			await ctx.send("{}, I set your AFK: **AFK**.".format(ctx.message.author.mention))
+			list = ["Fapping to pornhub.com", "Fuckin yo mom", "Doin something", "Im too lazy to type what I'm afk for", "Hi"]
+			afkk = random.choice(list)
+			await ctx.send("{}, I set your AFK: **{}**.".format(ctx.message.author.mention, afkk))
 			#return
 	elif len(reason) > 0:
 		if str(ctx.message.author.id) not in afklist.keys():
@@ -235,6 +239,117 @@ async def afk(ctx, *, reason: str = ""):
 			#return
 
 # - Fun Commands:
+conn = http.client.HTTPSConnection("mashape-community-urban-dictionary.p.rapidapi.com")
+
+	
+@bot.command()
+async def define(ctx, *, term: str=""):
+	headers = {
+		'x-rapidapi-host': "mashape-community-urban-dictionary.p.rapidapi.com",
+		'x-rapidapi-key': "41e03ab49dmsh4d6a1ebe8db51dep1009b5jsnc4d2da773e2f"
+	}
+	conn.request("GET", f"/define?term={term}", headers=headers)
+	try:
+		res = conn.getresponse()
+	except:
+		embed = discord.Embed(description="No definition found.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
+		
+	list = res.read()
+	my_json = json.loads(list)
+	
+	try:
+		entry = my_json["list"][0]
+	except IndexError:
+		embed = discord.Embed(description="No definition found.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
+		
+	if len(entry["example"]) == 0:
+		entry["example"] = "-"
+	
+	embed = discord.Embed(title=f"Definition of {entry['word']}", description=f"``Top Definition``\n{entry['definition']}\n\n ``Example``\n{entry['example']}\n\n :thumbsup: {entry['thumbs_up']} | :thumbsdown: {entry['thumbs_down']}", color=0x000000)
+	embed.set_footer(text=f"Powered by UrbanDictionary")
+	embed.set_thumbnail(url=ctx.message.author.avatar_url)
+	
+	
+	await ctx.send(embed=embed)
+
+@define.error
+async def define_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="How did this error get raised to begin with?", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="Can't define nothing.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
+async def urban(ctx, *, term: str=""):
+	headers = {
+		'x-rapidapi-host': "mashape-community-urban-dictionary.p.rapidapi.com",
+		'x-rapidapi-key': "41e03ab49dmsh4d6a1ebe8db51dep1009b5jsnc4d2da773e2f"
+	}
+	conn.request("GET", f"/define?term={term}", headers=headers)
+	try:
+		res = conn.getresponse()
+	except:
+		embed = discord.Embed(description="No definition found.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
+		
+	list = res.read()
+	my_json = json.loads(list)
+	
+	try:
+		entry = my_json["list"][0]
+	except IndexError:
+		embed = discord.Embed(description="No definition found.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+		return
+		
+	if len(entry["example"]) == 0:
+		entry["example"] = "-"
+	
+	embed = discord.Embed(title=f"Definition of {entry['word']}", description=f"``Top Definition``\n{entry['definition']}\n\n ``Example``\n{entry['example']}\n\n :thumbsup: {entry['thumbs_up']} | :thumbsdown: {entry['thumbs_down']}", color=0x000000)
+	embed.set_footer(text=f"Powered by UrbanDictionary")
+	embed.set_thumbnail(url=ctx.message.author.avatar_url)
+	
+	
+	await ctx.send(embed=embed)
+
+@urban.error
+async def urban_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="How did this error get raised to begin with?", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="Can't define nothing.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
 @bot.command()
 async def penis(ctx, *, user: discord.Member):
 	sizes = ["8D", "8=D", "8==D", "8===D", "8====D", "8=====D", "8======D", "8=======D", "8========D", "8=========D", "8==========D", "8===========D", "8============D", "8=============D", "8==============D", "8===============D"]
