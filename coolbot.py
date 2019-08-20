@@ -236,6 +236,33 @@ async def afk(ctx, *, reason: str = ""):
 
 # - Fun Commands:
 @bot.command()
+async def penis(ctx, *, user: discord.Member):
+	sizes = ["8D", "8=D", "8==D", "8===D", "8====D", "8=====D", "8======D", "8=======D", "8========D", "8=========D", "8==========D", "8===========D", "8============D", "8=============D", "8==============D", "8===============D"]
+	size = random.choice(sizes)
+	embed = discord.Embed(description=f"{user}'s pee pee size \n\n{size}", color=0x000000)
+	embed.set_author(name=f"{ctx.message.author}", icon_url=ctx.message.author.avatar_url)
+	embed.set_thumbnail(url=user.avatar_url)
+	await ctx.send(embed=embed)
+
+@penis.error
+async def penis_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="How did this error get raised to begin with?", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        sizes = ["8D", "8=D", "8==D", "8===D", "8====D", "8=====D", "8======D", "8=======D", "8========D", "8=========D", "8==========D", "8===========D", "8============D", "8=============D", "8==============D", "8===============D"]
+        size = random.choice(sizes)
+        embed = discord.Embed(description=f"{ctx.message.author}'s pee pee size \n\n{size}", color=0x000000)
+        embed.set_author(name=f"{ctx.message.author}", icon_url=ctx.message.author.avatar_url)
+        embed.set_thumbnail(url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
 @commands.has_any_role("$ dy", "Bot Coder")
 async def say(ctx, *, msg: str=""):
 	if len(msg) > 0:
