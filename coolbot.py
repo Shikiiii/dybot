@@ -1687,6 +1687,38 @@ async def banid_error(ctx, error):
 		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
+async def massban(ctx, *, users: str):
+	desc = "Mass ban started. May take a while. \n\n" 
+	embed = discord.Embed(description=desc, color=0x000000)
+	embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+	msg = await ctx.send(embed=embed)
+	mentions = ctx.message.mentions
+	for user in mentions:
+		#desc = desc + "\n{}".format(user)
+		try:
+			await user.ban()
+		except:
+			#desc = desc + "\n :x: | {}".format(user)
+			await ctx.send(f"Couldn't ban {user.mention} because of missing permissions.")
+		#await msg.edit(embed=embed)
+		
+@massban.error
+async def massban_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="No @mentioned users were found with the information you gave.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="No @mentioned users were found with the information you gave.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
 @commands.has_any_role("Admin ˚｡☆", "Head Admin ✧˚*:･")
 async def unban(ctx, id: int, *, reason: str = ""):
 	#print("I got the user!")
