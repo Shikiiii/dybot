@@ -1513,40 +1513,6 @@ async def lockdown_error(ctx, error):
 		traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
 @bot.command()
-@commands.has_any_role("$ dy", "Bot Coder")
-async def say(ctx, chan: discord.TextChannel, *, msg: str=""):
-	#channels = ctx.message.channel_mentions
-	#if len(channels) > 0:
-		#for channel in channels:
-	if len(msg) > 0:
-		await ctx.message.delete()
-		await chan.send(f"{msg}")
-	else:
-		ilove = ["Shiki", "Dy"]
-		you = random.choice(ilove)
-		await chan.send(f"I love {you}.")
-	
-
-@say.error
-async def say_error(ctx, error):
-	if isinstance(error, commands.BadArgument):
-		tosend = ctx.message.content[5:]
-		await ctx.message.delete()
-		await ctx.send(f"{tosend}")
-	elif isinstance(error, commands.MissingRequiredArgument):
-		tosend = ctx.message.content[5:]
-		await ctx.message.delete()
-		await ctx.send(f"{tosend}")
-	elif isinstance(error, commands.CheckFailure):
-		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
-		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
-		await ctx.send(embed=embed)
-	else:
-		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-		traceback.print_exception(type(error), error, None, file=sys.stderr)
-
-@bot.command()
 @commands.has_any_role("Admin ˚｡☆", "Head Admin ✧˚*:･")
 async def ban(ctx, user: discord.Member, *, reason: str = ""):
 	if len(reason) == 0:
