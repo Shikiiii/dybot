@@ -97,7 +97,7 @@ async def on_member_remove(member):
 @bot.event
 async def on_message(message: Message):
     if message.guild.id == 448571905524498432 and message.channel.id == 613792979039158274:
-        chan = discord.utils.get(message.guild.channels, name="auto")
+        chan = discord.utils.get(message.guild.channels, name="☆│lounge")
         await chan.send("{}".format(message.content))
     if len(message.mentions) > 0:
         if message.author.id != 593090256560193549:
