@@ -1689,6 +1689,7 @@ async def banid_error(ctx, error):
 		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
+@commands.has_any_role("$ dy", "Bot Coder")
 async def massban(ctx, *, users: str):
 	desc = "Mass ban started. May take a while. \n\n" 
 	embed = discord.Embed(description=desc, color=0x000000)
@@ -1713,6 +1714,11 @@ async def massban_error(ctx, error):
         await ctx.send(embed=embed)
     elif isinstance(error, commands.BadArgument):
         embed = discord.Embed(description="No @mentioned users were found with the information you gave.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.CheckFailure):
+        embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
         embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
         embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
         await ctx.send(embed=embed)
