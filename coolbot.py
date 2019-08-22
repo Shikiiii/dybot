@@ -74,6 +74,8 @@ async def on_ready():
 @bot.event
 async def on_member_join(member):
     if(member.guild.id == 448571905524498432):
+        mbrcnt = discord.get_channel(613577536584286218)
+	await mbrcnt.edit(name="Server Members: {}".format(member.guild.member_count))
         channel = discord.utils.get(member.guild.channels, name="☆│lounge")
         channel2 = discord.utils.get(member.guild.channels, name="✵│welcome-rules")
         channel3 = discord.utils.get(member.guild.channels, name="∞│roles-menu")
@@ -97,6 +99,8 @@ async def on_member_join(member):
 @bot.event
 async def on_member_remove(member):
     if(member.guild.id == 448571905524498432):
+        mbrcnt = discord.get_channel(613577536584286218)
+	await mbrcnt.edit(name="Server Members: {}".format(member.guild.member_count))
         channel = discord.utils.get(member.guild.channels, name="✵│left")
         await channel.send("**{}** has left the server. We now have **{}** members.".format(member.mention, member.guild.member_count))
 
