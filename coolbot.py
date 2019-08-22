@@ -36,7 +36,7 @@ async def on_ready():
     global shiki
     shiki = server.get_member(393839495859929089)
 
-    await bot.change_presence(activity=discord.Game(name='with dy & shiki >_<'))
+    await bot.change_presence(activity=discord.Game(name='!'))
     print('e - nightclub BOT has started working!')
 
     await bot.wait_until_ready()
@@ -84,13 +84,26 @@ async def on_member_join(member):
         await channel.send(embed=embed)
         #await channel.send("Welcome {} to **e nightclub!** You’re the **{}** member. \n\n Make sure to read: {}  |  Roles: {}  |  For help:  {}.".format(member.mention, member.guild.member_count, channel2.mention, channel3.mention, channel4.mention))
 
-# leave message
+# leave message & join message.
 
 @bot.event
 async def on_member_remove(member):
     if(member.guild.id == 448571905524498432):
         channel = discord.utils.get(member.guild.channels, name="✵│left")
         await channel.send("**{}** has left the server. We now have **{}** members.".format(member.mention, member.guild.member_count))
+
+
+
+async def on_member_join(member):
+    if(member.guild.id == 448571905524498432):
+        channel = discord.utils.get(member.guild.channels, name="✵│arrivals")
+        await channel.send("Welcome to **e- nightclub**, **{}** has joined the server. We now have **{}** members.".format(member.mention, member.guild.member_count))
+
+
+
+
+
+
 
 # EMBED MESSAGES
 
