@@ -75,7 +75,7 @@ async def on_ready():
 async def on_member_join(member):
     if(member.guild.id == 448571905524498432):
         mbrcnt = bot.get_channel(613577536584286218)
-	await mbrcnt.edit(name="Server Members: {}".format(member.guild.member_count))
+        await mbrcnt.edit(name="Server Members: {}".format(member.guild.member_count))
         channel = discord.utils.get(member.guild.channels, name="☆│lounge")
         channel2 = discord.utils.get(member.guild.channels, name="✵│welcome-rules")
         channel3 = discord.utils.get(member.guild.channels, name="∞│roles-menu")
@@ -91,7 +91,7 @@ async def on_member_join(member):
         chan = discord.utils.get(member.guild.channels, name="∞│roles-menu")
         msg = await chan.send(f"Hi! {member.mention}, Check out our roles!")
         await asyncio.sleep(60)
-        msg.delete()
+        await msg.delete()
 
 
 # leave message & join message.
@@ -100,7 +100,7 @@ async def on_member_join(member):
 async def on_member_remove(member):
     if(member.guild.id == 448571905524498432):
         mbrcnt = bot.get_channel(613577536584286218)
-	await mbrcnt.edit(name="Server Members: {}".format(member.guild.member_count))
+        await mbrcnt.edit(name="Server Members: {}".format(member.guild.member_count))
         channel = discord.utils.get(member.guild.channels, name="✵│left")
         await channel.send("**{}** has left the server. We now have **{}** members.".format(member.mention, member.guild.member_count))
 
