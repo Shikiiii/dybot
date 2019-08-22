@@ -18,6 +18,7 @@ import datetime
 import random
 import http.client
 import json
+import requests
 
 bot = Bot(command_prefix='!')
 bot.remove_command('help')
@@ -271,6 +272,154 @@ async def afk(ctx, *, reason: str = ""):
 			#return
 
 # - Fun Commands:
+tenorkey = "6JKJQX4V4OHD"
+limit = 50
+media_filter = "basic"
+kiss = "animekiss"
+hug = "animehug"
+slap = "animeslap"
+cuddle = "animecuddle"
+blush = "animeblush"
+
+kissgifs = requests.get("https://api.tenor.com/v1/search?q=%s&key=%s&limit=%s&media_filter=%s" % (kiss, tenorkey, limit, media_filter))
+huggifs = requests.get("https://api.tenor.com/v1/search?q=%s&key=%s&limit=%s&media_filter=%s" % (hug, tenorkey, limit, media_filter))
+slapgifs = requests.get("https://api.tenor.com/v1/search?q=%s&key=%s&limit=%s&media_filter=%s" % (slap, tenorkey, limit, media_filter))
+cuddlegifs = requests.get("https://api.tenor.com/v1/search?q=%s&key=%s&limit=%s&media_filter=%s" % (cuddle, tenorkey, limit, media_filter))
+blushgifs = requests.get("https://api.tenor.com/v1/search?q=%s&key=%s&limit=%s&media_filter=%s" % (blush, tenorkey, limit, media_filter))
+
+kiss_gifs = json.loads(kissgifs.content)
+hug_gifs = json.loads(huggifs.content)
+slap_gifs = json.loads(slapgifs.content)
+cuddle_gifs = json.loads(cuddlegifs.content)
+blush_gifs = json.loads(blushgifs.content)
+			
+#print(json.dumps(kiss_gifs, sort_keys=True, indent=4))
+			
+@bot.command()
+async def kiss(ctx, *, user: discord.Member):
+	embed = discord.Embed(title="{} kisses {}.".format(ctx.message.author, user), color=0x000000)
+	result = random.choice(kiss_gifs["results"])
+	chosen_media = result["media"][0]
+	url = chosen_media["gif"]["url"]
+	embed.set_image(url=url)
+	await ctx.send(embed=embed)
+	
+@kiss.error
+async def kiss_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(title="I couldn't find this member, so I'll kiss you instead.", color=0x000000)
+		result = random.choice(kiss_gifs["results"])
+		chosen_media = result["media"][0]
+		url = chosen_media["gif"]["url"]
+		embed.set_image(url=url)
+		await ctx.send(embed=embed)
+	elif isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(title="Aww, looks like you're lonely, I'll kiss you.", color=0x000000)
+		result = random.choice(kiss_gifs["results"])
+		chosen_media = result["media"][0]
+		url = chosen_media["gif"]["url"]
+		embed.set_image(url=url)
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
+		
+@bot.command()
+async def hug(ctx, *, user: discord.Member):
+	embed = discord.Embed(title="{} hugs {}.".format(ctx.message.author, user), color=0x000000)
+	result = random.choice(hug_gifs["results"])
+	chosen_media = result["media"][0]
+	url = chosen_media["gif"]["url"]
+	embed.set_image(url=url)
+	await ctx.send(embed=embed)
+	
+@hug.error
+async def hug_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(title="I couldn't find this member, so I'll hug you instead.", color=0x000000)
+		result = random.choice(hug_gifs["results"])
+		chosen_media = result["media"][0]
+		url = chosen_media["gif"]["url"]
+		embed.set_image(url=url)
+		await ctx.send(embed=embed)
+	elif isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(title="Aww, looks like you're lonely, I'll hug you.", color=0x000000)
+		result = random.choice(hug_gifs["results"])
+		chosen_media = result["media"][0]
+		url = chosen_media["gif"]["url"]
+		embed.set_image(url=url)
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
+		
+@bot.command()
+async def slap(ctx, *, user: discord.Member):
+	embed = discord.Embed(title="{} slaps {}.".format(ctx.message.author, user), color=0x000000)
+	result = random.choice(slap_gifs["results"])
+	chosen_media = result["media"][0]
+	url = chosen_media["gif"]["url"]
+	embed.set_image(url=url)
+	await ctx.send(embed=embed)
+	
+@slap.error
+async def slap_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(title="I couldn't find this member, so I'll slap you instead.", color=0x000000)
+		result = random.choice(slap_gifs["results"])
+		chosen_media = result["media"][0]
+		url = chosen_media["gif"]["url"]
+		embed.set_image(url=url)
+		await ctx.send(embed=embed)
+	elif isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(title="Aww, looks like you're too weak to slap someone, so I'll slap you.", color=0x000000)
+		result = random.choice(slap_gifs["results"])
+		chosen_media = result["media"][0]
+		url = chosen_media["gif"]["url"]
+		embed.set_image(url=url)
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
+		
+@bot.command()
+async def cuddle(ctx, *, user: discord.Member):
+	embed = discord.Embed(title="{} cuddles {}.".format(ctx.message.author, user), color=0x000000)
+	result = random.choice(cuddle_gifs["results"])
+	chosen_media = result["media"][0]
+	url = chosen_media["gif"]["url"]
+	embed.set_image(url=url)
+	await ctx.send(embed=embed)
+	
+@cuddle.error
+async def cuddle_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		embed = discord.Embed(title="I couldn't find this member, so I'll cuddle you instead.", color=0x000000)
+		result = random.choice(cuddle_gifs["results"])
+		chosen_media = result["media"][0]
+		url = chosen_media["gif"]["url"]
+		embed.set_image(url=url)
+		await ctx.send(embed=embed)
+	elif isinstance(error, commands.MissingRequiredArgument):
+		embed = discord.Embed(title="Aww, looks like you're lonely, I'll cuddle you.", color=0x000000)
+		result = random.choice(cuddle_gifs["results"])
+		chosen_media = result["media"][0]
+		url = chosen_media["gif"]["url"]
+		embed.set_image(url=url)
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
+		
+@bot.command()
+async def blush(ctx):
+	embed = discord.Embed(title="{} blushes.".format(ctx.message.author), color=0x000000)
+	result = random.choice(blush_gifs["results"])
+	chosen_media = result["media"][0]
+	url = chosen_media["gif"]["url"]
+	embed.set_image(url=url)
+	await ctx.send(embed=embed)
+
 conn = http.client.HTTPSConnection("mashape-community-urban-dictionary.p.rapidapi.com")
 
 	
