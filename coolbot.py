@@ -218,14 +218,15 @@ tosnipetime = {}
 			
 @bot.event
 async def on_message_delete(message: Message):
-	logch = discord.utils.get(message.author.guild.channels, name="enightclub-logs")
-	timestamp=datetime.datetime.now()
-	corfor = timestamp.strftime("%d %b, %Y at %H:%M")
-	log = discord.Embed(description="Deleted a message in {}: \n{}\n\nUsers ID: {}".format(message.channel.mention, message.content, message.author.id), color=0xFFFFFF)
-	log.set_author(name="{}".format(message.author), icon_url=message.author.avatar_url)
-	log.set_footer(text="{}".format(corfor))
-	log.set_thumbnail(url=message.author.avatar_url)
-	await logch.send(embed=log)
+	if message.author.bot == False:
+		logch = discord.utils.get(message.author.guild.channels, name="enightclub-logs")
+		timestamp=datetime.datetime.now()
+		corfor = timestamp.strftime("%d %b, %Y at %H:%M")
+		log = discord.Embed(description="Deleted a message in {}: \n{}\n\nUsers ID: {}".format(message.channel.mention, message.content, message.author.id), color=0xFFFFFF)
+		log.set_author(name="{}".format(message.author), icon_url=message.author.avatar_url)
+		log.set_footer(text="{}".format(corfor))
+		log.set_thumbnail(url=message.author.avatar_url)
+		await logch.send(embed=log)
 
 	if message.author.bot == False:
 		tosnipe[message.channel.id] = message.content
