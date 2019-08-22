@@ -234,6 +234,31 @@ async def on_message_delete(message: Message):
 		timestamp2 = datetime.datetime.now()
 		corfor = timestamp2.strftime("%d %b, %Y at %H:%M")
 		tosnipetime[message.channel.id] = timestamp2
+		
+
+toeditsnipe = {}
+toeditsnipeauthors = {}
+toeditsnipetime = {}
+	
+@bot.event
+async def on_message_edit(before, after):
+	if before.author.bot == False:
+		#print(before)
+		#print(after)
+		logch = discord.utils.get(before.author.guild.channels, name="enightclub-logs")
+		timestamp=datetime.datetime.now()
+		corfor = timestamp.strftime("%d %b, %Y at %H:%M")
+		log = discord.Embed(description="Edited a message in {}: \n``Old:``\n{}\n``New:``\n{}\n\nUsers ID: {}".format(before.channel.mention, before.content, after.content, before.author.id), color=0xFFFFFF)
+		log.set_author(name="{}".format(before.author), icon_url=before.author.avatar_url)
+		log.set_footer(text="{}".format(corfor))
+		log.set_thumbnail(url=before.author.avatar_url)
+		await logch.send(embed=log)
+		
+		toeditsnipe[before.channel.id] = before.content
+		toeditsnipeauthors[before.channel.id] = before.author
+		timestamp2 = datetime.datetime.now()
+		corfor = timestamp2.strftime("%d %b, %Y at %H:%M")
+		toeditsnipetime[before.channel.id] = timestamp2
 
 
 # - Afk command:
@@ -717,6 +742,19 @@ async def snipe(ctx):
 			msg = tosnipe[key]
 			author = tosnipeauthors[key]
 			time = tosnipetime[key]
+			embed = discord.Embed(description="{}".format(str(msg)), color=0x000000)
+			embed.set_author(name="{}".format(author), icon_url=author.avatar_url)
+			corfor = time.strftime("%d %b, %Y at %H:%M")
+			embed.set_footer(text="{}".format(str(corfor)))
+			await ctx.send(embed=embed)
+
+@bot.command()
+async def editsnipe(ctx):
+	for key in toeditsnipe:
+		if key == ctx.message.channel.id:
+			msg = toeditsnipe[key]
+			author = toeditsnipeauthors[key]
+			time = toeditsnipetime[key]
 			embed = discord.Embed(description="{}".format(str(msg)), color=0x000000)
 			embed.set_author(name="{}".format(author), icon_url=author.avatar_url)
 			corfor = time.strftime("%d %b, %Y at %H:%M")
