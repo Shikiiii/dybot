@@ -930,7 +930,6 @@ async def remindercancel(ctx):
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		await ctx.send(embed=embed)
 		remindersserver.remove(ctx.message.author.id)
-		await ctx.send(embed=embed)
 	else:
 		embed = discord.Embed(description="You don't have a reminder to cancel. Set one by using ``!reminder``.", color=0xFF3639)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
@@ -1109,7 +1108,6 @@ async def reminderdmcancel(ctx):
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		await ctx.send(embed=embed)
 		remindersdm.remove(ctx.message.author.id)
-		await ctx.send(embed=embed)
 	else:
 		embed = discord.Embed(description="You don't have a DM reminder to cancel. Set one by using ``!reminderdm``.", color=0xFF3639)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
