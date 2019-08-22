@@ -227,11 +227,12 @@ async def on_message_delete(message: Message):
 	log.set_thumbnail(url=message.author.avatar_url)
 	await logch.send(embed=log)
 
-	tosnipe[message.channel.id] = message.content
-	tosnipeauthors[message.channel.id] = message.author
-	timestamp2 = datetime.datetime.now()
-	corfor = timestamp2.strftime("%d %b, %Y at %H:%M")
-	tosnipetime[message.channel.id] = timestamp2
+	if message.author.bot == False:
+		tosnipe[message.channel.id] = message.content
+		tosnipeauthors[message.channel.id] = message.author
+		timestamp2 = datetime.datetime.now()
+		corfor = timestamp2.strftime("%d %b, %Y at %H:%M")
+		tosnipetime[message.channel.id] = timestamp2
 
 
 # - Afk command:
