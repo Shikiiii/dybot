@@ -82,6 +82,8 @@ async def on_member_join(member):
         embed.set_thumbnail(url=member.guild.icon_url)
         await channel.send("{}".format(member.mention))
         await channel.send(embed=embed)
+        channel = discord.utils.get(member.guild.channels, name="✵│arrivals")
+        await channel.send("Welcome to **e- nightclub**, **{}** has joined the server. We now have **{}** members.".format(member.mention, member.guild.member_count))
         #await channel.send("Welcome {} to **e nightclub!** You’re the **{}** member. \n\n Make sure to read: {}  |  Roles: {}  |  For help:  {}.".format(member.mention, member.guild.member_count, channel2.mention, channel3.mention, channel4.mention))
 
 # leave message & join message.
@@ -91,19 +93,6 @@ async def on_member_remove(member):
     if(member.guild.id == 448571905524498432):
         channel = discord.utils.get(member.guild.channels, name="✵│left")
         await channel.send("**{}** has left the server. We now have **{}** members.".format(member.mention, member.guild.member_count))
-
-
-
-async def on_member_join(member):
-    if(member.guild.id == 448571905524498432):
-        channel = discord.utils.get(member.guild.channels, name="✵│arrivals")
-        await channel.send("Welcome to **e- nightclub**, **{}** has joined the server. We now have **{}** members.".format(member.mention, member.guild.member_count))
-
-
-
-
-
-
 
 # EMBED MESSAGES
 
