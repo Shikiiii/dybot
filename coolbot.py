@@ -340,7 +340,7 @@ async def help(ctx, *, mdl: str):
 async def help_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
 		embed = discord.Embed(title="Modules:", description="``!help general`` | General Commands\n``!help fun`` | Fun Commands\n``!help mod`` | Moderation Commands\n``!help admin`` | Administration Commands\n``!help owners`` | Owners Commands", color=0x000000)
-		embed.set_author(title="{}".format(str(bot.user.name)), icon_url=str(bot.user.avatar_url))
+		embed.set_author(name="{}".format(str(bot.user.name)), icon_url=str(bot.user.avatar_url))
 		await ctx.send(embed=embed)
 	else:
 		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
