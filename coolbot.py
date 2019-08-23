@@ -37,7 +37,7 @@ async def on_ready():
     global shiki
     shiki = server.get_member(393839495859929089)
 
-    await bot.change_presence(activity=discord.Game(name='!'))
+    await bot.change_presence(activity=discord.Game(name='!help'))
     print('e - nightclub BOT has started working!')
 
     await bot.wait_until_ready()
@@ -435,7 +435,7 @@ async def cmdhelp(ctx, *, cmd: str):
 		embed = discord.Embed(title="!rate [dy/shiki] [user]", description="Rates the user you gave with the rate you chose, either ``dy`` or ``shiki``.\n\nExample: ``!rate shiki @dy``", color=0x000000)
 		await ctx.send(embed=embed)
 	elif(cmd == "8ball"):
-		embed = discord.Embed(title="!8ball [question]", description="Answers your question using magic.\n\nExample: ``!8ball is jensen gay``", color=0x000000)
+		embed = discord.Embed(title="!8ball [question]", description="Answers your question using magic.\n\nExample: ``!8ball am i cool?``", color=0x000000)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		await ctx.send(embed=embed)
 	elif(cmd == "roast"):
