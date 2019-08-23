@@ -1422,6 +1422,7 @@ async def v_error(ctx, error):
 # - Info commands:
 
 @bot.command()
+@commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Head Admin ✧˚*:･")
 async def membercount(ctx):
 	time = datetime.datetime.now()
 	corfor = time.strftime("%d %b, %Y at %H:%M")
@@ -1449,8 +1450,20 @@ async def membercount(ctx):
 
 	await ctx.send(embed=embed)
 
+@membercount.error
+async def membercount_error(ctx, error):
+	if isinstance(error, commands.CheckFailure):
+		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
+
 
 @bot.command()
+@commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Head Admin ✧˚*:･")
 async def serverinfo(ctx):
 	time = ctx.message.author.guild.created_at 
 	
@@ -1515,6 +1528,17 @@ async def serverinfo(ctx):
 	
 	await ctx.send(embed=embed)
 	#await ctx.send(embed=embed2)
+
+@serverinfo.error
+async def serverinfo_error(ctx, error):
+	if isinstance(error, commands.CheckFailure):
+		embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+		await ctx.send(embed=embed)
+	else:
+		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
 async def bots(ctx):
