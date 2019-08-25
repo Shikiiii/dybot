@@ -3136,56 +3136,48 @@ async def role(ctx, user: discord.Member, *, rolee: str):
         embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
         await ctx.send(embed=embed)
         return
+    if role in roless and ctx.message.author.id != 495680416422821888:
+        embed = discord.Embed(description="You didn't give me a correct user and/or a role.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+        return
     if role in user.roles:
-        if role in roless and ctx.message.author.id != 495680416422821888:
-            embed = discord.Embed(description="You didn't give me a correct user and/or a role.", color=0xFF3639)
-            embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-            embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
-            await ctx.send(embed=embed)
-            return
-        else:
-            embed = discord.Embed(
-                description="Successfully removed the **{}** role from **{}**.".format(str(role), user.mention),
-                color=0x000000)
-            embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-            embed.set_thumbnail(url=user.avatar_url)
-            await ctx.send(embed=embed)
-            await user.remove_roles(role)
-            logch = discord.utils.get(ctx.message.author.guild.channels, name="enightclub-logs")
-            timestamp = datetime.now()
-            corfor = timestamp.strftime("%d %b, %Y at %H:%M")
-            log = discord.Embed(description="Used command ``!role`` in {}:\n{}\n\nMod ID: {}\nUser ID: {}".format(
-                ctx.message.channel.mention, ctx.message.content, ctx.message.author.id, user.id), color=0x000000)
-            log.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-            log.set_footer(text="{}".format(corfor))
-            log.set_thumbnail(url=user.avatar_url)
-            await logch.send(embed=log)
-            return
+        embed = discord.Embed(
+            description="Successfully removed the **{}** role from **{}**.".format(str(role), user.mention),
+            color=0x000000)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_thumbnail(url=user.avatar_url)
+        await ctx.send(embed=embed)
+        await user.remove_roles(role)
+        logch = discord.utils.get(ctx.message.author.guild.channels, name="enightclub-logs")
+        timestamp = datetime.now()
+        corfor = timestamp.strftime("%d %b, %Y at %H:%M")
+        log = discord.Embed(description="Used command ``!role`` in {}:\n{}\n\nMod ID: {}\nUser ID: {}".format(
+            ctx.message.channel.mention, ctx.message.content, ctx.message.author.id, user.id), color=0x000000)
+        log.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        log.set_footer(text="{}".format(corfor))
+        log.set_thumbnail(url=user.avatar_url)
+        await logch.send(embed=log)
+        return
     else:
-        if role in roless and ctx.message.author.id != 495680416422821888:
-            embed = discord.Embed(description="You didn't give me a correct user and/or a role.", color=0xFF3639)
-            embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-            embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
-            await ctx.send(embed=embed)
-            return
-        else:
-            embed = discord.Embed(
-                description="Successfully added the **{}** role to **{}**.".format(str(role), user.mention),
-                color=0x000000)
-            embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-            embed.set_thumbnail(url=user.avatar_url)
-            await ctx.send(embed=embed)
-            await user.add_roles(role)
-            logch = discord.utils.get(ctx.message.author.guild.channels, name="enightclub-logs")
-            timestamp = datetime.now()
-            corfor = timestamp.strftime("%d %b, %Y at %H:%M")
-            log = discord.Embed(description="Used command ``!role`` in {}:\n{}\n\nMod ID: {}\nUser ID: {}".format(
-                ctx.message.channel.mention, ctx.message.content, ctx.message.author.id, user.id), color=0x000000)
-            log.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-            log.set_footer(text="{}".format(corfor))
-            log.set_thumbnail(url=user.avatar_url)
-            await logch.send(embed=log)
-            return
+        embed = discord.Embed(
+            description="Successfully added the **{}** role to **{}**.".format(str(role), user.mention),
+            color=0x000000)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_thumbnail(url=user.avatar_url)
+        await ctx.send(embed=embed)
+        await user.add_roles(role)
+        logch = discord.utils.get(ctx.message.author.guild.channels, name="enightclub-logs")
+        timestamp = datetime.now()
+        corfor = timestamp.strftime("%d %b, %Y at %H:%M")
+        log = discord.Embed(description="Used command ``!role`` in {}:\n{}\n\nMod ID: {}\nUser ID: {}".format(
+            ctx.message.channel.mention, ctx.message.content, ctx.message.author.id, user.id), color=0x000000)
+        log.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        log.set_footer(text="{}".format(corfor))
+        log.set_thumbnail(url=user.avatar_url)
+        await logch.send(embed=log)
+        return
 	
 @role.error    
 async def role_error(ctx, error):
