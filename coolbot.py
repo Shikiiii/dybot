@@ -3095,7 +3095,7 @@ async def parse_roles(ctx, role:str):
 	return None
 
 @bot.command()
-@commands.has_any_role("Role Perms")
+@commands.has_any_role("Role Perms", "$ dy")
 async def role(ctx, user: discord.Member, *, rolee: str):
     role = await parse_roles(ctx, rolee)
     role1 = discord.utils.get(ctx.message.author.guild.roles, name="$ dy")
