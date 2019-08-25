@@ -3160,7 +3160,7 @@ async def role(ctx, user: discord.Member, *, rolee: str):
             log.set_footer(text="{}".format(corfor))
             log.set_thumbnail(url=user.avatar_url)
             await logch.send(embed=log)
-            return:
+            return
     else:
         if role in roless and ctx.message.author.id != 495680416422821888:
             embed = discord.Embed(description="You didn't give me a correct user and/or a role.", color=0xFF3639)
