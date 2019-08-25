@@ -205,6 +205,8 @@ async def on_message(message: Message):
         await message.channel.send("dy >_<")
     elif message.content == "lumen":
         await message.channel.send("LUMEN XD")
+    elif message.content == "envy":
+        await message.channel.send("possesses unfathomable amounts of cryptocurrency")
     elif message.content == "shiki":
         await message.channel.send(">.<")
     elif message.content == "!!apply":
