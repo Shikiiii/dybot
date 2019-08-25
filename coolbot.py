@@ -51,7 +51,7 @@ async def on_ready():
         embed2.set_thumbnail(url=guildd.icon_url)
         embed1 = discord.Embed(title="Reminder:", description="Check out <#558991108915462164> to get verified role.", color=0xffffff)
         embed1.set_thumbnail(url=guildd.icon_url)
-        embed3 = discord.Embed(title="Reminder:", description="If you want to apply for **Partnership Mananger** or **Server Helper**, type **!!apply** in {}.".format(apply), color=0xffffff)
+        embed3 = discord.Embed(title="Reminder:", description="If you want to apply for **Partnership Mananger** or **Server Helper**, type **!!apply** in {}.".format(apply.mention), color=0xffffff)
         embed3.set_thumbnail(url=guildd.icon_url)
         #try:
         await channel.send(embed=embed2)
@@ -79,8 +79,7 @@ async def on_member_join(member):
         channel = discord.utils.get(member.guild.channels, name="☆│lounge")
         channel2 = discord.utils.get(member.guild.channels, name="✵│welcome-rules")
         channel3 = discord.utils.get(member.guild.channels, name="∞│roles-menu")
-        channel4 = discord.utils.get(member.guild.channels, name="✵│faq")
-        embed = discord.Embed(description="Welcome to **[e - nightclub](https://discordapp.com/invite/4UkN2Jg)**! You're the **{}th** member. \n\n Make sure to read: {}  \n\nRoles: {}  \n\nFor help:  {}.".format(member.guild.member_count, channel2.mention, channel3.mention, channel4.mention), color=0x000000)
+        embed = discord.Embed(description="Welcome to **[e - nightclub](https://discordapp.com/invite/4UkN2Jg)**! You're the **{}th** member. \n\n Make sure to read: {}  \n\nRoles: {}.".format(member.guild.member_count, channel2.mention, channel3.mention), color=0x000000)
         embed.set_author(name="{}".format(member), icon_url=member.avatar_url)
         embed.set_thumbnail(url=member.guild.icon_url)
         await channel.send("{}".format(member.mention))
