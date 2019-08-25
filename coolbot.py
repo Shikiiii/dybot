@@ -3262,6 +3262,28 @@ async def purge_error(ctx, error):
 		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
 		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
+			      
+# CONFUESS CMD 
+@bot.command()
+async def confess(ctx, *, msg: str):
+    await ctx.message.delete()
+    chan = discord.utils.get(ctx.message.author.guild.channels, name="☆│confessions")
+    tosend = ctx.message.content[9:]
+    embed = discord.Embed(title="Confession", description="{}".format(tosend))
+    await chan.send(embed=embed)
+    
+@confess.error
+async def confess_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="You didn't give me a confession.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+
 # - BOT LOGIN
 
 
