@@ -3112,7 +3112,7 @@ async def role(ctx, user: discord.Member, *, rolee: str):
     role15 = discord.utils.get(ctx.message.author.guild.roles, name="Djimi")
     role16 = discord.utils.get(ctx.message.author.guild.roles, name="Blitzzy")
     role17 = discord.utils.get(ctx.message.author.guild.roles, name="BLURY")
-    role18 = discord.utils.get(ctx.message.author.guild.roles, name="GiveawayBot)
+    role18 = discord.utils.get(ctx.message.author.guild.roles, name="GiveawayBot")
     role19 = discord.utils.get(ctx.message.author.guild.roles, name="Dank Memer")
     role20 = discord.utils.get(ctx.message.author.guild.roles, name="Groovy")
     role21 = discord.utils.get(ctx.message.author.guild.roles, name="Community Manager")
