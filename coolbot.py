@@ -3108,7 +3108,7 @@ async def role(ctx, user: discord.Member, *, rolee: str):
             embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
             embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
             await ctx.send(embed=embed)
-        else:
+        elif role not in roles:
             embed = discord.Embed(
                 description="Successfully removed the **{}** role from **{}**.".format(str(role), user.mention),
                 color=0x000000)
@@ -3131,7 +3131,7 @@ async def role(ctx, user: discord.Member, *, rolee: str):
             embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
             embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
             await ctx.send(embed=embed)
-        else:
+        elif role not in roles:
             embed = discord.Embed(
                 description="Successfully added the **{}** role to **{}**.".format(str(role), user.mention),
                 color=0x000000)
