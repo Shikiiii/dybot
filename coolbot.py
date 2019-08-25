@@ -85,7 +85,7 @@ async def on_member_join(member):
         await channel.send("{}".format(member.mention))
         await channel.send(embed=embed)
         channel = discord.utils.get(member.guild.channels, name="✵│arrivals")
-        await channel.send("Welcome to **e- nightclub**, **{}** has joined the server. We now have **{}** members.".format(member.mention, member.guild.member_count))
+        await channel.send("Welcome to **e- nightclub**, **{}** ({}) has joined the server. We now have **{}** members.".format(member, member.mention, member.guild.member_count))
         #await channel.send("Welcome {} to **e nightclub!** You’re the **{}** member. \n\n Make sure to read: {}  |  Roles: {}  |  For help:  {}.".format(member.mention, member.guild.member_count, channel2.mention, channel3.mention, channel4.mention))
         chan = discord.utils.get(member.guild.channels, name="∞│roles-menu")
         msg = await chan.send(f"Hi! {member.mention}, Check out our roles!")
@@ -101,7 +101,7 @@ async def on_member_remove(member):
         mbrcnt = bot.get_channel(613577536584286218)
         await mbrcnt.edit(name="Server Members: {}".format(member.guild.member_count))
         channel = discord.utils.get(member.guild.channels, name="✵│left")
-        await channel.send("**{}** has left the server. We now have **{}** members.".format(member.mention, member.guild.member_count))
+        await channel.send("**{}** ({}) has left the server. We now have **{}** members.".format(member, member.mention, member.guild.member_count))
 
 # EMBED MESSAGES
 
