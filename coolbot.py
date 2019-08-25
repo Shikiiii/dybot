@@ -3129,7 +3129,7 @@ async def role(ctx, user: discord.Member, *, rolee: str):
     role32 = discord.utils.get(ctx.message.author.guild.roles, name="Server Helper")
     role33 = discord.utils.get(ctx.message.author.guild.roles, name="Partnerships Team")
     role34 = discord.utils.get(ctx.message.author.guild.roles, name="Event Manager")
-    roles = [role1, role2, role3, role4, role5, role6, role7, role8, role9, role10, role11, role12, role13, role14, role15, role16, role17, role18, role19, role20, role21, role22, role23, role24, role25, role26, role27, role28, role29, role30, role31, role32, role33, role34]
+    roless = [role1, role2, role3, role4, role5, role6, role7, role8, role9, role10, role11, role12, role13, role14, role15, role16, role17, role18, role19, role20, role21, role22, role23, role24, role25, role26, role27, role28, role29, role30, role31, role32, role33, role34]
     if role is None:
         embed = discord.Embed(description="You didn't give me a correct role.", color=0xFF3639)
         embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
@@ -3137,12 +3137,13 @@ async def role(ctx, user: discord.Member, *, rolee: str):
         await ctx.send(embed=embed)
         return
     if role in user.roles:
-        if role in roles and ctx.message.author.id != 495680416422821888:
+        if role in roless and ctx.message.author.id != 495680416422821888:
             embed = discord.Embed(description="You didn't give me a correct user and/or a role.", color=0xFF3639)
             embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
             embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
             await ctx.send(embed=embed)
-        elif role not in roles:
+            return
+        else:
             embed = discord.Embed(
                 description="Successfully removed the **{}** role from **{}**.".format(str(role), user.mention),
                 color=0x000000)
@@ -3159,13 +3160,15 @@ async def role(ctx, user: discord.Member, *, rolee: str):
             log.set_footer(text="{}".format(corfor))
             log.set_thumbnail(url=user.avatar_url)
             await logch.send(embed=log)
+            return:
     else:
-        if role in roles and ctx.message.author.id != 495680416422821888:
+        if role in roless and ctx.message.author.id != 495680416422821888:
             embed = discord.Embed(description="You didn't give me a correct user and/or a role.", color=0xFF3639)
             embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
             embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
             await ctx.send(embed=embed)
-        elif role not in roles:
+            return
+        else:
             embed = discord.Embed(
                 description="Successfully added the **{}** role to **{}**.".format(str(role), user.mention),
                 color=0x000000)
@@ -3182,6 +3185,7 @@ async def role(ctx, user: discord.Member, *, rolee: str):
             log.set_footer(text="{}".format(corfor))
             log.set_thumbnail(url=user.avatar_url)
             await logch.send(embed=log)
+            return
 	
 @role.error    
 async def role_error(ctx, error):
