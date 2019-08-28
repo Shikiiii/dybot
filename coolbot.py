@@ -74,6 +74,8 @@ async def on_ready():
 @bot.event
 async def on_member_join(member):
     if(member.guild.id == 448571905524498432):
+        rol = discord.utils.get(member.guild.roles, name="e-nightclub")
+        await member.add_roles(rol)
         mbrcnt = bot.get_channel(613577536584286218)
         await mbrcnt.edit(name="Server Members: {}".format(member.guild.member_count))
         channel = discord.utils.get(member.guild.channels, name="☆│lounge")
