@@ -205,8 +205,12 @@ async def on_message(message: Message):
         await message.channel.send("dy >_<")
     elif message.content == "lumen":
         await message.channel.send("LUMEN XD")
+    elif message.content == "damo":
+        await message.channel.send("<@522902123491491840> is baldy")
     elif message.content == "envy":
         await message.channel.send("possesses unfathomable amounts of cryptocurrency")
+    elif message.content == "fred":
+        await message.channel.send("hello baldy. . .")
     elif message.content == "shiki":
         await message.channel.send(">.<")
     elif message.content == "!!apply":
@@ -3313,8 +3317,35 @@ async def confess_error(ctx, error):
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
         traceback.print_exception(type(error), error, None, file=sys.stderr)
 
+# dm
+@bot.command()
+@commands.has_any_role("$ dy", "Bot Coder")
+async def dm(ctx, user: discord.Member, *, msg: str=""):
+    await ctx.message.delete()
+    await user.send(f"{msg}")
+
+@dm.error
+async def dm_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(title="User not found.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(title="You didn't give me a correct user/message.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.CheckFailure):
+        embed = discord.Embed(title="You don't have the permissions to use this command.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 # - BOT LOGIN
 
 
-bot.run("TOKEN")
+bot.run("token goes here lol")
