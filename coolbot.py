@@ -2153,7 +2153,7 @@ async def ban(ctx, user: discord.Member, *, reason: str = ""):
 @ban.error    
 async def ban_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
-		embed = discord.Embed(description="I couldn't find this user. \nTIP: If you want to ban a user that's not in the server, try using !banid.", color=0xFF3639)
+		embed = discord.Embed(description="I couldn't find this user.", color=0xFF3639)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 		await ctx.send(embed=embed)
@@ -2274,7 +2274,7 @@ async def banid_error(ctx, error):
 		traceback.print_exception(type(error), error, None, file=sys.stderr)
 
 @bot.command()
-@commands.has_any_role("$ dy", "Bot Coder")
+@commands.has_any_role("$ dy")
 async def massban(ctx, *, users: str):
 	desc = "Mass ban started. May take a while. \n\n" 
 	embed = discord.Embed(description=desc, color=0x000000)
@@ -3350,4 +3350,4 @@ async def dm_error(ctx, error):
 # - BOT LOGIN
 
 
-bot.run("token goes here lol")
+bot.run("TOKEN")
