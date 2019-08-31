@@ -119,7 +119,7 @@ async def on_message(message: Message):
                     reason = afklist[key]
                     await message.channel.send("{} is AFK: **{}**".format(usr.mention, str(reason)))
     if message.author.id in afklist:
-        oldnick = str(user.display_name)
+        oldnick = str(message.author.display_name)
         newnick = oldnick[6:]
         await message.author.edit(nick="{}".format(newnick))
         del afklist[message.author.id]
