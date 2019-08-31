@@ -2153,6 +2153,71 @@ async def avid_error(ctx, error):
 # - Admin commands: 
 
 @bot.command()
+async def masskick(ctx, *, users: str):
+	desc = "Mass kick started. May take a while. \n\n" 
+	embed = discord.Embed(description=desc, color=0x000000)
+	embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+	msg = await ctx.send(embed=embed)
+	mentions = ctx.message.mentions
+	for user in mentions:
+		#desc = desc + "\n{}".format(user)
+		try:
+			await user.kick()
+		except:
+			#desc = desc + "\n :x: | {}".format(user)
+			await ctx.send(f"Couldn't kick {user.mention} because of missing permissions.")
+		#await msg.edit(embed=embed)
+		
+@masskick.error
+async def masskick_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="No @mentioned users were found with the information you gave.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="No @mentioned users were found with the information you gave.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+		
+@bot.command()
+async def massmute(ctx, *, users: str):
+	desc = "Mass mute started. May take a while. \n\n" 
+	role = discord.utils.get(ctx.message.author.guild.roles, name="Muted")
+	embed = discord.Embed(description=desc, color=0x000000)
+	embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+	msg = await ctx.send(embed=embed)
+	mentions = ctx.message.mentions
+	for user in mentions:
+		#desc = desc + "\n{}".format(user)
+		try:
+			await user.add_roles(role)
+		except:
+			#desc = desc + "\n :x: | {}".format(user)
+			await ctx.send(f"Couldn't kick {user.mention} because of missing permissions.")
+		#await msg.edit(embed=embed)
+		
+@massmute.error
+async def massmute_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description="No @mentioned users were found with the information you gave.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.BadArgument):
+        embed = discord.Embed(description="No @mentioned users were found with the information you gave.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    else:
+        print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, None, file=sys.stderr)
+
+@bot.command()
 @commands.has_any_role("Co Owner ‧₊˚ ༄", "$ dy", "scopes", "Bot Coder")
 async def lockdown(ctx):
 	enightclubrole = discord.utils.get(ctx.message.guild.roles, name="@everyone")
