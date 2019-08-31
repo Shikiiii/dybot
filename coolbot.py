@@ -119,9 +119,9 @@ async def on_message(message: Message):
                     reason = afklist[key]
                     await message.channel.send("{} is AFK: **{}**".format(usr.mention, str(reason)))
     if message.author.id in afklist:
-	oldnick = str(user.display_name)
-	newnick = oldnick[6:]
-	await message.author.edit(nick="{}".format(newnick))
+        oldnick = str(user.display_name)
+        newnick = oldnick[6:]
+        await message.author.edit(nick="{}".format(newnick))
         del afklist[message.author.id]
         await message.channel.send("Welcome back, {}! I removed your AFK.".format(message.author.mention))
     if(message.content == "!welcome" and (message.author.id == 393839495859929089 or message.author.id == 495680416422821888)):
@@ -2012,12 +2012,12 @@ async def members(ctx, *, rolee: str):
 	embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 	embed.set_thumbnail(url=bot.user.avatar_url)
 	try:
-		await ctx.send(embed=embed)
+                await ctx.send(embed=embed)
 	except discord.HTTPException as exception:
-		embed = discord.Embed(description="Too many members, can't send the message.", color=-xFF3639)
-		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-		embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
-		await ctx.send(embed=embed)
+                embed = discord.Embed(description="Too many members, can't send the message.", color=0xFF3639)
+                embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+                embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+                await ctx.send(embed=embed)
 		
 @members.error
 async def members_error(ctx, error):
@@ -3504,4 +3504,4 @@ async def dm_error(ctx, error):
 # - BOT LOGIN
 
 
-bot.run("TOKEN")
+bot.run("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
