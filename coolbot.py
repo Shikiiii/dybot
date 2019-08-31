@@ -120,6 +120,9 @@ async def on_message(message: Message):
                     reason = afklist[key]
                     await message.channel.send("{} is AFK: **{}**".format(usr.mention, str(reason)))
     if message.author.id in afklist:
+	oldnick = str(user.display_name)
+	newnick = oldnick[6:]
+	await message.author.edit(nick="{}".format(newnick))
         del afklist[message.author.id]
         await message.channel.send("Welcome back, {}! I removed your AFK.".format(message.author.mention))
     if(message.content == "!welcome" and (message.author.id == 393839495859929089 or message.author.id == 495680416422821888)):
@@ -278,6 +281,8 @@ afklist = {}
 async def afk(ctx, *, reason: str = ""):
 	#global afklist
 	user = ctx.message.author
+	oldnick = str(user.display_name)
+	await user.edit(nick="[AFK] {}".format(oldnick))
 	if len(reason) == 0:
 		if str(ctx.message.author.id) not in afklist.keys():
 			afklist[user.id] = reason
