@@ -2152,6 +2152,7 @@ async def avid_error(ctx, error):
 # - Admin commands: 
 
 @bot.command()
+@commands.has_any_role("$ dy")
 async def masskick(ctx, *, users: str):
 	desc = "Mass kick started. May take a while. \n\n" 
 	embed = discord.Embed(description=desc, color=0x000000)
@@ -2179,11 +2180,17 @@ async def masskick_error(ctx, error):
         embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
         embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
         await ctx.send(embed=embed)
+    elif isinstance(error, commands.CheckFailure):
+        embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
     else:
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
         traceback.print_exception(type(error), error, None, file=sys.stderr)
 		
 @bot.command()
+@commands.has_any_role("$ dy")
 async def massmute(ctx, *, users: str):
 	desc = "Mass mute started. May take a while. \n\n" 
 	role = discord.utils.get(ctx.message.author.guild.roles, name="Muted")
@@ -2209,6 +2216,11 @@ async def massmute_error(ctx, error):
         await ctx.send(embed=embed)
     elif isinstance(error, commands.BadArgument):
         embed = discord.Embed(description="No @mentioned users were found with the information you gave.", color=0xFF3639)
+        embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
+        await ctx.send(embed=embed)
+    elif isinstance(error, commands.CheckFailure):
+        embed = discord.Embed(description="You don't have the permissions to use this command.", color=0xFF3639)
         embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
         embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
         await ctx.send(embed=embed)
