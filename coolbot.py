@@ -314,7 +314,7 @@ async def help(ctx, *, mdl: str):
 		embed.set_author(name="{}".format(str(bot.user.name)), icon_url=str(bot.user.avatar_url))
 		await ctx.send(embed=embed)
 	elif mdl == "mod":
-		if adminrole or modrole or headadminrole in ctx.message.author.roles:
+		if (adminrole in tx.message.author.roles) or (modrole in tx.message.author.roles) or (headadminrole in ctx.message.author.roles):
 			embed = discord.Embed(title="Module: Moderation", description="To view more info about a command, use ``!cmdhelp command``.", color=0x000000)
 			embed.add_field(name="Commands:", value="``kick``, ``mute``, ``unmute``, ``purge``, ``clean``, ``serverinfo``, ``membercount``")
 			embed.set_author(name="{}".format(str(bot.user.name)), icon_url=str(bot.user.avatar_url))
@@ -325,7 +325,7 @@ async def help(ctx, *, mdl: str):
 			embed.set_footer(text="Error raised on: {}".format(ctx.message.content))
 			await ctx.send(embed=embed)
 	elif mdl == "admin":
-		if adminrole or headadminrole in ctx.message.author.roles:
+		if (adminrole in tx.message.author.roles) or (headadminrole in ctx.message.author.roles):
 			embed = discord.Embed(title="Module: Administration", description="To view more info about a command, use ``!cmdhelp command``.", color=0x000000)
 			embed.add_field(name="Commands:", value="``members``, ``ban``, ``banid``, ``unban``")
 			embed.set_author(name="{}".format(str(bot.user.name)), icon_url=str(bot.user.avatar_url))
