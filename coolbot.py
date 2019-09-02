@@ -241,11 +241,14 @@ async def on_message_delete(message: Message):
 		await logch.send(embed=log)
 
 	if message.author.bot == False:
-		tosnipe[message.channel.id] = message.content
-		tosnipeauthors[message.channel.id] = message.author
-		timestamp2 = datetime.datetime.now()
-		corfor = timestamp2.strftime("%d %b, %Y at %H:%M")
-		tosnipetime[message.channel.id] = timestamp2
+		if message.content.startswith("!confess"):
+			print("Confess was ignored from !snipe.")
+		else:
+			tosnipe[message.channel.id] = message.content
+			tosnipeauthors[message.channel.id] = message.author
+			timestamp2 = datetime.datetime.now()
+			corfor = timestamp2.strftime("%d %b, %Y at %H:%M")
+			tosnipetime[message.channel.id] = timestamp2
 		
 
 toeditsnipe = {}
@@ -277,7 +280,7 @@ async def on_message_edit(before, after):
 afklist = {}
 
 @bot.command()
-async def afk(ctx, *, reason: str = ""):
+async def afk(ctx, *, reason: str):
 	#global afklist
 	user = ctx.message.author
 	oldnick = str(user.display_name)
@@ -1196,6 +1199,8 @@ async def ship(ctx, user: discord.Member, user2: discord.Member):
     if percent == 69:
         strr = ":wink:"
     if percent < 71 and percent > 69 and percent < 69 and percent > 60:
+        strr = "good"
+    if percent == 68:
         strr = "good"
     if percent < 81 and percent > 70:
         strr = "very good"
@@ -2253,7 +2258,7 @@ async def lockdown_error(ctx, error):
 
 @bot.command()
 @commands.has_any_role("Admin ˚｡☆", "Head Admin ✧˚*:･")
-async def ban(ctx, user: discord.Member, *, reason: str = ""):
+async def ban(ctx, user: discord.Member, *, reason: str):
 	if len(reason) == 0:
 		embed = discord.Embed(title="Successfully banned {}.".format(user), description="**{}** was __banned__ from **[e - nightclub](https://discordapp.com/invite/4UkN2Jg)**. \nThe reason of their ban is **none, not provided**. \n Banned for permanent.".format(user.mention), color=0x000000)
 		embed.set_thumbnail(url=user.avatar_url)
@@ -2329,7 +2334,7 @@ async def ban_error(ctx, error):
 
 @bot.command()
 @commands.has_any_role("Admin ˚｡☆", "Head Admin ✧˚*:･")
-async def banid(ctx, id: int, *, reason: str = " "):
+async def banid(ctx, id: int, *, reason: str):
 	user = await bot.fetch_user(id)
 	if user is None:
 		embed = discord.Embed(description="User doesn't exist.", color=0xFF3639)
@@ -2552,7 +2557,7 @@ async def unban_error(ctx, error):
 
 @bot.command()
 @commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Head Admin ✧˚*:･")
-async def kick(ctx, user: discord.Member, *, reason: str = ""):
+async def kick(ctx, user: discord.Member, *, reason: str):
 	if len(reason) == 0:
 		embed = discord.Embed(title="Successfully kicked {}.".format(user), description="**{}** was __kicked__ from **[e - nightclub](https://discordapp.com/invite/4UkN2Jg)**. \nThe reason of their kick is **none, not provided**.".format(user.mention), color=0x000000)
 		embed.set_thumbnail(url=user.avatar_url)
@@ -2629,7 +2634,7 @@ async def kick_error(ctx, error):
 
 @bot.command()
 @commands.has_any_role("Admin ˚｡☆", "Mod ˚｡⋆", "Chat Moderator", "Head Admin ✧˚*:･")
-async def mute(ctx, user: discord.Member, *, reason: str = ""):
+async def mute(ctx, user: discord.Member, *, reason: str):
 	mutedrole = discord.utils.get(ctx.message.author.guild.roles, name="Muted")
 	if mutedrole in user.roles:
 		embed = discord.Embed(description="This user is already muted.", color=0xFF3639)
@@ -3372,7 +3377,9 @@ async def clean(ctx):
 	deleted = await ctx.message.channel.purge(limit=100, check=check)
 	embed = discord.Embed(description="Cleaned bot's messages.", color=0x000000)
 	embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-	await ctx.send(embed=embed)
+	msg = await ctx.send(embed=embed)
+	await asyncio.sleep(5)
+	await msg.delete()
 	
 @clean.error
 async def clean_error(ctx, error):
@@ -3404,7 +3411,9 @@ async def purge(ctx, amount, *, user: discord.Member):
 		embed = discord.Embed(description="Successfully purged **{}** messages by **{}**.".format(todeln, user.mention), color=0x000000)
 		embed.set_author(name="{}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 		embed.set_thumbnail(url=user.avatar_url)
-		await ctx.send(embed=embed)
+		msg = await ctx.send(embed=embed)
+		await asyncio.sleep(5)
+		await msg.delete()
 		logch = discord.utils.get(ctx.message.author.guild.channels, name="enightclub-logs")
 		timestamp=datetime.datetime.now()
 		corfor = timestamp.strftime("%d %b, %Y at %H:%M")
